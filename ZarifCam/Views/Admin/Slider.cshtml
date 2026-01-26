@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "Slider Yönetimi";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<section class="admin-page">
+    <div class="page-header">
+        <h1>Slider Yönetimi</h1>
+        <button class="btn-primary" id="btnAddSlider"><i class="fas fa-plus"></i> Yeni Slider</button>
+    </div>
+
+    <table class="admin-table" id="sliderTable">
+        <thead>
+            <tr>
+                <th>Görsel</th>
+                <th>Başlık</th>
+                <th>Sıra</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Modal -->
+<div class="modal" id="sliderModal">
+    <div class="modal-content">
+        <h2 id="modalTitle">Yeni Slider</h2>
+        <form id="sliderForm">
+            <input type="hidden" id="sliderId" />
+            <div class="form-group">
+                <label>Başlık</label>
+                <input type="text" id="title" required />
+            </div>
+            <div class="form-group">
+                <label>Açıklama</label>
+                <textarea id="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Görsel URL</label>
+                <input type="text" id="imageUrl" required />
+                <img id="previewImage" src="" style="max-width:100px; display:none; margin-top:5px;" />
+            </div>
+            <div class="form-group">
+                <label>Buton Yazısı</label>
+                <input type="text" id="buttonText" />
+            </div>
+            <div class="form-group">
+                <label>Buton URL</label>
+                <input type="text" id="buttonUrl" />
+            </div>
+            <div class="form-group">
+                <label>Sıra</label>
+                <input type="number" id="order" value="1" />
+            </div>
+            <div class="form-group">
+                <label class="checkbox">
+                    <input type="checkbox" id="isActive" checked /> Yayında
+                </label>
+            </div>
+            <div class="modal-actions">
+                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Kaydet</button>
+                <button type="button" class="btn-secondary" onclick="closeModal()"><i class="fas fa-times"></i> İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+let sliderTable;
+
+$(document).ready(function(){
+    sliderTable = $('#sliderTable').DataTable({
+        columns: [
+            { data: 'image', render: data => `<img src="${data}" style="width:80px;height:50px;object-fit:cover;" />` },
+            { data: 'title' },
+            { data: 'order' },
+            { data: 'isActive', render: data => data ? '<span style="color:green">Yayında</span>' : '<span style="color:red">Pasif</span>' },
+            { data: null, render: (data,row) => `
+                <button class="btn-edit" onclick="editSlider(${row.id})"><i class="fas fa-edit"></i></button>
+                <button class="btn-delete" onclick="deleteSlider(${row.id})"><i class="fas fa-trash"></i></button>
+            ` }
+        ]
+    });
+
+    $('#btnAddSlider').click(() => openModal());
+
+    $('#imageUrl').on('input', function(){
+        const url = $(this).val();
+        if(url){
+            $('#previewImage').attr('src', url).show();
+        } else $('#previewImage').hide();
+    });
+
+    $('#sliderForm').submit(function(e){
+        e.preventDefault();
+        saveSlider();
+    });
+});
+
+function openModal(slider=null){
+    if(slider){
+        $('#modalTitle').text('Slider Düzenle');
+        $('#sliderId').val(slider.id);
+        $('#title').val(slider.title);
+        $('#description').val(slider.description);
+        $('#imageUrl').val(slider.image).trigger('input');
+        $('#buttonText').val(slider.buttonText);
+        $('#buttonUrl').val(slider.buttonUrl);
+        $('#order').val(slider.order);
+        $('#isActive').prop('checked', slider.isActive);
+    } else {
+        $('#modalTitle').text('Yeni Slider');
+        $('#sliderForm')[0].reset();
+        $('#previewImage').hide();
+        $('#sliderId').val('');
+    }
+    $('#sliderModal').fadeIn();
+}
+
+function closeModal(){
+    $('#sliderModal').fadeOut();
+}
+
+function saveSlider(){
+    const slider = {
+        id: $('#sliderId').val(),
+        title: $('#title').val(),
+        description: $('#description').val(),
+        image: $('#imageUrl').val(),
+        buttonText: $('#buttonText').val(),
+        buttonUrl: $('#buttonUrl').val(),
+        order: $('#order').val(),
+        isActive: $('#isActive').is(':checked')
+    };
+    // Burada AJAX ile kaydedebilirsin
+    console.log('Kaydedilecek slider:', slider);
+    closeModal();
+}
+
+function editSlider(id){
+    // Örnek: Ajax ile veriyi çek
+    const slider = sliderTable.data().toArray().find(s => s.id == id);
+    openModal(slider);
+}
+
+function deleteSlider(id){
+    if(confirm('Silmek istediğinize emin misiniz?')){
+        // Burada AJAX ile silme işlemi
+        console.log('Silinecek slider id:', id);
+    }
+}
+</script>

@@ -1,0 +1,101 @@
+[
+  {
+    "ContainingType": "ZarifCam.Controllers.Admin.SliderAdminController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/slider",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.Admin.SliderAdminController",
+    "Method": "Create",
+    "RelativePath": "api/admin/slider",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ZarifCam.Dtos.SliderItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.Admin.SliderAdminController",
+    "Method": "Get",
+    "RelativePath": "api/admin/slider/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.Admin.SliderAdminController",
+    "Method": "Update",
+    "RelativePath": "api/admin/slider/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ZarifCam.Dtos.SliderItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.Admin.SliderAdminController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/slider/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.KategoriApi",
+    "Method": "Get",
+    "RelativePath": "api/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.SliderController",
+    "Method": "Get",
+    "RelativePath": "api/slider",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

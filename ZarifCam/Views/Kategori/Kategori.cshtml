@@ -1,0 +1,146 @@
+﻿<section class="category-page">
+
+    <aside class="category-filters">
+        <h3>Filtrele</h3>
+
+        <div class="filter-group">
+            <label>Min Fiyat</label>
+            <input type="number" id="minPrice" placeholder="0" />
+        </div>
+
+        <div class="filter-group">
+            <label>Max Fiyat</label>
+            <input type="number" id="maxPrice" placeholder="5000" />
+        </div>
+
+        <div class="filter-group">
+            <label>Renk</label>
+            <div class="color-options" id="colorOptions">
+                <!-- JS dolduracak -->
+            </div>
+        </div>
+
+        <button class="btn-primary" id="applyFilter">Filtrele</button>
+    </aside>
+
+    <div class="category-products">
+        <div class="product-grid" id="productGrid"></div>
+        <div id="scrollTrigger" style="height:1px"></div>
+    </div>
+
+</section>
+
+<script>
+    let page = 1;
+    let loading = false;
+    let hasMore = true;
+
+    const aktifFiltre = {
+        kategoriId: null,
+        renkId: null,
+        minFiyat: null,
+        maxFiyat: null
+    };
+
+    const grid = document.getElementById("productGrid");
+    const trigger = document.getElementById("scrollTrigger");
+    const colorContainer = document.getElementById("colorOptions");
+
+    // 🔥 Ürünleri getir
+    async function loadProducts(reset = false) {
+        if (loading || !hasMore) return;
+        loading = true;
+
+        if (reset) {
+            page = 1;
+            hasMore = true;
+            grid.innerHTML = "";
+        }
+
+        const response = await fetch(`/api/WebUrun/filtreli?page=${page}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(aktifFiltre)
+        });
+
+        const data = await response.json();
+
+        if (!data || data.length === 0) {
+            hasMore = false;
+            loading = false;
+            return;
+        }
+
+        data.forEach(urun => {
+            grid.insertAdjacentHTML("beforeend", `
+                <a href="/urun/${urun.urunId}" class="product-card">
+                    <div class="product-image">
+                        <img src="${urun.gorseller?.[0] ?? '/img/no-image.png'}" class="img-main">
+                        <img src="${urun.gorseller?.[1] ?? urun.gorseller?.[0] ?? '/img/no-image.png'}" class="img-hover">
+                    </div>
+                    <div class="product-info">
+                        <h3>${urun.urunAdi}</h3>
+                        <span class="price">${urun.dovizSembol}${urun.fiyat}</span>
+                    </div>
+                </a>
+            `);
+        });
+
+        page++;
+        loading = false;
+    }
+
+    // 🔥 Scroll observer
+    const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            loadProducts();
+        }
+    });
+    observer.observe(trigger);
+
+    // 🔥 Renkleri renderle ve seç
+    function renderColors(renkler) {
+        colorContainer.innerHTML = "";
+
+        renkler.forEach(renk => {
+            const btn = document.createElement("button");
+            btn.className = "color-circle";
+            btn.style.backgroundColor = renk.hex;
+            btn.dataset.renkId = renk.id;
+
+            btn.addEventListener("click", () => {
+                // önce tümünü temizle
+                document.querySelectorAll(".color-circle").forEach(x => x.classList.remove("active"));
+
+                // seçili yap
+                btn.classList.add("active");
+                aktifFiltre.renkId = renk.id;
+
+                console.log("Seçilen renkId:", aktifFiltre.renkId);
+            });
+
+            colorContainer.appendChild(btn);
+        });
+    }
+
+    // 🔥 Filtrele butonu
+    document.getElementById("applyFilter").addEventListener("click", () => {
+        aktifFiltre.minFiyat = parseInt(document.getElementById("minPrice").value) || null;
+        aktifFiltre.maxFiyat = parseInt(document.getElementById("maxPrice").value) || null;
+
+        console.log("Filtre gönderiliyor:", aktifFiltre);
+        loadProducts(true);
+    });
+
+    // 🔥 Örnek renkleri bas (gerçek backend’den çek)
+    const renklerOrnek = [
+        { id: 1, hex: "#ffffff" },
+        { id: 2, hex: "#000000" },
+        { id: 3, hex: "#567C8D" }
+    ];
+    renderColors(renklerOrnek);
+
+    // 🚀 İlk yük
+    loadProducts();
+</script>
+

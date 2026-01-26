@@ -1,0 +1,100 @@
+﻿<link rel="stylesheet" href="~/css/Urun/urundetay.css" />
+
+<section class="product-detail">
+    <div class="detail-container">
+
+        <!-- SOL: Görsel -->
+        <div class="detail-media" id="product-media">
+            <!-- JS buraya <img> ekleyecek -->
+        </div>
+
+        <!-- SAĞ: Bilgi -->
+        <div class="detail-content">
+            <span class="detail-category" id="product-category"></span>
+            <h1 class="detail-title" id="product-title"></h1>
+            <div class="detail-price" id="product-price"></div>
+            <p class="detail-description" id="product-description"></p>
+
+            <div class="detail-actions">
+                <button class="btn-primary">Satın Al</button>
+                <button class="btn-secondary">Koleksiyonu İncele</button>
+            </div>
+
+            <ul class="detail-meta" id="product-meta"></ul>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+
+      const pathParts = window.location.pathname.split("/").filter(Boolean);
+       const response = await fetch(`/api/WebUrun/urun/${pathParts[2]}`);
+
+
+        if (!response.ok) {
+            console.error("Ürün getirilemedi");
+            return;
+        }
+
+        const urun = await response.json();
+
+        /* ---------- SOL: MEDYALAR ---------- */
+        const mediaDiv = document.getElementById("product-media");
+        mediaDiv.innerHTML = "";
+
+        if (urun.medyalar && urun.medyalar.length > 0) {
+
+            const sliderWrapper = document.createElement("div");
+            sliderWrapper.classList.add("slider-wrapper");
+
+            const slider = document.createElement("div");
+            slider.classList.add("slider-track");
+
+            urun.medyalar.forEach(url => {
+                const img = document.createElement("img");
+                img.src = url;
+                img.alt = urun.urunAdi;
+                slider.appendChild(img);
+            });
+
+            slider.style.width = `${urun.medyalar.length * 100}%`;
+            sliderWrapper.appendChild(slider);
+            mediaDiv.appendChild(sliderWrapper);
+
+            let currentIndex = 0;
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % urun.medyalar.length;
+                slider.style.transform = `translateX(-${currentIndex * (100 / urun.medyalar.length)}%)`;
+            }, 3000);
+        }
+
+        /* ---------- SAĞ: METİN BİLGİLERİ ---------- */
+        document.getElementById("product-category").textContent =
+            urun.kategoriAdi ?? "";
+
+        document.getElementById("product-title").textContent =
+            urun.urunAdi ?? "";
+
+        document.getElementById("product-price").textContent =
+            `${urun.dovizSembol}${Number(urun.fiyat).toLocaleString("tr-TR")}`;
+
+        document.getElementById("product-description").textContent =
+            urun.aciklama || urun.kisaAciklama || "";
+
+        /* ---------- META ---------- */
+        const metaUl = document.getElementById("product-meta");
+        metaUl.innerHTML = "";
+
+        if (urun.meta && urun.meta.length > 0) {
+            urun.meta.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                metaUl.appendChild(li);
+            });
+        }
+    });
+
+</script>
+

@@ -1,0 +1,12 @@
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\ZarifCam.exe
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\appsettings.json
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\ZarifCam.dll
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\ZarifCam.deps.json
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\ZarifCam.runtimeconfig.json
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\ZarifCam.pdb
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\Npgsql.dll
+C:\Users\Edanur Şengür Şahin\source\repos\ZarifCam\ZarifCam\obj\Release\net10.0\PubTmp\Out\Npgsql.EntityFrameworkCore.PostgreSQL.dll

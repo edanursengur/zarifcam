@@ -1,0 +1,99 @@
+﻿const kategoriGrid = document.getElementById("kategoriGrid");
+const kategoriModal = document.getElementById("kategoriModal");
+const kategoriForm = document.getElementById("kategoriForm");
+const kategoriEkleBtn = document.getElementById("kategoriEkleBtn");
+const closeModal = document.querySelector(".modal .close");
+const modalTitle = document.getElementById("modalTitle");
+
+let kategoriler = []; // Örnek: {
+    id, name, slug, is_active
+}
+
+// Listeleme fonksiyonu
+function listele() {
+    kategoriGrid .innerHTML = "";
+    kategoriler.forEach(k => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${k.id}</td>
+            <td>${k.name}</td>
+            <td>${k.slug}</td>
+            <td>${k.is_active ? "Evet" : "Hayır"}</td>
+            <td>
+                <button class="btn-edit" onclick="duzenle(${k.id})">Güncelle</button>
+                <button class="btn-delete" onclick="sil(${k.id})">Sil</button>
+            </td>
+        `;
+        kategoriGrid.appendChild(tr);
+    });
+}
+
+// Modal aç
+kategoriEkleBtn.addEventListener("click", () => {
+    modalTitle.textContent = "Yeni Kategori";
+    kategoriForm.reset();
+    document.getElementById("kategoriId").value = "";
+    kategoriModal.style.display = "block";
+});
+
+// Modal kapat
+closeModal.onclick = () = > kategoriModal.style.display = "none";
+window.onclick = (e) = > {
+    if(e.target == kategoriModal) kategoriModal.style.display = "none";
+}
+
+;
+
+// Ekle / Güncelle
+kategoriForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const id = document.getElementById("kategoriId").value;
+    const name = document.getElementById("kategoriAd").value;
+    const slug = document.getElementById("kategoriSlug").value;
+    const is_active = document.getElementById("kategoriAktif").checked;
+
+    if(id){
+        // Güncelle
+        const idx = kategoriler.findIndex(k => k.id == id);
+        kategoriler[idx] = {id: parseInt(id), name, slug, is_active};
+    } else {
+        // Yeni ekle
+        const yeniId = kategoriler.length ? Math.max(...kategoriler.map(k=>k.id)) +1 : 1;
+        kategoriler.push({id:yeniId, name, slug, is_active});
+    }
+    listele();
+    kategoriModal.style.display = "none";
+});
+
+// Düzenle
+function duzenle(id) {
+    const k = kategoriler.find(k => k.id == id);
+    modalTitle .textContent = "Kategori Güncelle";
+    document .getElementById("kategoriId").value = k.id;
+    document .getElementById("kategoriAd").value = k.name;
+    document .getElementById("kategoriSlug").value = k.slug;
+    document .getElementById("kategoriAktif").checked = k.is_active;
+    kategoriModal .style.display = "block";
+}
+
+// Sil
+function sil(id) {
+    if(confirm("Bu kategoriyi silmek istediğinizden emin misiniz?")) {
+        kategoriler = kategoriler.filter(k=>k.id!=id);
+        listele();
+    }
+}
+
+// Başlangıç örnek veri
+kategoriler = [ {
+    id: 1,name:"Sürahiler",slug:"surahiler",is_active:true
+}
+
+,
+{
+    id: 2,name:"Kaseler",slug:"kaseler",is_active:true
+}
+
+,
+];
+listele();

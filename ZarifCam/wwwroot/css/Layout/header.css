@@ -1,0 +1,150 @@
+﻿/* =========================
+   HEADER
+========================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background-color: rgba(255, 255, 255, 0.97);
+    transition: all 0.3s ease;
+    overflow: visible;
+}
+
+    .site-header.scrolled {
+        background-color: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(12px);
+    }
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #1F1F1F;
+    text-decoration: none;
+}
+
+    .logo span {
+        font-weight: 400;
+        color: #567C8D;
+    }
+
+/* =========================
+   DESKTOP NAV
+========================= */
+
+.main-nav a {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #2A2A2A;
+    text-decoration: none;
+    margin-left: 32px;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+    .main-nav a:hover {
+        opacity: 1;
+    }
+
+/* =========================
+   HAMBURGER
+========================= */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+    .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: #2E4156;
+    }
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 24px;
+    gap: 20px;
+    transition: transform 0.35s ease;
+    transform: translateX(0);
+    z-index: 999;
+}
+
+  
+
+    .mobile-nav a {
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #2E4156;
+    }
+
+    .mobile-nav.open {
+        transform: translateX(-100%);
+    }
+.no-scroll {
+    overflow: hidden;
+}
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+    .main-nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+
+
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.hamburger span {
+    transition: all 0.3s ease;
+}

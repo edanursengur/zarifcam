@@ -1,0 +1,103 @@
+﻿.kategori-yonetimi {
+    padding: 40px 24px;
+    /*max-width: 1200px;*/
+    margin: 0 auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+   
+
+    .section-header p {
+        color: #567C8D;
+    }
+
+.btn-primary {
+    padding: 10px 20px;
+    background-color: #567C8D;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.kategori-listesi table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.kategori-listesi th, .kategori-listesi td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #FAFAFA;
+}
+
+.kategori-listesi th {
+    background-color: #F5EFE7;
+}
+
+.kategori-listesi td button {
+    margin-right: 8px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.kategori-listesi td .btn-edit {
+    background-color: #567C8D;
+    color: white;
+}
+
+.kategori-listesi td .btn-delete {
+    background-color: #FF5C5C;
+    color: white;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #FAFAFA;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    position: relative;
+}
+
+    .modal-content .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #C8D9E6;
+        border-radius: 4px;
+    }
+
+.form-actions {
+    text-align: right;
+}

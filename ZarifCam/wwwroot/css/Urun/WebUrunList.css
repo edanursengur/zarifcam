@@ -1,0 +1,94 @@
+﻿.product-list {
+    padding: 120px 24px;
+    background: #FAFAFA;
+}
+
+.list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+}
+
+/* KART */
+.product-card {
+    cursor: pointer;
+}
+
+.card-slider {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #F2F2F2;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+    .slider-track img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+/* BİLGİ */
+.card-info {
+    padding-top: 18px;
+}
+
+.card-category {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(86, 124, 141, 0.7);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #1E1E1E;
+    margin: 8px 0;
+}
+
+.card-price {
+    font-size: 16px;
+    color: #567C8D;
+}
+/* MOBİL */
+@media (max-width: 576px) {
+    .product-list {
+        padding: 48px 16px;
+    }
+
+    .list-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-price {
+        font-size: 14px;
+    }
+}
+
+/* TABLET */
+@media (min-width: 577px) and (max-width: 991px) {
+    .list-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+}
+
+/* DESKTOP */
+@media (min-width: 992px) {
+    .list-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 48px;
+    }
+}

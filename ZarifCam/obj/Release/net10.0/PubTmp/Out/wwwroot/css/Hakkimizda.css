@@ -1,0 +1,196 @@
+﻿/* Genel Zemin ve Metin Renkleri */
+body {
+    background-color: #FAFAFA;
+    color: #1F1F1F;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hero Bloku */
+.about-hero {
+    background: linear-gradient(rgba(86,124,141,0.3), rgba(86,124,141,0.3)), url('~/medya/hero-bg.jpg') center/cover no-repeat;
+    text-align: center;
+    padding: 120px 24px;
+    color: #FAFAFA;
+}
+
+    .about-hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .about-hero p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .about-hero .btn-primary {
+        padding: 14px 44px;
+        background: #567C8D;
+        color: #FFFFFF;
+        border: none;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .about-hero .btn-primary:hover {
+            background: #4B6D7A;
+        }
+
+/* Marka Hikayesi / Story */
+.about-story {
+    padding: 100px 24px;
+}
+
+.story-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.story-text h2 {
+    font-size: 36px;
+    margin-bottom: 24px;
+    color: #1F1F1F;
+}
+
+.story-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #1F1F1F;
+    margin-bottom: 16px;
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Değerler / Values */
+.about-values {
+    padding: 100px 24px;
+    background-color: #FAFAFA;
+    text-align: center;
+}
+
+.values-container h2 {
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #1F1F1F;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.value-item h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #567C8D;
+}
+
+.value-item p {
+    font-size: 15px;
+    color: #1F1F1F;
+    line-height: 1.6;
+}
+
+/* Ekip / Team */
+.about-team {
+    padding: 100px 24px;
+    text-align: center;
+}
+
+.team-container h2 {
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #1F1F1F;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.team-member h4 {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #567C8D;
+}
+
+.team-member p {
+    font-size: 14px;
+    color: #1F1F1F;
+}
+
+/* CTA */
+.about-cta {
+    padding: 80px 24px;
+    text-align: center;
+    background-color: #567C8D;
+    color: #FAFAFA;
+}
+
+    .about-cta h2 {
+        font-size: 28px;
+        margin-bottom: 24px;
+    }
+
+    .about-cta .btn-primary {
+        background-color: #FAFAFA;
+        color: #567C8D;
+    }
+
+        .about-cta .btn-primary:hover {
+            background-color: #E5E5E5;
+        }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .story-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-hero h1 {
+        font-size: 32px;
+    }
+
+    .about-hero p {
+        font-size: 15px;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+}

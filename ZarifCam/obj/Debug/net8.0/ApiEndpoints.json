@@ -1,0 +1,244 @@
+[
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "GuvenBadgeleriniGetir",
+    "RelativePath": "api/AnaSayfa/guven-badgeleri",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "HeroSliderlariGetir",
+    "RelativePath": "api/AnaSayfa/heroslider",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "HizliErisimleriGetir",
+    "RelativePath": "api/AnaSayfa/hizlierisim",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "InstagramGonderileriniGetir",
+    "RelativePath": "api/AnaSayfa/instagram",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "adet",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "KampanyaKartlariniGetir",
+    "RelativePath": "api/AnaSayfa/kampanya-kartlari",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "AnaSayfaKategorileriniGetir",
+    "RelativePath": "api/AnaSayfa/kategoriler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "KisiselOnerileriGetir",
+    "RelativePath": "api/AnaSayfa/kisisel-oneriler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "adet",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "MarkaHikayesiniGetir",
+    "RelativePath": "api/AnaSayfa/marka-hikayesi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "MusteriYorumlariniGetir",
+    "RelativePath": "api/AnaSayfa/musteri-yorumlari",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "adet",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "OneCikanUrunleriGetir",
+    "RelativePath": "api/AnaSayfa/onecikan-urunler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "adet",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "TumAnaSayfaVerileriniGetir",
+    "RelativePath": "api/AnaSayfa/tum",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.AnaSayfaController",
+    "Method": "VurguluKategorileriGetir",
+    "RelativePath": "api/AnaSayfa/vurgulu-kategoriler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.KategoriApi",
+    "Method": "Get",
+    "RelativePath": "api/kategori/KategoriGet",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.WebUrunController",
+    "Method": "Filtreli",
+    "RelativePath": "api/WebUrun/filtreli",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "filtre",
+        "Type": "ZarifCam.Dtos.WebUrun.UrunFiltreDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.WebUrunController",
+    "Method": "HeroSlider",
+    "RelativePath": "api/WebUrun/hero-slider",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.WebUrunController",
+    "Method": "KampanyalariGetir",
+    "RelativePath": "api/WebUrun/KampanyalariGetir",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.WebUrunController",
+    "Method": "KategoriGet",
+    "RelativePath": "api/WebUrun/KategoriGet",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.WebUrunController",
+    "Method": "UrunKartlari",
+    "RelativePath": "api/WebUrun/urun-kartlari",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZarifCam.Controllers.WebUrunController",
+    "Method": "Detay",
+    "RelativePath": "api/WebUrun/urun/{UrunID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UrunID",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

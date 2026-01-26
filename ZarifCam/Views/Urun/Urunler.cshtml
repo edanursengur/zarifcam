@@ -1,0 +1,255 @@
+﻿@using ZarifCam.Dtos.WebUrun
+<link rel="stylesheet" href="~/css/Urun/WebUrunList.css" />
+
+@model List<UrunKartDto>
+
+<section class="product-list">
+    <div class="list-container" id="urun-listesi">
+        <!-- JS dolduracak -->
+    </div>
+</section>
+
+@* <script>
+       async function urunleriGetirVeBas() {
+        const container = document.getElementById("urun-listesi");
+
+        try {
+            const response = await fetch('/api/WebUrun/urun-kartlari');
+            if (!response.ok) throw new Error("API hatası");
+
+            const urunler = await response.json();
+
+            urunler.forEach(urun => {
+                // Slider img
+                const sliderImgs = urun.gorseller.map(img => `<img src="${img}" />`).join('');
+
+                const cardHtml = `
+                <div class="product-card" data-urunid="${urun.urunId}">
+                    <div class="card-slider">
+                        <div class="slider-track">${sliderImgs}</div>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-category">${urun.kategoriAdi}</span>
+                        <h3 class="card-title">${urun.urunAdi}</h3>
+                        <span class="card-price">${urun.dovizSembol}${urun.fiyat}</span>
+                    </div>
+                </div>
+                `;
+
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            });
+
+            // Slider hover logic
+            document.querySelectorAll(".product-card").forEach(card => {
+                const track = card.querySelector(".slider-track");
+                const images = track.querySelectorAll("img");
+                let index = 0;
+                let interval;
+
+                card.addEventListener("mouseenter", () => {
+                    if (images.length > 1) {
+                        interval = setInterval(() => {
+                            index = (index + 1) % images.length;
+                            track.style.transform = `translateX(-${index * 100}%)`;
+                        }, 1200);
+                    }
+                });
+
+                card.addEventListener("mouseleave", () => {
+                    clearInterval(interval);
+                    index = 0;
+                    track.style.transform = "translateX(0)";
+                });
+
+                card.addEventListener("click", () => {
+                    window.location.href = `/Urun/Detay/${card.dataset.urunid}`;
+                });
+            });
+
+        } catch (err) {
+            console.error("Ürünler yüklenemedi", err);
+            container.innerHTML = "<p>Ürünler yüklenemedi.</p>";
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', urunleriGetirVeBas);
+</script> *@
+@* <script>
+    let page = 1;
+    const pageSize = 30;
+    let loading = false;
+    let hasMore = true;
+
+    async function urunleriGetirVeBas() {
+        if (loading || !hasMore) return;
+
+        loading = true;
+
+        const container = document.getElementById("urun-listesi");
+
+        try {
+            const response = await fetch(`/api/WebUrun/urun-kartlari?page=${page}&pageSize=${pageSize}`);
+            if (!response.ok) throw new Error("API hatası");
+
+            const urunler = await response.json();
+
+            if (urunler.length === 0) {
+                hasMore = false;
+                return;
+            }
+
+            urunler.forEach(urun => {
+                const sliderImgs = (urun.gorseller || [])
+                    .map(img => `<img src="${img}" />`)
+                    .join('');
+
+                const cardHtml = `
+                    <div class="product-card" data-urunid="${urun.urunId}">
+                        <div class="card-slider">
+                            <div class="slider-track">${sliderImgs}</div>
+                        </div>
+                        <div class="card-info">
+                            <span class="card-category">${urun.kategoriAdi}</span>
+                            <h3 class="card-title">${urun.urunAdi}</h3>
+                            <span class="card-price">${urun.dovizSembol}${urun.fiyat}</span>
+                        </div>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            });
+
+            sliderInit();
+            page++;
+
+        } catch (err) {
+            console.error("Ürünler yüklenemedi", err);
+        } finally {
+            loading = false;
+        }
+    }
+
+    function sliderInit() {
+        document.querySelectorAll(".product-card").forEach(card => {
+            if (card.dataset.init) return;
+            card.dataset.init = "1";
+
+            const track = card.querySelector(".slider-track");
+            const images = track.querySelectorAll("img");
+            let index = 0;
+            let interval;
+
+            card.addEventListener("mouseenter", () => {
+                if (images.length > 1) {
+                    interval = setInterval(() => {
+                        index = (index + 1) % images.length;
+                        track.style.transform = `translateX(-${index * 100}%)`;
+                    }, 1200);
+                }
+            });
+
+            card.addEventListener("mouseleave", () => {
+                clearInterval(interval);
+                index = 0;
+                track.style.transform = "translateX(0)";
+            });
+
+            card.addEventListener("click", () => {
+                window.location.href = `/Urun/Detay/${card.dataset.urunid}`;
+            });
+        });
+    }
+
+    window.addEventListener("scroll", () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
+            urunleriGetirVeBas();
+        }
+    });
+
+    window.addEventListener("DOMContentLoaded", urunleriGetirVeBas);
+</script> *@
+
+<script>
+     // Sayfa açılınca ilk yük
+    window.addEventListener("DOMContentLoaded", () => {
+        urunleriGetirVeBas();
+    });
+
+    // Infinite scroll
+    window.addEventListener("scroll", () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+            urunleriGetirVeBas();
+        }
+    });
+    let page = 1;
+    const pageSize = 30;
+    let loading = false;
+
+    async function urunleriGetirVeBas() {
+        if (loading) return;
+        loading = true;
+
+        const container = document.getElementById("urun-listesi");
+
+        const response = await fetch(`/api/WebUrun/urun-kartlari?page=${page}&pageSize=${pageSize}`);
+        const urunler = await response.json();
+
+        urunler.forEach(urun => {
+            const sliderImgs = (urun.gorseller || [])
+                .map(img => `<img src="${img}" />`)
+                .join('');
+
+            const cardHtml = `
+            <div class="product-card" data-urunid="${urun.urunId}">
+                <div class="card-slider">
+                    <div class="slider-track">
+                        ${sliderImgs}
+                    </div>
+                </div>
+                <div class="card-info">
+                    <span class="card-category">${urun.kategoriAdi}</span>
+                    <h3 class="card-title">${urun.urunAdi}</h3>
+                    <span class="card-price">${urun.dovizSembol}${urun.fiyat}</span>
+                </div>
+            </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', cardHtml);
+        });
+
+        baslatKartSliderlari();
+        page++;
+        loading = false;
+    }
+
+       function baslatKartSliderlari() {
+        document.querySelectorAll(".product-card").forEach(card => {
+
+            // 🛑 Aynı karta tekrar tekrar bağlama
+            if (card.dataset.init) return;
+            card.dataset.init = "1";
+
+            const track = card.querySelector(".slider-track");
+            const images = track.querySelectorAll("img");
+
+            let index = 0;
+            let interval;
+
+            // 🎞️ Slider
+            if (images.length > 1) {
+                interval = setInterval(() => {
+                    index = (index + 1) % images.length;
+                    track.style.transform = `translateX(-${index * 100}%)`;
+                }, 2500);
+            }
+
+            // 👉 TIKLAMA = DETAY
+            card.addEventListener("click", () => {
+                const urunId = card.dataset.urunid;
+                window.location.href = `/Urun/Detay/${urunId}`;
+            });
+        });
+    }
+
+
+</script>
