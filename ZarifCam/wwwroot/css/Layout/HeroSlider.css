@@ -1,0 +1,372 @@
+﻿/* ====================  HERO SLIDER ==================== */
+/* Header'dan biraz aşağıda başlaması için */
+.karaca-hero-slider {
+    margin-top: calc(7px + 50px + 50px + 30px);
+    position: relative;
+    width: 100%;
+    height: 500px; /* Desktop yüksekliği */
+    overflow: hidden;
+    background: #f5f5f5;
+    border-radius: 0;
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    /*overflow: hidden;*/
+}
+
+/* SLIDES TRACK */
+.slides-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
+    position: relative;
+    user-select: none;
+}
+
+.slide-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.5s ease 0.3s;
+}
+
+.slide.active .slide-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.slide-content h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.slide-content p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.slide-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #567C8D;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+    .slide-btn:hover {
+        background: #a00;
+        transform: translateY(-2px);
+    }
+
+/* NAVİGASYON BUTONLARI - SADECE DESKTOP */
+.slider-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.slider-wrapper:hover .slider-nav-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slider-nav-btn:hover {
+    background: white;
+    color: #567C8D;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+.slider-nav-btn.prev-btn {
+    left: 30px;
+}
+
+.slider-nav-btn.next-btn {
+    right: 30px;
+}
+
+/* PROGRESS BAR */
+.slider-progress {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 15;
+}
+
+.progress-bar {
+    height: 100%;
+    background: white;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* DOTS NAVİGASYON */
+.slider-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 15;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+    .slider-dot.active {
+        background: white;
+        transform: scale(1.2);
+        border-color: #567C8D;
+    }
+
+    .slider-dot:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.1);
+    }
+
+/* TOUCH INDICATOR (Mobil için) */
+.touch-indicator {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    z-index: 15;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ==================== RESPONSİVE ==================== */
+@media (min-width: 1200px) {
+    .karaca-hero-slider {
+        height: 550px;
+    }
+
+    .slide-content {
+        padding: 50px;
+    }
+
+        .slide-content h2 {
+            font-size: 36px;
+        }
+}
+
+@media (max-width: 1199px) {
+    .karaca-hero-slider {
+        height: 450px;
+    }
+
+    .slide-content {
+        padding: 30px;
+    }
+
+        .slide-content h2 {
+            font-size: 28px;
+        }
+
+        .slide-content p {
+            font-size: 16px;
+        }
+}
+
+@media (max-width: 991px) {
+    .karaca-hero-slider {
+        height: 400px;
+        margin-top: 15px;
+    }
+
+    .slider-nav-btn {
+        display: none; /* Tablet ve mobilde butonları gizle */
+    }
+
+    .touch-indicator {
+        display: flex; /* Mobilde swipe göster */
+    }
+
+    .slide-content {
+        padding: 25px;
+    }
+
+        .slide-content h2 {
+            font-size: 24px;
+        }
+}
+
+@media (max-width: 767px) {
+    .karaca-hero-slider {
+        height: 350px;
+        margin-top: 10px;
+    }
+
+    .slide-content {
+        padding: 20px;
+    }
+
+        .slide-content h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .slide-content p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+    .slide-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+
+    .slider-dots {
+        bottom: 20px;
+    }
+
+    .slider-progress {
+        bottom: 50px;
+    }
+}
+
+@media (max-width: 575px) {
+    .karaca-hero-slider {
+        height: 300px;
+        margin-top: 5px;
+    }
+
+    .slide-content {
+        padding: 15px;
+    }
+
+        .slide-content h2 {
+            font-size: 18px;
+        }
+
+        .slide-content p {
+            font-size: 13px;
+        }
+
+    .slider-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .touch-indicator {
+        bottom: 15px;
+        right: 15px;
+        font-size: 10px;
+    }
+}
+
+/* MOBİLDE TAM EKRAN MODU */
+@media (max-width: 767px) and (orientation: landscape) {
+    .karaca-hero-slider {
+        height: 280px;
+    }
+}
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark) {
+    .karaca-hero-slider {
+        background: #1a1a1a;
+    }
+
+    .slider-nav-btn {
+        background: rgba(50, 50, 50, 0.95);
+        color: white;
+    }
+
+        .slider-nav-btn:hover {
+            background: #333;
+            color: #ff6666;
+        }
+}

@@ -1,202 +1,754 @@
-﻿<!-- HERO SLIDER -->
-<section class="hero-slider">
-    <div class="slides" id="heroSlides"></div>
-    <div class="slider-nav" id="heroSliderDots"></div>
-</section>
-<!-- HIZLI ERİŞİM -->
-<section class="quick-access">
-    <div style="display:flex;justify-content: center;">
-        <h2 class="section-title">Hızlı Erişim</h2>
-    </div>
-    <div class="quick-icons-wrapper" id="quickIconsWrapper">
-        <div class="quick-icons" id="quickIcons">
-            <!-- İkonlar buraya gelecek -->
-        </div>
-    </div>
-    <div class="scroll-indicator" id="scrollIndicator"></div>
-</section>
+﻿<!-- HEADER'DAN SONRA EKLEYİN -->
+<div>
+    <section class="karaca-hero-slider">
+        <div class="slider-wrapper">
+            <!-- Sol/Sağ Butonlar (Desktop için) -->
+            <button class="slider-nav-btn prev-btn" aria-label="Önceki slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
 
-<!-- KATEGORİ SLIDER -->
-<!-- KATEGORİ SLIDER -->
-<section class="category-showcase">
-    <div style="display:flex;justify-content: center;">
-    <h2 class="section-title">Kategoriler</h2>
-    </div>
-    <div class="category-slider">
-        <div class="category-track" id="categoryTrack">
-            <!-- Buraya kategoriler gelecek -->
-        </div>
-    </div>
-</section>
-<!-- Ürün SLIDER -->
+            <button class="slider-nav-btn next-btn" aria-label="Sonraki slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
 
-<section class="product-showcase">
-    <div style="display:flex;justify-content: center;">
-    <h2 class="section-title">Öne Çıkan Ürünler</h2>
-    </div>
-    <div class="product-slider-wrapper">
-        <button class="slider-btn left" id="productPrev">&#10094;</button>
-        <div class="product-slider" id="home-product-grid"></div>
-        <button class="slider-btn right" id="productNext">&#10095;</button>
-    </div>
+            <!-- Slider Container -->
+            <div class="slider-container">
+                <div class="slides-track" id="slidesTrack">
+                    <!-- Slide'lar JavaScript ile eklenecek -->
+                </div>
 
-    <a href="/Urunler" class="btn-primary discover-btn">Tüm Ürünleri Keşfet</a>
-</section>
-<!-- KATEGORİ VURGULAMA -->
-<section class="featured-category">
-    <div class="category-highlight">
-        <div class="highlight-info">
-            <h2 class="section-title">Yaz Koleksiyonu</h2>
-            <p>Yeni renkler, yeni modeller</p>
-            <a href="/kategori/yaz" class="btn-primary discover-btn">Koleksiyonu İncele</a>
-        </div>
-        <div class="highlight-image">
-            <img src="~/images/collections/summer.jpg" alt="Yaz Koleksiyonu">
-        </div>
-    </div>
-
-</section><!-- INSTAGRAM FEED -->
-<div class="instagram-feedis">
-    <section class="instagram-feed">
-        <div class="instagram-header">
-            <h2 class="section-title">Bizi Instagram'dan Takip Edin</h2>
-            <div class="instagram-handle-container">
-                <span class="instagram-icon">📷</span>
-                <a href="https://instagram.com/zarif_cam" class="instagram-handle" target="_blank">
-                    zarif_cam
-                </a>
-                @* <span class="followers-count">2.4K takipçi</span> *@
+                <!-- Progress Bar -->
+                <!-- Dots Navigation -->
+                <div class="slider-dots" id="sliderDots"></div>
             </div>
-            <p class="instagram-description">Yeni ürünlerimizden ve özel tasarımlarımızdan ilk siz haberdar olun!</p>
         </div>
-
     </section>
 </div>
-@* <section class="instagram-feed">
- 
+<section>
+    <div class="category-bar">
+        <button class="cat-arrow">‹</button>
 
-    <div class="instagram-grid" id="instaFeed">
-        <!-- Instagram Gönderisi 1 -->
-        <div class="insta-post">
-            <div class="insta-image">
-                <img src="https://via.placeholder.com/300x300/F8BBD0/880E4F?text=Cam+Atölye" alt="Atölye Çalışması">
-                <div class="insta-overlay">
-                    <span class="like-count">❤️ 142</span>
-                    <span class="comment-count">💬 24</span>
-                </div>
-            </div>
-            <div class="insta-caption">
-                <p>Bugünkü atölye çalışmamızdan kareler ✨ #cam #elisyapımı #zarifcam</p>
-            </div>
+        <div class="category-list">
+            <div class="category-item active">Mutfak Şefi</div>
+            <div class="category-item">Battaniye</div>
+            <div class="category-item">Kek Kalıpları</div>
+            <div class="category-item">Halılar</div>
+            <div class="category-item">Tencere Seti</div>
+            <div class="category-item">Çaydanlık</div>
+            <div class="category-item">Kahvaltı</div>
         </div>
 
-        <!-- Instagram Gönderisi 2 -->
-        <div class="insta-post">
-            <div class="insta-image">
-                <img src="https://via.placeholder.com/300x300/C8E6C9/1B5E20?text=Yeni+Koleksiyon" alt="Yeni Koleksiyon">
-                <div class="insta-overlay">
-                    <span class="like-count">❤️ 234</span>
-                    <span class="comment-count">💬 42</span>
-                </div>
-            </div>
-            <div class="insta-caption">
-                <p>Bahar koleksiyonumuz yayında! 🌸 #yenikoleksiyon #bahar #zarifcam</p>
-            </div>
-        </div>
-
-        <!-- Instagram Gönderisi 3 -->
-        <div class="insta-post">
-            <div class="insta-image">
-                <img src="https://via.placeholder.com/300x300/B3E5FC/0277BD?text=Cam+Ürünler" alt="Cam Ürünler">
-                <div class="insta-overlay">
-                    <span class="like-count">❤️ 187</span>
-                    <span class="comment-count">💬 31</span>
-                </div>
-            </div>
-            <div class="insta-caption">
-                <p>Güneş ışığında camın büyüsü ✨ #camsanatı #doğalışık #zarifcam</p>
-            </div>
-        </div>
-
-        <!-- Instagram Gönderisi 4 -->
-        <div class="insta-post">
-            <div class="insta-image">
-                <img src="https://via.placeholder.com/300x300/FFF9C4/F57F17?text=Özel+Tasarım" alt="Özel Tasarım">
-                <div class="insta-overlay">
-                    <span class="like-count">❤️ 156</span>
-                    <span class="comment-count">💬 18</span>
-                </div>
-            </div>
-            <div class="insta-caption">
-                <p>Özel sipariş üzerine tasarlanan cam avize 🌟 #özeldesign #avize #zarifcam</p>
-            </div>
-        </div>
-
-        <!-- Instagram Gönderisi 5 -->
-        <div class="insta-post">
-            <div class="insta-image">
-                <img src="https://via.placeholder.com/300x300/E1BEE7/4A148C?text=Atölye+Günü" alt="Atölye Günü">
-                <div class="insta-overlay">
-                    <span class="like-count">❤️ 98</span>
-                    <span class="comment-count">💬 12</span>
-                </div>
-            </div>
-            <div class="insta-caption">
-                <p>Haftasonu atölyemize bekleriz! 🎨 #camatölyesi #workshop #zarifcam</p>
-            </div>
-        </div>
-
-        <!-- Instagram Gönderisi 6 -->
-        <div class="insta-post">
-            <div class="insta-image">
-                <img src="https://via.placeholder.com/300x300/FFCCBC/BF360C?text=Cam+Süsleme" alt="Cam Süsleme">
-                <div class="insta-overlay">
-                    <span class="like-count">❤️ 211</span>
-                    <span class="comment-count">💬 36</span>
-                </div>
-            </div>
-            <div class="insta-caption">
-                <p>El işçiliği detayları 🔍 #eldetay #cam #zarifcam</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="instagram-cta">
-        <a href="https://instagram.com/zarif_cam" class="instagram-button" target="_blank">
-            <span class="button-icon">📲</span>
-            Instagram'da Takip Et
-        </a>
+        <button class="cat-arrow">›</button>
     </div>
 </section>
- *@<!-- SENİN İÇİN SEÇTİKLERİMİZ -->
-@* <section class="personalized-recommendations">
-    <h2 class="section-title">Sana Özel Öneriler</h2>
-    <div class="recommendation-slider" id="personalizedSlider">
-        <!-- JavaScript ile doldurulacak -->
-    </div>
-</section><!-- AKILLI KAMPANYA KARTLARI -->
-<section class="smart-campaigns">
-    <h2 class="section-title">Sana Özel Kampanyalar</h2>
-    <div class="campaign-grid">
-        <div class="campaign-card countdown">
-            <div class="campaign-badge">Son 24 Saat</div>
-            <h3>Black Friday Fırsatı</h3>
-            <p class="countdown-timer" data-end="2024-12-01T23:59:59"></p>
+
+<!-- TRENDYOL TARZI ÜRÜN SLIDER -->
+<section class="trendyol-product-slider">
+
+    <div class="slider-header">
+        <div class="slider-title-section">
+            <h2 class="exact-deals-title">Öne Çıkan Ürünler</h2>
+            <p class="mini-insta-desc">En çok tercih edilen ve yeni eklenen ürünlerimiz</p>
         </div>
-        <div class="campaign-card category-based">
-            <h3>Ayakkabılar'da %30 İndirim</h3>
-            <a href="/kategori/ayakkabi" class="btn-small">Hemen Al</a>
+        <div class="slider-footer">
+            <a href="/urunler" class="view-all-btn">
+                Tüm Ürünleri Gör
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </a>
+        </div>
+        <div class="slider-nav-controls">
+            <button class="slider-nav-btn prev-btn" aria-label="Önceki ürünler">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <button class="slider-nav-btn next-btn" aria-label="Sonraki ürünler">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
         </div>
     </div>
-</section> *@<!-- MARKA HİKAYESİ -->
-<section class="brand-story">
-    <div class="story-content">
-        <h2 class="section-title">El Yapımı Kalite</h2>
-        <p>35 yıllık ustalık birikimiyle, her biri özenle hazırlanan ürünlerimiz...</p>
-        <a href="/hakkimizda" class="btn-outline">Hikayemizi Oku</a>
+
+    <div class="slider-container">
+        <div class="product-slider-track" id="productSliderTrack">
+            <!-- Ürünler JavaScript ile dinamik olarak doldurulacak -->
+            <div class="loading-spinner">Ürünler yükleniyor...</div>
+        </div>
     </div>
-    <div class="story-image">
-        <img src="~/medya/Gemini_Generated_Image_4suwqt4suwqt4suw.png" alt="Atölyemizden">
+
+</section>
+<!-- MİNİ INSTAGRAM YÖNLENDİRME -->
+<section class="mini-instagram-cta">
+    <div class="mini-insta-container">
+        <!-- İçerik -->
+        <div class="mini-insta-content">
+            <div class="mini-insta-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#567C8D">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg>
+            </div>
+
+            <div class="mini-insta-text">
+                <h3 class="mini-insta-title">Instagram'da Bizi Takip Edin</h3>
+                <p class="mini-insta-desc">zarif_cam • Yeni ürünler • Özel içerikler</p>
+            </div>
+        </div>
+        <!-- Buton -->
+        <div class="mini-insta-btn">
+            <a href="https://instagram.com/zarif_cam"
+               class="mini-insta-btn"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Instagram'da takip et">
+                <span>Takip Et</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+@* <!-- EN AVANTAJLI FIRSATLAR - ÇİFT SLIDER -->
+<section class="exact-deals-slider">
+    <div class="exact-deals-header">
+        <h2 class="exact-deals-title">En Avantajlı Fırsatlar</h2>
+    </div>
+
+    <div class="exact-slider-container">
+        <!-- Sol Buton -->
+        <button class="exact-slider-btn exact-prev-btn" aria-label="Önceki fırsatlar">
+            ‹
+        </button>
+
+        <!-- Slider Track -->
+        <div class="exact-slider-track" id="exactSliderTrack" data-total-cards="4">
+
+            <!-- Fırsat 1 -->
+            <div class="exact-deal-card">
+                <div class="exact-card-inner">
+                    <div class="exact-card-background"
+                         style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    </div>
+                    <div class="exact-card-content">
+                        <div class="exact-card-badge">30%</div>
+                        <div class="exact-card-text">
+                            <div class="exact-card-main-text">2. ÜRÜNE</div>
+                            <div class="exact-card-highlight">İNDİRİM</div>
+                        </div>
+                        <a href="/kampanya/ikinci-urun-indirim" class="exact-card-cta">
+                            Kesfet >>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fırsat 2 -->
+            <div class="exact-deal-card">
+                <div class="exact-card-inner">
+                    <div class="exact-card-background"
+                         style="background-image: url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    </div>
+                    <div class="exact-card-content">
+                        <div class="exact-card-badge">2 AL 1 ÖDE</div>
+                        <div class="exact-card-text">
+                            <div class="exact-card-main-text">Sevilen Hediyeler</div>
+                            <div class="exact-card-highlight">KOMBO FIRSAT</div>
+                        </div>
+                        <a href="/kampanya/iki-al-bir-ode" class="exact-card-cta">
+                            Kesfet >>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Fırsat 1 -->
+            <div class="exact-deal-card">
+                <div class="exact-card-inner">
+                    <div class="exact-card-background"
+                         style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    </div>
+                    <div class="exact-card-content">
+                        <div class="exact-card-badge">30%</div>
+                        <div class="exact-card-text">
+                            <div class="exact-card-main-text">2. ÜRÜNE</div>
+                            <div class="exact-card-highlight">İNDİRİM</div>
+                        </div>
+                        <a href="/kampanya/ikinci-urun-indirim" class="exact-card-cta">
+                            Kesfet >>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fırsat 2 -->
+            <div class="exact-deal-card">
+                <div class="exact-card-inner">
+                    <div class="exact-card-background"
+                         style="background-image: url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    </div>
+                    <div class="exact-card-content">
+                        <div class="exact-card-badge">2 AL 1 ÖDE</div>
+                        <div class="exact-card-text">
+                            <div class="exact-card-main-text">Sevilen Hediyeler</div>
+                            <div class="exact-card-highlight">KOMBO FIRSAT</div>
+                        </div>
+                        <a href="/kampanya/iki-al-bir-ode" class="exact-card-cta">
+                            Kesfet >>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sağ Buton -->
+        <button class="exact-slider-btn exact-next-btn" aria-label="Sonraki fırsatlar">
+            ›
+        </button>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="exact-slider-dots" id="exactSliderDots">
+        <!-- JavaScript ile eklenecek -->
+    </div>
+</section> *@
+<section class="exact-deals-slider">
+    <div class="exact-deals-header">
+        <h2 class="exact-deals-title">En Avantajlı Fırsatlar</h2>
+    </div>
+
+    <div class="exact-slider-container">
+        <!-- Sol Buton -->
+        <button class="exact-slider-btn exact-prev-btn" aria-label="Önceki fırsatlar">
+            ‹
+        </button>
+
+        <!-- Slider Track -->
+        <div class="exact-slider-track" id="exactSliderTrack">
+            <!-- Kampanyalar JavaScript ile doldurulacak -->
+        </div>
+
+        <!-- Sağ Buton -->
+        <button class="exact-slider-btn exact-next-btn" aria-label="Sonraki fırsatlar">
+            ›
+        </button>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="exact-slider-dots" id="exactSliderDots">
+        <!-- JavaScript ile eklenecek -->
+    </div>
+</section>
+<!-- MİNİ MARKA HİKAYESİ -->
+<section class="mini-brand-story">
+    <div class="mini-story-container">
+        <!-- Sol - Görsel -->
+        <div class="mini-story-visual">
+            <div class="mini-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                     alt="Atölyemizden"
+                     class="mini-story-img"
+                     loading="lazy">
+                <div class="mini-image-badge">
+                    <span>2002'den</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ - İçerik -->
+        <div class="mini-story-content">
+            <div class="mini-story-header">
+                <span class="mini-story-label">Hikayemiz</span>
+                <h3 class="mini-story-title">Beykoz'dan Dünyaya</h3>
+            </div>
+
+            <p class="mini-story-text">
+                2000'lerin başında küçük bir atölyede başladık.
+                Bugün 15+ ülkeye ihracat yapıyor, her ürünü özenle üretiyoruz.
+            </p>
+
+            <div class="mini-story-features">
+                <div class="mini-feature">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#567C8D">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>El İşçiliği</span>
+                </div>
+                <div class="mini-feature">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#567C8D">
+                        <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>15+ Ülke</span>
+                </div>
+                <div class="mini-feature">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#567C8D">
+                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>20+ Yıl</span>
+                </div>
+            </div>
+
+            <div class="mini-story-actions">
+                <a href="/hakkimizda" class="mini-story-btn">
+                    <span>Hikayemiz</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </a>
+                <a href="/urunler" class="mini-products-btn">
+                    Ürünleri Gör
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ÇEYİZ PAKETLERİ SLIDER -->
+<section class="dowry-slider-section">
+    <div class="dowry-slider-header">
+        <div class="slider-title-section">
+            <h2 class="exact-deals-title">Çeyiz Paketleri</h2>
+            <p class="mini-insta-desc">Hayatınızı birlikte kuracağınız en özel setler</p>
+        </div>
+        <!-- CTA Button - Mobilde daha ince ve zarif -->
+        <div class="dowry-cta">
+            <a href="/ceyiz-paketleri" class="view-all-btn">
+                <span class="cta-text">Tüm Paketleri İncele</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </a>
+        </div>
+        <!-- Desktop'ta görünecek navigasyon butonları -->
+        <div class="slider-nav-controls desktop-only">
+            <button class="slider-nav-btn dowry-prev-btn" aria-label="Önceki paket">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </button>
+            <button class="slider-nav-btn dowry-next-btn" aria-label="Sonraki paket">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Slider Konteyneri -->
+    <div class="dowry-slider-container">
+        <div class="dowry-slider-track" id="dowrySliderTrack">
+            <!-- Paket 1 - Starter -->
+            <div class="dowry-slide">
+                <article class="slide-card">
+
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Başlangıç Çeyiz Seti"
+                             loading="lazy">
+                        <div class="image-overlay">
+                            <span>12 Parça</span>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <header class="card-header">
+                            <h3 class="card-title">Başlangıç Seti</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.8</span>
+                            </div>
+                        </header>
+
+                        <p class="card-desc">
+                            Yeni evlenecekler için temel cam ürünleri. 12 parçalık ekonomik set.
+                        </p>
+
+
+                        <div class="card-price">
+                            <div class="price-main">
+                                <span class="current-price">₺2.499,00</span>
+                                <span class="old-price">₺3.199,00</span>
+                            </div>
+                            <div class="price-saving">₺700 tasarruf</div>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="action-btn detail-btn" data-package="starter">
+                                Detayları Gör
+                            </button>
+                            <button class="action-btn cart-btn" data-package="starter">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 22a1 1 0 100-2 1 1 0 000 2zM20 22a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+                                          stroke="currentColor"
+                                          stroke-width="2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Paket 2 - Premium -->
+            <div class="dowry-slide">
+                <article class="slide-card">
+
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Premium Çeyiz Seti"
+                             loading="lazy">
+                        <div class="image-overlay">
+                            <span>24 Parça</span>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <header class="card-header">
+                            <h3 class="card-title">Premium Set</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.9</span>
+                            </div>
+                        </header>
+
+                        <p class="card-desc">
+                            Özel tasarım cam ürünler. 24 parçalık kapsamlı çeyiz seti.
+                        </p>
+
+                       
+
+                        <div class="card-price">
+                            <div class="price-main">
+                                <span class="current-price">₺4.999,00</span>
+                                <span class="old-price">₺6.299,00</span>
+                            </div>
+                            <div class="price-saving">₺1.300 tasarruf</div>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="action-btn detail-btn" data-package="premium">
+                                Detayları Gör
+                            </button>
+                            <button class="action-btn cart-btn" data-package="premium">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 22a1 1 0 100-2 1 1 0 000 2zM20 22a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+                                          stroke="currentColor"
+                                          stroke-width="2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Paket 3 - Luxury -->
+            <div class="dowry-slide">
+                <article class="slide-card">
+
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Lüks Çeyiz Seti"
+                             loading="lazy">
+                        <div class="image-overlay">
+                            <span>36 Parça</span>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <header class="card-header">
+                            <h3 class="card-title">Lüks Set</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                        </header>
+
+                        <p class="card-desc">
+                            El işçiliği özel koleksiyon. 36 parçalık tam kapsamlı lüks set.
+                        </p>
+
+                  
+
+                        <div class="card-price">
+                            <div class="price-main">
+                                <span class="current-price">₺8.999,00</span>
+                                <span class="old-price">₺11.499,00</span>
+                            </div>
+                            <div class="price-saving">₺2.500 tasarruf</div>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="action-btn detail-btn" data-package="luxury">
+                                Detayları Gör
+                            </button>
+                            <button class="action-btn cart-btn" data-package="luxury">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 22a1 1 0 100-2 1 1 0 000 2zM20 22a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+                                          stroke="currentColor"
+                                          stroke-width="2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Paket 4 - Custom -->
+            <div class="dowry-slide">
+                <article class="slide-card">
+
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Özel Çeyiz Seti"
+                             loading="lazy">
+                        <div class="image-overlay">
+                            <span>Kişiye Özel</span>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <header class="card-header">
+                            <h3 class="card-title">Kişiye Özel Set</h3>
+                            <div class="card-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">5.0</span>
+                            </div>
+                        </header>
+
+                        <p class="card-desc">
+                            Tamamen size özel tasarlanmış çeyiz seti. İstediğiniz ürünleri seçin.
+                        </p>
+
+                        <div class="card-price">
+                            <div class="price-main">
+                                <span class="current-price">Fiyat Teklifi Al</span>
+                            </div>
+                            <div class="price-saving">%100 Kişiye Özel</div>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="action-btn detail-btn" data-package="custom">
+                                Özel Teklif İste
+                            </button>
+                            <button class="action-btn whatsapp-btn" data-package="custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.76.982.998-3.675-.236-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.9 6.994c-.004 5.45-4.438 9.88-9.888 9.88m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.333.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.333 11.893-11.893 0-3.18-1.24-6.162-3.495-8.411" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="slider-progress">
+            <div class="progress-bar" id="dowryProgress"></div>
+        </div>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="slider-dots" id="dowryDots"></div>
+
+
+</section>
+
+<!-- AKAN YORUMLAR SLIDER - SU GİBİ -->
+<section class="flowing-reviews-slider">
+    <div class="flowing-reviews-container">
+        <!-- Sonsuz Döngü için 2 set -->
+        <div class="flowing-reviews-track" id="flowingReviewsTrack">
+            <!-- İlk set -->
+            <div class="flowing-reviews-set">
+                <!-- Yorum 1 -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">A</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Ahmet Y.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Beykoz cam işçiliği gerçekten fark ediliyor. Vazo sipariş ettim, paketleme mükemmel."
+                        </p>
+                        <div class="flowing-product">El Yapımı Kristal Vazo</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 2 -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">E</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Elif S.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Düğün hediyesi olarak bardak seti aldım. Çok beğenildi. El işçiliği kaliteli."
+                        </p>
+                        <div class="flowing-product">6'lı Bardak Seti</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 3 -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">M</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Mehmet K.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★☆</div>
+                        <p class="flowing-review-text">
+                            "Ayna siparişi verdim. Ürün beklediğim gibi çıktı. Kalite için değer."
+                        </p>
+                        <div class="flowing-product">Dekoratif Ayna</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 4 -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">S</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Sema T.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Semaver sipariş ettim, hem görsel hem kalite olarak harika. Tekrar alacağım."
+                        </p>
+                        <div class="flowing-product">Cam Semaver</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 5 -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">C</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Can D.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Kırılacak diye endişelenmiştim ama paketleme harikaydı. Avize sapasağlam geldi."
+                        </p>
+                        <div class="flowing-product">Cam Avize</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İkinci set (tekrar) -->
+            <div class="flowing-reviews-set">
+                <!-- Yorum 1 (tekrar) -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">A</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Ahmet Y.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Beykoz cam işçiliği gerçekten fark ediliyor. Vazo sipariş ettim, paketleme mükemmel."
+                        </p>
+                        <div class="flowing-product">El Yapımı Kristal Vazo</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 2 (tekrar) -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">E</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Elif S.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Düğün hediyesi olarak bardak seti aldım. Çok beğenildi. El işçiliği kaliteli."
+                        </p>
+                        <div class="flowing-product">6'lı Bardak Seti</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 3 (tekrar) -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">M</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Mehmet K.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★☆</div>
+                        <p class="flowing-review-text">
+                            "Ayna siparişi verdim. Ürün beklediğim gibi çıktı. Kalite için değer."
+                        </p>
+                        <div class="flowing-product">Dekoratif Ayna</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 4 (tekrar) -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">S</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Sema T.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Semaver sipariş ettim, hem görsel hem kalite olarak harika. Tekrar alacağım."
+                        </p>
+                        <div class="flowing-product">Cam Semaver</div>
+                    </div>
+                </div>
+
+                <!-- Yorum 5 (tekrar) -->
+                <div class="flowing-review-card">
+                    <div class="flowing-review-content">
+                        <div class="flowing-reviewer">
+                            <div class="flowing-avatar">C</div>
+                            <div class="flowing-reviewer-info">
+                                <h4>Can D.</h4>
+                                <span class="flowing-verified">✓ Onaylı</span>
+                            </div>
+                        </div>
+                        <div class="flowing-stars">★★★★★</div>
+                        <p class="flowing-review-text">
+                            "Kırılacak diye endişelenmiştim ama paketleme harikaydı. Avize sapasağlam geldi."
+                        </p>
+                        <div class="flowing-product">Cam Avize</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gradient Overlay'lar -->
+        <div class="flowing-overlay left-overlay"></div>
+        <div class="flowing-overlay right-overlay"></div>
     </div>
 </section>
 <!-- GÜVEN BÖLÜMÜ -->
@@ -223,32 +775,5 @@
     </div>
 </section>
 
-
-
-<!-- POPÜLER ÜRÜNLER -->
-@* <section class="popular-products">
-    <h2 class="section-title">En Çok Bakılanlar</h2>
-    <div class="popular-slider-wrapper">
-        <button class="slider-btn left" id="popularPrev">&#10094;</button>
-        <div class="popular-slider" id="popularProducts">
-            <!-- Dummy Ürünler -->
-            <div class="product-card">Ürün 1</div>
-            <div class="product-card">Ürün 2</div>
-            <div class="product-card">Ürün 3</div>
-            <div class="product-card">Ürün 4</div>
-        </div>
-        <button class="slider-btn right" id="popularNext">&#10095;</button>
-    </div>
-</section> *@
-<!-- VIDEO / REEL -->
-<!-- HAFTANIN KAMPANYALARI -->
-@* <section class="kampanya-slider">
-    <h2 class="section-title">Kampanyalar</h2>
-    <button class="slider-btn left" id="kampanyaPrev">&#10094;</button>
-    <div class="kampanya-track" id="kampanyaTrack"></div>
-    <button class="slider-btn right" id="kampanyaNext">&#10095;</button>
-</section> *@
-<!-- TESTIMONIAL / YORUMLAR -->
-@* <section class="testimonial-slider" id="testimonialSlider"></section> *@
 
 <script src="~/js/HomePage/HomePage.js" asp-append-version="true"></script>

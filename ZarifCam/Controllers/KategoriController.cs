@@ -4,7 +4,7 @@ namespace ZarifCam.Controllers
 {
     public class KategoriController : Controller
     {
-        [Route("/Kategori")]
+        [Route("/kategori/{id}")]
         public IActionResult Kategori(int id)
         {
             return View();

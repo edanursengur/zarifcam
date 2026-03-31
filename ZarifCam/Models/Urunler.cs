@@ -32,6 +32,7 @@ namespace ZarifCam.Models
         public DateTime OlusturulmaTarihi { get; set; } = DateTime.UtcNow;
 
         public DateTime? GuncellemeTarihi { get; set; }
+        public string ModelKodu { get; set; }
 
         // Navigation properties
         [ForeignKey("KategoriId")]

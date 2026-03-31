@@ -94,7 +94,38 @@ const Renderer = {
             `).join('');
         }
     },
+    initCategorySlider() {
+        const track = document.querySelector('.category-track');
 
+        if (!track) return;
+
+        // infinite için kopyala
+        track.innerHTML += track.innerHTML;
+
+        let autoScroll = setInterval(() => {
+            track.scrollLeft += 2;
+
+            if (track.scrollLeft >= track.scrollWidth / 2) {
+                track.scrollLeft = 0;
+            }
+        }, 10);
+
+        // kullanıcı dokununca durdur
+        const stop = () => clearInterval(autoScroll);
+        const start = () => {
+            autoScroll = setInterval(() => {
+                track.scrollLeft += 1;
+                if (track.scrollLeft >= track.scrollWidth / 2) {
+                    track.scrollLeft = 0;
+                }
+            }, 20);
+        };
+
+        track.addEventListener('mouseenter', stop);
+        track.addEventListener('mouseleave', start);
+        track.addEventListener('touchstart', stop);
+        track.addEventListener('touchend', start);
+    },
     renderQuickAccess(items) {
         const container = document.querySelector('.quick-icons');
         if (!container) return;
@@ -125,22 +156,15 @@ const Renderer = {
             </a>
         `).join('');
     },
-
     renderCategories(categories) {
         const container = document.getElementById('categoryTrack');
-        if (!container) {
-            console.error('❌ categoryTrack container bulunamadı');
-            return;
-        }
 
-        console.log('🎨 Kategoriler render ediliyor...', categories);
-
-        // Kategorileri render et
         container.innerHTML = categories.map(cat => this.createCategoryCard(cat)).join('');
 
-        // Render sonrası log
-        const renderedItems = container.querySelectorAll('.category-card');
-        console.log(`✅ ${renderedItems.length} kategori render edildi`);
+        console.log(`✅ ${categories.length} kategori render edildi`);
+
+        // sliderı renderdan sonra başlat
+        this.initCategorySlider();
     },
     createCategoryCard(category) {
         const slug = category.Slug || category.slug || category.KategoriID || 'default';
@@ -213,9 +237,7 @@ const Renderer = {
                             </span>
                         `}
                     </div>
-                    <button class="add-to-cart" data-product-id="${product.TabloID || product.id}">
-                        Sepete Ekle
-                    </button>
+                    
                 </div>
                 </div>
             </div>
@@ -409,14 +431,12 @@ const DataLoader = {
             await Promise.allSettled([
                 this.loadHeroSliders(),
                 this.loadQuickAccess(),
-                this.loadCategories(),
                 this.loadFeaturedProducts()
             ]);
 
             // İkinci aşama veriler
             setTimeout(() => {
                 Promise.allSettled([
-                    this.loadFeaturedCategory(),
                     this.loadCampaigns(),
                     this.loadTrustBadges()
                 ]);
@@ -460,19 +480,7 @@ const DataLoader = {
         }
     },
 
-    async loadCategories() {
-        try {
-            const data = await Utils.cachedFetch(`${CONFIG.API_BASE}/kategoriler`);
-            if (data?.Success) {
-                Renderer.renderCategories(data.Data || data.data);
-            } else {
-                Renderer.renderCategories([]);
-            }
-        } catch (error) {
-            console.error('Failed to load categories:', error);
-            Renderer.renderCategories([]);
-        }
-    },
+   
 
     async loadFeaturedProducts() {
         try {
@@ -488,38 +496,11 @@ const DataLoader = {
         }
     },
 
-    async loadFeaturedCategory() {
-        try {
-            const data = await Utils.cachedFetch(`${CONFIG.API_BASE}/vurgulu-kategori`);
-            if (data?.Success) {
-                this.renderFeaturedCategory(data.Data || data.data);
-            }
-        } catch (error) {
-            console.error('Failed to load featured category:', error);
-        }
-    },
+    
 
-    async loadCampaigns() {
-        try {
-            const data = await Utils.cachedFetch(`${CONFIG.API_BASE}/kampanya-kartlari`);
-            if (data?.Success) {
-                this.renderCampaigns(data.Data || data.data);
-            }
-        } catch (error) {
-            console.error('Failed to load campaigns:', error);
-        }
-    },
+    
 
-    async loadTrustBadges() {
-        try {
-            const data = await Utils.cachedFetch(`${CONFIG.API_BASE}/guven-badgeleri`);
-            if (data?.Success) {
-                this.renderTrustBadges(data.Data || data.data);
-            }
-        } catch (error) {
-            console.error('Failed to load trust badges:', error);
-        }
-    },
+   
 
     async loadInstagramPosts() {
         try {
@@ -563,34 +544,7 @@ const DataLoader = {
         }
     },
 
-    renderFeaturedCategory(category) {
-        const section = document.querySelector('.featured-category');
-        if (!section || !category) return;
-
-        const infoDiv = section.querySelector('.highlight-info');
-        const imageDiv = section.querySelector('.highlight-image');
-
-        if (infoDiv) {
-            const title = infoDiv.querySelector('h2');
-            const desc = infoDiv.querySelector('p');
-            const button = infoDiv.querySelector('a');
-
-            if (title && (category.Baslik || category.baslik)) title.textContent = category.Baslik || category.baslik;
-            if (desc && (category.AltBaslik || category.altBaslik)) desc.textContent = category.AltBaslik || category.altBaslik;
-            if (button && (category.ButonYazi || category.butonYazi) && (category.ButonLink || category.butonLink)) {
-                button.textContent = category.ButonYazi || category.butonYazi;
-                button.href = category.ButonLink || category.butonLink;
-            }
-        }
-
-        if (imageDiv) {
-            const img = imageDiv.querySelector('img');
-            if (img && (category.ResimUrl || category.resimUrl)) {
-                img.src = category.ResimUrl || category.resimUrl;
-                img.alt = category.Baslik || category.baslik || 'Koleksiyon';
-            }
-        }
-    },
+   
 
     renderCampaigns(campaigns) {
         const container = document.querySelector('.campaign-grid');
@@ -759,9 +713,24 @@ const DataLoader = {
 
 // ==================== BAŞLATMA ====================
 document.addEventListener('DOMContentLoaded', () => {
+    loadCSS();
+    loadFonts();
+    initBackToTop();
+    initScrollAnimations();
+    const quickAccessScroll = new QuickAccessScroll();
+
+    // Optional: Auto-scroll on desktop
+    if (window.innerWidth > 768) {
+        quickAccessScroll.startAutoScroll();
+
+        // Pause on hover
+        const container = document.getElementById('quickIcons');
+        if (container) {
+            container.addEventListener('mouseenter', () => quickAccessScroll.stopAutoScroll());
+            container.addEventListener('mouseleave', () => quickAccessScroll.startAutoScroll());
+        }
+    }
     console.log('HomePage Enhanced yüklendi');
-     // Kategori slider'ını başlat
-        CategorySlider.init();
     // 1. Slider sistemini başlat
     SliderSystem.init();
 
@@ -816,22 +785,6 @@ function optimizePerformance() {
     preconnect.href = new URL(CONFIG.API_BASE, window.location.origin).origin;
     document.head.appendChild(preconnect);
 }
-
-// ==================== HATA YÖNETİMİ ====================
-window.addEventListener('error', (event) => {
-    console.error('Global error caught:', event.error);
-
-    // HomePage'e ait hataları göster
-    if (event.filename && event.filename.includes('HomePage')) {
-        console.log('HomePage hatası, verileri yeniden yüklemeyi deniyor...');
-        setTimeout(() => {
-            if (DataLoader && typeof DataLoader.loadInitialData === 'function') {
-                DataLoader.loadInitialData();
-            }
-        }, 2000);
-    }
-});
-
 // Unhandled promise rejections
 window.addEventListener('unhandledrejection', (event) => {
     console.error('Unhandled promise rejection:', event.reason);
@@ -913,14 +866,6 @@ function initScrollAnimations() {
     document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 }
 
-// DOMContentLoaded içine ekle:
-document.addEventListener('DOMContentLoaded', () => {
-    loadCSS();
-    loadFonts();
-    initBackToTop();
-    initScrollAnimations();
-    // ... diğer kodlar
-});
 
 ////Erişim hhılzı
 // Quick Access Scroll Control
@@ -1073,639 +1018,86 @@ class QuickAccessScroll {
     }
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    const quickAccessScroll = new QuickAccessScroll();
 
-    // Optional: Auto-scroll on desktop
-    if (window.innerWidth > 768) {
-        quickAccessScroll.startAutoScroll();
+const track = document.getElementById("categoriesTrack");
 
-        // Pause on hover
-        const container = document.getElementById('quickIcons');
-        if (container) {
-            container.addEventListener('mouseenter', () => quickAccessScroll.stopAutoScroll());
-            container.addEventListener('mouseleave', () => quickAccessScroll.startAutoScroll());
-        }
-    }
-});
-//// ==================== OTOMATİK KATEGORİ SLIDER ====================
-//const CategorySlider = {
-//    isPlaying: true,
-//    animationSpeed: 30, // saniye
-//    duplicateItems: false,
-//    progressInterval: null,
+async function loadCategories() {
+    try {
+        const res = await fetch(API_URL);
 
-//    init() {
-//        this.setupAutoScroll();
-//        this.setupEventListeners();
-//        this.setupInfiniteScroll();
-//        this.setupProgressBar();
-//    },
+        if (!res.ok) throw new Error("API patladı");
 
-//    setupAutoScroll() {
-//        const track = document.getElementById('categoryTrack');
-//        if (!track) return;
+        const categories = await res.json();
 
-//        // Başlangıç animasyonu
-//        track.style.animation = `scrollCategories ${this.animationSpeed}s linear infinite`;
-//        track.style.animationPlayState = 'running';
-
-//        // Infinite scroll için duplicate items ekle
-//        if (!this.duplicateItems) {
-//            this.addDuplicateItems(track);
-//            this.duplicateItems = true;
-//        }
-//    },
-
-//    addDuplicateItems(track) {
-//        const items = track.innerHTML;
-//        // Eğer içerik yoksa veya çok azsa duplicate ekleme
-//        if (!items || items.trim().length < 100) return;
-
-//        const duplicateTrack = document.createElement('div');
-//        duplicateTrack.className = 'category-track duplicate';
-//        duplicateTrack.innerHTML = items;
-
-//        track.parentNode.appendChild(duplicateTrack);
-//    },
-
-//    setupEventListeners() {
-//        const slider = document.querySelector('.category-slider');
-//        if (!slider) return;
-
-//        // Hover'da dur
-//        slider.addEventListener('mouseenter', () => {
-//            this.pauseAnimation();
-//        });
-
-//        // Hover'dan çıkınca devam et
-//        slider.addEventListener('mouseleave', () => {
-//            if (this.isPlaying) {
-//                this.playAnimation();
-//            }
-//        });
-
-//        // Touch events for mobile
-//        slider.addEventListener('touchstart', () => {
-//            this.pauseAnimation();
-//        });
-
-//        slider.addEventListener('touchend', () => {
-//            setTimeout(() => {
-//                if (this.isPlaying) {
-//                    this.playAnimation();
-//                }
-//            }, 1000);
-//        });
-
-//        // Click'te de dur (kategoriye tıklanabilir)
-//        slider.addEventListener('click', (e) => {
-//            if (e.target.closest('.category-card')) {
-//                this.pauseAnimation();
-//                setTimeout(() => {
-//                    if (this.isPlaying) {
-//                        this.playAnimation();
-//                    }
-//                }, 3000);
-//            }
-//        });
-//    },
-
-//    setupInfiniteScroll() {
-//        const track = document.getElementById('categoryTrack');
-//        if (!track) return;
-
-//        // Animation iteration event
-//        track.addEventListener('animationiteration', () => {
-//            this.updateProgressBar(0);
-//        });
-//    },
-
-//    setupProgressBar() {
-//        // Eğer progress bar zaten varsa ekleme
-//        if (document.querySelector('.scroll-progress')) return;
-
-//        const progressBar = document.createElement('div');
-//        progressBar.className = 'scroll-progress';
-//        progressBar.innerHTML = '<div class="scroll-progress-bar"></div>';
-
-//        const slider = document.querySelector('.category-slider');
-//        if (slider) {
-//            slider.appendChild(progressBar);
-
-//            // Progress bar'ı güncelle
-//            this.startProgressBar();
-//        }
-//    },
-//    playAnimation() {
-//        const tracks = document.querySelectorAll('.category-track');
-//        tracks.forEach(track => {
-//            // Önce transition'ı kaldır, sonra ekle
-//            track.style.transition = 'none';
-//            track.style.animationPlayState = 'running';
-
-//            // Bir sonraki frame'de transition'ı geri ekle
-//            requestAnimationFrame(() => {
-//                track.style.transition = '';
-//            });
-//        });
-
-//        this.isPlaying = true;
-//        this.startProgressBar();
-//    },
-//    startProgressBar() {
-//        if (this.progressInterval) clearInterval(this.progressInterval);
-
-//        let progress = 0;
-//        const interval = 100; // ms
-//        const increment = (interval / (this.animationSpeed * 1000)) * 100;
-
-//        this.progressInterval = setInterval(() => {
-//            if (this.isPlaying) {
-//                progress += increment;
-//                if (progress > 100) progress = 0;
-//                this.updateProgressBar(progress);
-//            }
-//        }, interval);
-//    },
-
-//    updateProgressBar(progress) {
-//        const progressBar = document.querySelector('.scroll-progress-bar');
-//        if (progressBar) {
-//            progressBar.style.width = `${progress}%`;
-//        }
-//    },
-
-//    playAnimation() {
-//        const tracks = document.querySelectorAll('.category-track');
-//        tracks.forEach(track => {
-//            track.style.animationPlayState = 'running';
-//        });
-
-//        this.isPlaying = true;
-//        this.startProgressBar();
-//    },
-
-//    pauseAnimation() {
-//        const tracks = document.querySelectorAll('.category-track');
-//        tracks.forEach(track => {
-//            track.style.animationPlayState = 'paused';
-//        });
-
-//        this.isPlaying = false;
-//        clearInterval(this.progressInterval);
-//    },
-
-//    toggleAnimation() {
-//        if (this.isPlaying) {
-//            this.pauseAnimation();
-//        } else {
-//            this.playAnimation();
-//        }
-//    },
-
-//    setSpeed(speed) {
-//        this.animationSpeed = speed;
-//        const tracks = document.querySelectorAll('.category-track');
-
-//        tracks.forEach(track => {
-//            track.style.animationDuration = `${speed}s`;
-//        });
-
-//        this.startProgressBar();
-//    },
-
-//    destroy() {
-//        this.pauseAnimation();
-//        clearInterval(this.progressInterval);
-
-//        const duplicateTrack = document.querySelector('.category-track.duplicate');
-//        if (duplicateTrack) {
-//            duplicateTrack.remove();
-//        }
-//    }
-//};
-
-//// BAŞLATMA - DOM hazır olduğunda
-//document.addEventListener('DOMContentLoaded', () => {
-//    // Kategori slider'ını başlat
-//    CategorySlider.init();
-
-//    // Global erişim için
-//    window.CategorySlider = CategorySlider;
-//});
-
-//// Sayfa görünürlüğü değiştiğinde kontrol et
-//document.addEventListener('visibilitychange', () => {
-//    if (document.hidden) {
-//        CategorySlider.pauseAnimation();
-//    } else if (CategorySlider.isPlaying) {
-//        CategorySlider.playAnimation();
-//    }
-//});
-
-//// Pencere boyutu değiştiğinde slider'ı yeniden başlat
-//let resizeTimeout;
-//window.addEventListener('resize', () => {
-//    clearTimeout(resizeTimeout);
-//    resizeTimeout = setTimeout(() => {
-//        CategorySlider.destroy();
-//        CategorySlider.init();
-//    }, 250);
-//});
-// ==================== OTOMATİK KATEGORİ SLIDER ====================
-const CategorySlider = {
-    isPlaying: true,
-    animationSpeed: 30,
-    duplicateItems: false,
-    progressInterval: null,
-    originalItemsCount: 0,
-    isResetting: false,
-    isInitialized: false,
-
-    async init() {
-        console.log('🎯 Kategori slider başlatılıyor...');
-
-        try {
-            // 1. Önce kategorileri API'den yükle
-            await this.loadCategoriesFromAPI();
-
-            // 2. Elementleri cache'le
-            this.cacheElements();
-
-            // 3. Infinite scroll hazırla
-            this.prepareForInfiniteScroll();
-
-            // 4. Animasyonu başlat
-            this.setupAutoScroll();
-
-            // 5. Event listener'ları kur
-            this.setupEventListeners();
-
-            // 6. Progress bar'ı kur
-            this.setupProgressBar();
-
-            // 7. Animation reset'i ayarla
-            this.setupAnimationReset();
-
-            this.isInitialized = true;
-            console.log('✅ Kategori slider başarıyla başlatıldı');
-
-        } catch (error) {
-            console.error('❌ Kategori slider başlatılamadı:', error);
-            this.showFallbackCategories();
-        }
-    },
-    async loadCategoriesFromAPI() {
-        console.log('📡 API\'den kategoriler yükleniyor...');
-
-        try {
-            // API'den kategorileri al
-            const data = await Utils.cachedFetch(`${CONFIG.API_BASE}/kategoriler`);
-
-            if (data?.Success && data.Data?.length > 0) {
-                console.log(`✅ ${data.Data.length} kategori yüklendi`);
-                this.renderCategories(data.Data);
-                return data.Data;
-            } else {
-                console.warn('⚠️ API boş döndü, fallback kullanılıyor');
-                this.showFallbackCategories();
-                return [];
-            }
-
-        } catch (error) {
-            console.error('❌ API yüklenemedi:', error);
-            this.showFallbackCategories();
-            throw error;
-        }
-    },
-    showFallbackCategories() {
-        const container = document.getElementById('categoryTrack');
-        if (!container) return;
-
-        console.log('🔄 Fallback kategoriler gösteriliyor...');
-
-        const fallbackCategories = [
-            { Ad: 'Cam Ürünler', Slug: 'cam-urunler', GorselUrl: '/images/categories/cam.jpg' },
-            { Ad: 'Süs Eşyaları', Slug: 'sus-esyalari', GorselUrl: '/images/categories/decor.jpg' },
-            { Ad: 'Hediyelik', Slug: 'hediyelik', GorselUrl: '/images/categories/gift.jpg' },
-            { Ad: 'Aksesuarlar', Slug: 'aksesuarlar', GorselUrl: '/images/categories/accessories.jpg' },
-            { Ad: 'Yeni Gelenler', Slug: 'yeni-gelenler', GorselUrl: '/images/categories/new.jpg' },
-            { Ad: 'İndirimli', Slug: 'indirimli', GorselUrl: '/images/categories/sale.jpg' },
-            { Ad: 'Özel Koleksiyon', Slug: 'ozel-koleksiyon', GorselUrl: '/images/categories/special.jpg' },
-            { Ad: 'Popüler', Slug: 'populer', GorselUrl: '/images/categories/popular.jpg' }
-        ];
-
-        container.innerHTML = fallbackCategories.map(cat => this.createCategoryCard(cat)).join('');
-        console.log('✅ 8 fallback kategori eklendi');
-    },
-
-    cacheElements() {
-        this.track = document.getElementById('categoryTrack');
-        this.slider = document.querySelector('.category-slider');
-        
-        if (!this.track) {
-            console.warn('Category track not found');
+        if (!categories || categories.length === 0) {
+            console.warn("Kategori yok");
             return;
         }
-        
-        // Orijinal item sayısını kaydet
-        this.originalItemsCount = this.track.children.length;
-        
-        // Eğer yeterli item yoksa, duplicate ekle
-        if (this.originalItemsCount < 4) {
-            this.createMoreItems();
-        }
-    },
 
-    createMoreItems() {
-        if (!this.track || this.originalItemsCount === 0) return;
-        
-        // Mevcut item'ları kopyala
-        const items = Array.from(this.track.children);
-        let clonedContent = '';
-        
-        // Toplam 8-12 item olana kadar kopyala
-        const targetCount = 12;
-        const neededClones = Math.ceil(targetCount / this.originalItemsCount);
-        
-        for (let i = 0; i < neededClones; i++) {
-            items.forEach(item => {
-                clonedContent += item.outerHTML;
-            });
-        }
-        
-        // Orijinal item'ları koru, klonları ekle
-        this.track.innerHTML += clonedContent;
-    },
+        renderSlider(categories);
 
-    prepareForInfiniteScroll() {
-        if (!this.track || this.duplicateItems) return;
-        
-        // Orijinal içeriği al
-        const originalContent = this.track.innerHTML;
-        
-        // 2 kopya daha ekle (toplam 3 set)
-        this.track.innerHTML = originalContent + originalContent + originalContent;
-        
-        // Track genişliğini ayarla
-        this.adjustTrackWidth();
-        
-        this.duplicateItems = true;
-    },
-
-    adjustTrackWidth() {
-        if (!this.track || this.track.children.length === 0) return;
-        
-        // İlk item'ın genişliğini al
-        const firstItem = this.track.children[0];
-        const itemWidth = firstItem.offsetWidth || 280;
-        const gap = 24; // gap değeri
-        
-        // Toplam genişlik
-        const totalItems = this.track.children.length;
-        const totalWidth = (itemWidth + gap) * totalItems;
-        
-        this.track.style.width = `${totalWidth}px`;
-    },
-
-    setupAutoScroll() {
-        if (!this.track) return;
-        
-        // Animasyonu başlat
-        this.track.style.animation = `scrollCategories ${this.animationSpeed}s linear infinite`;
-        this.track.style.animationPlayState = 'running';
-    },
-
-    setupEventListeners() {
-        if (!this.slider) return;
-
-        // Hover'da dur
-        this.slider.addEventListener('mouseenter', () => {
-            this.pauseAnimation();
-        });
-
-        // Hover'dan çıkınca SMOOTH devam et
-        this.slider.addEventListener('mouseleave', () => {
-            if (this.isPlaying) {
-                // Kısa gecikme ile devam et
-                setTimeout(() => {
-                    this.resumeAnimationSmoothly();
-                }, 300);
-            }
-        });
-
-        // Touch events for mobile
-        this.slider.addEventListener('touchstart', () => {
-            this.pauseAnimation();
-        });
-
-        this.slider.addEventListener('touchend', () => {
-            setTimeout(() => {
-                if (this.isPlaying) {
-                    this.resumeAnimationSmoothly();
-                }
-            }, 1500);
-        });
-
-        // Click'te de dur (kategoriye tıklanabilir)
-        this.slider.addEventListener('click', (e) => {
-            if (e.target.closest('.category-card')) {
-                this.pauseAnimation();
-                setTimeout(() => {
-                    if (this.isPlaying) {
-                        this.resumeAnimationSmoothly();
-                    }
-                }, 3000);
-            }
-        });
-
-        // Sayfa görünürlüğü
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.pauseAnimation();
-            } else if (this.isPlaying) {
-                this.resumeAnimationSmoothly();
-            }
-        });
-
-        // Pencere boyutu değişince
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                this.handleResize();
-            }, 250);
-        });
-    },
-
-    setupAnimationReset() {
-        if (!this.track) return;
-        
-        // CSS Animation event'leri
-        this.track.addEventListener('animationiteration', (e) => {
-            if (e.animationName === 'scrollCategories') {
-                this.handleAnimationEnd();
-            }
-        });
-    },
-
-    handleAnimationEnd() {
-        if (this.isResetting) return;
-        this.isResetting = true;
-        
-        // Animasyonu geçici durdur
-        this.track.style.animationPlayState = 'paused';
-        
-        // Hemen sıfır pozisyona al (görünmez)
-        this.track.style.transform = 'translateX(0)';
-        this.track.style.transition = 'none';
-        
-        // Bir sonraki frame'de animasyonu tekrar başlat
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                this.track.style.transition = '';
-                this.track.style.animationPlayState = 'running';
-                this.isResetting = false;
-                
-                // Progress bar'ı sıfırla
-                this.updateProgressBar(0);
-            });
-        });
-    },
-
-    setupProgressBar() {
-        // Eğer progress bar yoksa oluştur
-        if (document.querySelector('.scroll-progress')) return;
-        
-        const progressBar = document.createElement('div');
-        progressBar.className = 'scroll-progress';
-        progressBar.innerHTML = '<div class="scroll-progress-bar"></div>';
-        
-        if (this.slider) {
-            this.slider.appendChild(progressBar);
-            this.startProgressBar();
-        }
-    },
-
-    startProgressBar() {
-        if (this.progressInterval) clearInterval(this.progressInterval);
-
-        let progress = 0;
-        const interval = 100; // ms
-        const increment = (interval / (this.animationSpeed * 1000)) * 100;
-
-        this.progressInterval = setInterval(() => {
-            if (this.isPlaying && !this.isResetting) {
-                progress += increment;
-                if (progress > 100) progress = 0;
-                this.updateProgressBar(progress);
-            }
-        }, interval);
-    },
-
-    updateProgressBar(progress) {
-        const progressBar = document.querySelector('.scroll-progress-bar');
-        if (progressBar) {
-            progressBar.style.width = `${progress}%`;
-        }
-    },
-
-    pauseAnimation() {
-        if (!this.track) return;
-        
-        this.track.style.animationPlayState = 'paused';
-        this.isPlaying = false;
-        
-        if (this.progressInterval) {
-            clearInterval(this.progressInterval);
-            this.progressInterval = null;
-        }
-    },
-
-    resumeAnimationSmoothly() {
-        if (!this.track || this.isResetting) return;
-        
-        // Önce transition'ı kaldır
-        this.track.style.transition = 'none';
-        
-        // Animasyonu başlat
-        this.track.style.animationPlayState = 'running';
-        
-        // Bir sonraki frame'de transition'ı geri ekle
-        requestAnimationFrame(() => {
-            this.track.style.transition = '';
-        });
-        
-        this.isPlaying = true;
-        this.startProgressBar();
-    },
-
-    playAnimation() {
-        if (!this.track) return;
-        
-        this.track.style.animationPlayState = 'running';
-        this.isPlaying = true;
-        this.startProgressBar();
-    },
-
-    toggleAnimation() {
-        if (this.isPlaying) {
-            this.pauseAnimation();
-        } else {
-            this.resumeAnimationSmoothly();
-        }
-    },
-
-    setSpeed(newSpeed) {
-        this.animationSpeed = newSpeed;
-        
-        if (this.track) {
-            // Mevcut animasyon pozisyonunu koru
-            const computedStyle = window.getComputedStyle(this.track);
-            const currentTransform = computedStyle.transform;
-            
-            // Yeni animasyon
-            this.track.style.animation = `scrollCategories ${newSpeed}s linear infinite`;
-            this.track.style.transform = currentTransform;
-            
-            // Progress bar'ı güncelle
-            this.startProgressBar();
-        }
-    },
-
-    handleResize() {
-        // Track genişliğini yeniden ayarla
-        this.adjustTrackWidth();
-        
-        // Animasyonu yeniden başlat
-        if (this.track) {
-            this.track.style.animation = 'none';
-            
-            requestAnimationFrame(() => {
-                this.track.style.animation = `scrollCategories ${this.animationSpeed}s linear infinite`;
-                this.track.style.animationPlayState = this.isPlaying ? 'running' : 'paused';
-            });
-        }
-    },
-
-    destroy() {
-        this.pauseAnimation();
-        
-        // Duplicate item'ları temizle (sadece orijinalleri tut)
-        if (this.track && this.duplicateItems && this.originalItemsCount > 0) {
-            const allItems = Array.from(this.track.children);
-            
-            // Sadece ilk seti tut (orijinal sayı kadar)
-            const itemsToKeep = allItems.slice(0, this.originalItemsCount);
-            this.track.innerHTML = '';
-            itemsToKeep.forEach(item => this.track.appendChild(item));
-            
-            // Track genişliğini sıfırla
-            this.track.style.width = '';
-            
-            this.duplicateItems = false;
-        }
+    } catch (err) {
+        console.error("Kategori çekilemedi:", err);
     }
-};
+}
+
+function renderSlider(categories) {
+
+    track.innerHTML = "";
+
+    // İlk set
+    categories.forEach(cat => {
+        track.appendChild(createItem(cat));
+    });
+
+    // Aynılarını tekrar ekle (sonsuz kayma için)
+    categories.forEach(cat => {
+        track.appendChild(createItem(cat));
+    });
+
+    // Animasyonu başlat
+    requestAnimationFrame(() => {
+        track.classList.add("auto-scroll");
+    });
+}
+
+function createItem(category) {
+
+    const div = document.createElement("div");
+    div.className = "category-item";
+    div.textContent = category.name || category.CategoryName || category;
+
+    return div;
+}
+function enableDragScroll(container) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    container.addEventListener('mousedown', e => {
+        isDown = true;
+        container.classList.add('dragging');
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+
+    container.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+
+    container.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        container.scrollLeft = scrollLeft - walk;
+    });
+}
+
+    
+
+    

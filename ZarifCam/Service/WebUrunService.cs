@@ -16,7 +16,7 @@ namespace ZarifCam.Service
         Task<List<HeroSlider>> AktifSliderlariGetirAsync();
         Task<List<Kategori>> AnaSayfaKategorileriAsync();
         Task<List<UrunKartDto>> FiltreliUrunKartlariniGetirAsync(UrunFiltreDto filtre, int page);
-        Task<List<KampanyaDto>> KampanyalariGetir();
+        //Task<List<KampanyaDto>> KampanyalariGetir();
 
     }
 
@@ -262,50 +262,50 @@ ORDER BY p.UrunId, um.GosterimSirasi;
 
             return lookup.Values.ToList();
         }
-        public async Task<List<KampanyaDto>> KampanyalariGetir()
-        {
-            // Önce kampanyaları çek
-            var kampanyaQuery = @"
-        SELECT KampanyaID AS Id,
-               Ad,
-               Tip,
-               BaslangicTarihi,
-               BitisTarihi,
-               AktifMi,
-               OlusturulmaTarihi,
-               GorselUrl,
-Link
-        FROM Kampanyalar
-        WHERE AktifMi = 1
-          AND BaslangicTarihi <= GETDATE()
-          AND BitisTarihi >= GETDATE()
-        ORDER BY BaslangicTarihi DESC";
+//        public async Task<List<KampanyaDto>> KampanyalariGetir()
+//        {
+//            // Önce kampanyaları çek
+//            var kampanyaQuery = @"
+//        SELECT KampanyaID AS Id,
+//               Ad,
+//               Tip,
+//               BaslangicTarihi,
+//               BitisTarihi,
+//               AktifMi,
+//               OlusturulmaTarihi,
+//               GorselUrl,
+//Link
+//        FROM Kampanyalar
+//        WHERE AktifMi = 1
+//          AND BaslangicTarihi <= GETDATE()
+//          AND BitisTarihi >= GETDATE()
+//        ORDER BY BaslangicTarihi DESC";
 
-            var kampanyalar = (await _db.QueryAsync<KampanyaDto>(kampanyaQuery)).ToList();
+//            var kampanyalar = (await _db.QueryAsync<KampanyaDto>(kampanyaQuery)).ToList();
 
-            // Her kampanya için kurallarını çek
-            foreach (var kampanya in kampanyalar)
-            {
-                var kuralQuery = @"
-            SELECT KampanyaKuralID,
-                   UrunID,
-                   KoleksiyonID,
-                   MinAdet,
-                   IndirimTutar,
-                   IndirimOrani,
-                   Oncelik,
-                   AktifMi
-            FROM KampanyaKurallar
-            WHERE KampanyaID = @KampanyaID
-              AND AktifMi = 1
-            ORDER BY Oncelik DESC";
+//            // Her kampanya için kurallarını çek
+//            foreach (var kampanya in kampanyalar)
+//            {
+//                var kuralQuery = @"
+//            SELECT KampanyaKuralID,
+//                   UrunID,
+//                   KoleksiyonID,
+//                   MinAdet,
+//                   IndirimTutar,
+//                   IndirimOrani,
+//                   Oncelik,
+//                   AktifMi
+//            FROM KampanyaKurallar
+//            WHERE KampanyaID = @KampanyaID
+//              AND AktifMi = 1
+//            ORDER BY Oncelik DESC";
 
-                var kurallar = await _db.QueryAsync<KampanyaKuralDto>(kuralQuery, new { KampanyaID = kampanya.Id });
-                kampanya.Kurallar = kurallar.ToList();
-            }
+//                var kurallar = await _db.QueryAsync<KampanyaKuralDto>(kuralQuery, new { KampanyaID = kampanya.Id });
+//                kampanya.Kurallar = kurallar.ToList();
+//            }
 
-            return kampanyalar;
-        }
+//            return kampanyalar;
+//        }
 
     }
 }

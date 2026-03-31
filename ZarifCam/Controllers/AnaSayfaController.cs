@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ZarifCam.Dtos.AnaSayfa;
+using ZarifCam.Dtos.Kampanya;
 using ZarifCam.IService;
 
 namespace ZarifCam.Controllers
@@ -135,10 +136,10 @@ namespace ZarifCam.Controllers
             try
             {
                 var result = await _anaSayfaService.OneCikanUrunleriGetirAsync(adet);
-                return Ok(new ApiResponse<List<UrunDTO>>
+                return Ok(new ApiResponse<List<ProductSliderViewModel>>
                 {
                     Success = true,
-                    Data = result
+                    Data = result.ToList()
                 });
             }
             catch (Exception ex)
@@ -151,7 +152,142 @@ namespace ZarifCam.Controllers
                 });
             }
         }
+        [HttpGet("urun-detay/{id}")]
+        public async Task<IActionResult> GetProductDetail(long id)
+        {
+            try
+            {
+                var result = await _anaSayfaService.GetProductDetailAsync(id);
 
+                if (result == null)
+                {
+                    return NotFound(new ApiResponse<object>
+                    {
+                        Success = false,
+                        Message = "Ürün bulunamadı"
+                    });
+                }
+
+                return Ok(new ApiResponse<ProductSliderViewModel>
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ürün detayı getirilirken hata");
+                return StatusCode(500, new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "Ürün detayı getirilirken bir hata oluştu."
+                });
+            }
+        }
+        [HttpGet("ceyiz-paketleri")]
+        public async Task<IActionResult> CeyizPaketleriGetir([FromQuery] int adet = 10)
+        {
+            try
+            {
+                var result = await _anaSayfaService.PaketleriGetirAsync(adet);
+                return Ok(new ApiResponse<List<ProductSliderViewModel>>
+                {
+                    Success = true,
+                    Data = result.ToList()
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Çeyiz paketleri getirilirken hata oluştu");
+                return StatusCode(500, new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "Çeyiz paketleri getirilirken bir hata oluştu."
+                });
+            }
+        }
+
+        [HttpGet("urunler")]
+        public async Task<IActionResult> UrunleriGetir(
+            [FromQuery] int adet = 12,
+            [FromQuery] bool? sadecePaketler = null,
+            [FromQuery] bool? anaSayfadaOneCikanMi = null,
+             [FromQuery] int? kategoriId = null)      
+        {
+            try
+            {
+                var result = await _anaSayfaService.GetProductsAsync(adet, sadecePaketler, anaSayfadaOneCikanMi,kategoriId);
+                return Ok(new ApiResponse<List<ProductSliderViewModel>>
+                {
+                    Success = true,
+                    Data = result.ToList()
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ürünler getirilirken hata oluştu");
+                return StatusCode(500, new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "Ürünler getirilirken bir hata oluştu."
+                });
+            }
+        }
+        [HttpGet("urunler/sayfali")]
+        public async Task<IActionResult> UrunlerieGetir(
+        [FromQuery] int adet = 12,
+        [FromQuery] bool? sadecePaketler = null,
+        [FromQuery] bool? anaSayfadaOneCikanMi = null,
+        [FromQuery] int? kategoriId = null)
+        {
+            try
+            {
+                var result = await _anaSayfaService.GetProductsAsync(adet, sadecePaketler, anaSayfadaOneCikanMi, kategoriId);
+                return Ok(new ApiResponse<List<ProductSliderViewModel>>
+                {
+                    Success = true,
+                    Data = result.ToList()
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ürünler getirilirken hata oluştu");
+                return StatusCode(500, new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "Ürünler getirilirken bir hata oluştu."
+                });
+            }
+        }
+
+
+        // ESKI ENDPOINT - AYNEN KALIYOR
+        [HttpGet("urunler")]
+        public async Task<IActionResult> UrunleriGsetir(
+            [FromQuery] int adet = 12,
+            [FromQuery] bool? sadecePaketler = null,
+            [FromQuery] bool? anaSayfadaOneCikanMi = null,
+            [FromQuery] int? kategoriId = null)
+        {
+            try
+            {
+                var result = await _anaSayfaService.GetProductsAsync(adet, sadecePaketler, anaSayfadaOneCikanMi, kategoriId);
+                return Ok(new ApiResponse<List<ProductSliderViewModel>>
+                {
+                    Success = true,
+                    Data = result.ToList()
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ürünler getirilirken hata oluştu");
+                return StatusCode(500, new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "Ürünler getirilirken bir hata oluştu."
+                });
+            }
+        }
         // GET: api/anasayfa/vurgulu-kategori
         [HttpGet("vurgulu-kategoriler")]
         public async Task<IActionResult> VurguluKategorileriGetir()
@@ -225,30 +361,42 @@ namespace ZarifCam.Controllers
                 });
             }
         }
-
-        // GET: api/anasayfa/kampanya-kartlari
-        [HttpGet("kampanya-kartlari")]
-        public async Task<IActionResult> KampanyaKartlariniGetir()
+        [HttpGet("aktifKampanyalar")]
+        public async Task<IActionResult> GetAktifKampanyalar(int limit = 10)
         {
             try
             {
-                var result = await _anaSayfaService.KampanyaKartlariniGetirAsync();
-                return Ok(new ApiResponse<List<KampanyaKartDTO>>
-                {
-                    Success = true,
-                    Data = result
-                });
+                var kampanyalar = await _anaSayfaService.GetAktifKampanyalarAsync(limit);
+                return Ok(kampanyalar);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Kampanya kartları getirilirken hata oluştu");
-                return StatusCode(500, new ApiResponse<object>
-                {
-                    Success = false,
-                    Message = "Kampanya kartları getirilirken bir hata oluştu."
-                });
+                return StatusCode(500, new { message = "Kampanyalar yüklenirken hata oluştu", error = ex.Message });
             }
         }
+        // GET: api/anasayfa/kampanya-kartlari
+        //[HttpGet("kampanya-kartlari")]
+        //public async Task<IActionResult> KampanyaKartlariniGetir()
+        //{
+        //    try
+        //    {
+        //        var result = await _anaSayfaService.KampanyaKartlariniGetirAsync();
+        //        return Ok(new ApiResponse<List<KampanyaKartDTO>>
+        //        {
+        //            Success = true,
+        //            Data = result
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Kampanya kartları getirilirken hata oluştu");
+        //        return StatusCode(500, new ApiResponse<object>
+        //        {
+        //            Success = false,
+        //            Message = "Kampanya kartları getirilirken bir hata oluştu."
+        //        });
+        //    }
+        //}
 
         // GET: api/anasayfa/marka-hikayesi
         [HttpGet("marka-hikayesi")]

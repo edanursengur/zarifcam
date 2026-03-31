@@ -14,5 +14,10 @@ namespace ZarifCam.Controllers
         {
             return View();
         }
+        [Route("Detay/{urunID}")]
+        public IActionResult Detay()
+        {
+            return View();
+        }
     }
 }

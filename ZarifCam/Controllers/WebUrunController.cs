@@ -85,12 +85,12 @@ namespace ZarifCam.Controllers
             var result = await _webUrunService.FiltreliUrunKartlariniGetirAsync(filtre, page);
             return Ok(result);
         }
-        [HttpGet("KampanyalariGetir")]
-        public async Task<IActionResult> KampanyalariGetir()
-        {
-            var result = await _webUrunService.KampanyalariGetir();
-            return Ok(result);
-        }
+        //[HttpGet("KampanyalariGetir")]
+        //public async Task<IActionResult> KampanyalariGetir()
+        //{
+        //    var result = await _webUrunService.KampanyalariGetir();
+        //    return Ok(result);
+        //}
     }
 }
 

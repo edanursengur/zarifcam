@@ -1,146 +1,374 @@
-﻿<section class="category-page">
+﻿
 
-    <aside class="category-filters">
-        <h3>Filtrele</h3>
+<link rel="stylesheet" href="~/css/Urun/WebUrunList.css" />
 
-        <div class="filter-group">
-            <label>Min Fiyat</label>
-            <input type="number" id="minPrice" placeholder="0" />
+<div class="products-page-container">
+    <!-- Header Bölümü -->
+    <div class="products-header">
+        <div class="products-title-section">
         </div>
 
-        <div class="filter-group">
-            <label>Max Fiyat</label>
-            <input type="number" id="maxPrice" placeholder="5000" />
-        </div>
-
-        <div class="filter-group">
-            <label>Renk</label>
-            <div class="color-options" id="colorOptions">
-                <!-- JS dolduracak -->
+        <!-- Filtreleme ve Sıralama Bölümü -->
+        <div class="products-control-bar">
+            <div class="sort-section">
+                <label for="sortSelect">Sırala:</label>
+                <select id="sortSelect" class="sort-select">
+                    <option value="default">Önerilen</option>
+                    <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
+                    <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
+                    <option value="newest">Yeniden Eskiye</option>
+                    <option value="rating">En Beğenilenler</option>
+                    <option value="bestseller">Çok Satanlar</option>
+                </select>
             </div>
         </div>
-
-        <button class="btn-primary" id="applyFilter">Filtrele</button>
-    </aside>
-
-    <div class="category-products">
-        <div class="product-grid" id="productGrid"></div>
-        <div id="scrollTrigger" style="height:1px"></div>
     </div>
 
-</section>
+    <!-- Ana İçerik -->
+    <div class="products-main-content">
+        <main class="products-grid-container">
+            <div class="products-stats">
+                <span id="productCount">0</span> ürün bulundu
+            </div>
 
-<script>
-    let page = 1;
-    let loading = false;
-    let hasMore = true;
+            <div class="products-grid" id="productsGrid">
+                <div class="loading-spinner">Ürünler yükleniyor...</div>
+            </div>
 
-    const aktifFiltre = {
-        kategoriId: null,
-        renkId: null,
-        minFiyat: null,
-        maxFiyat: null
-    };
+            <!-- Sonsuz kaydırma için loading indicator -->
+            <div id="loadingIndicator" class="loading-indicator" style="display: none; text-align: center; padding: 2rem;">
+                <div class="spinner"></div>
+                <span>Daha fazla ürün yükleniyor...</span>
+            </div>
 
-    const grid = document.getElementById("productGrid");
-    const trigger = document.getElementById("scrollTrigger");
-    const colorContainer = document.getElementById("colorOptions");
+            <!-- Tüm ürünler yüklendi mesajı -->
+            <div id="noMoreProducts" class="no-more-products" style="display: none; text-align: center; padding: 2rem; color: var(--text-light);">
+                Tüm ürünler yüklendi
+            </div>
+        </main>
+    </div>
+</div>
 
-    // 🔥 Ürünleri getir
-    async function loadProducts(reset = false) {
-        if (loading || !hasMore) return;
-        loading = true;
+@section Scripts {
+    <script>
+        // Kategori Sayfası - Sonsuz Kaydırma ile Ürün Yükleme
+        class CategoryProductLoader {
+            constructor(kategoriId) {
+                this.kategoriId = kategoriId;
+                this.currentPage = 1;
+                this.pageSize = 12;
+                this.isLoading = false;
+                this.hasMore = true;
+                this.totalPages = 0;
+                this.totalProducts = 0;
+                this.currentSort = 'default';
+                this.productsGrid = document.getElementById('productsGrid');
+                this.loadingIndicator = document.getElementById('loadingIndicator');
+                this.noMoreProducts = document.getElementById('noMoreProducts');
+                this.productCountSpan = document.getElementById('productCount');
+                this.sortSelect = document.getElementById('sortSelect');
 
-        if (reset) {
-            page = 1;
-            hasMore = true;
-            grid.innerHTML = "";
-        }
+                this.init();
+            }
 
-        const response = await fetch(`/api/WebUrun/filtreli?page=${page}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(aktifFiltre)
-        });
+            init() {
+                this.loadProducts();
+                this.setupEventListeners();
+                this.setupInfiniteScroll();
+            }
 
-        const data = await response.json();
+            setupEventListeners() {
+                // Sıralama değiştiğinde
+                if (this.sortSelect) {
+                    this.sortSelect.addEventListener('change', () => {
+                        this.currentSort = this.sortSelect.value;
+                        this.currentPage = 1;
+                        this.hasMore = true;
+                        this.productsGrid.innerHTML = '<div class="loading-spinner">Ürünler yükleniyor...</div>';
+                        this.noMoreProducts.style.display = 'none';
+                        this.loadProducts();
+                    });
+                }
+            }
 
-        if (!data || data.length === 0) {
-            hasMore = false;
-            loading = false;
-            return;
-        }
+            setupInfiniteScroll() {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.innerHeight + window.scrollY;
+                    const pageHeight = document.documentElement.scrollHeight;
+                    const threshold = 300;
 
-        data.forEach(urun => {
-            grid.insertAdjacentHTML("beforeend", `
-                <a href="/urun/${urun.urunId}" class="product-card">
-                    <div class="product-image">
-                        <img src="${urun.gorseller?.[0] ?? '/img/no-image.png'}" class="img-main">
-                        <img src="${urun.gorseller?.[1] ?? urun.gorseller?.[0] ?? '/img/no-image.png'}" class="img-hover">
+                    if (scrollPosition >= pageHeight - threshold) {
+                        this.loadMore();
+                    }
+                });
+            }
+
+            async loadProducts() {
+                if (this.isLoading) return;
+
+                this.isLoading = true;
+                if (this.loadingIndicator) this.loadingIndicator.style.display = 'flex';
+
+                try {
+                    // Kategori ID'yi ve sıralama parametresini ekle
+                    let url = `/api/anasayfa/urunler/sayfali?page=${this.currentPage}&pageSize=${this.pageSize}&kategoriId=${this.kategoriId}`;
+                    
+                    // Sıralama parametresini ekle
+                    if (this.currentSort !== 'default') {
+                        url += `&sort=${this.currentSort}`;
+                    }
+                    
+                    const response = await fetch(url);
+
+                    // Header'dan sayfalama bilgilerini oku
+                    const totalCount = parseInt(response.headers.get('X-Total-Count') || '0');
+                    this.totalPages = parseInt(response.headers.get('X-Total-Pages') || '0');
+                    const hasNext = response.headers.get('X-Has-Next') === 'True';
+                    this.totalProducts = totalCount;
+
+                    const result = await response.json();
+
+                    if (result.Success && result.Data) {
+                        if (result.Data.length > 0) {
+                            this.renderProducts(result.Data);
+                        }
+
+                        this.hasMore = hasNext;
+
+                        if (!this.hasMore || this.currentPage >= this.totalPages) {
+                            if (this.noMoreProducts) this.noMoreProducts.style.display = 'block';
+                        }
+
+                        this.currentPage++;
+                        this.updateProductCount();
+                    }
+                } catch (error) {
+                    console.error('Ürünler yüklenirken hata:', error);
+                    this.showError();
+                } finally {
+                    this.isLoading = false;
+                    if (this.loadingIndicator) this.loadingIndicator.style.display = 'none';
+                }
+            }
+
+            async loadMore() {
+                if (!this.hasMore || this.isLoading) return;
+                await this.loadProducts();
+            }
+
+            renderProducts(products) {
+                if (this.currentPage === 1) {
+                    this.productsGrid.innerHTML = '';
+                }
+
+                products.forEach(product => {
+                    const card = this.createProductCard(product);
+                    this.productsGrid.appendChild(card);
+                });
+
+                this.attachCardEvents();
+            }
+
+            createProductCard(product) {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.productId = product.Id;
+
+                const discountPercent = product.EskiFiyat && product.EskiFiyat > product.Fiyat
+                    ? Math.round(((product.EskiFiyat - product.Fiyat) / product.EskiFiyat) * 100)
+                    : null;
+
+                const badges = [];
+                if (product.YeniMi) badges.push('<span class="badge new">Yeni</span>');
+                if (product.CokSatanMi) badges.push('<span class="badge bestseller">Çok Satan</span>');
+                if (product.UcretsizKargoVarMi) badges.push('<span class="badge free-shipping">Ücretsiz Kargo</span>');
+                if (discountPercent) badges.push(`<span class="badge discount">%${discountPercent}</span>`);
+
+                const currentPrice = (product.IndirimliFiyat || product.Fiyat).toLocaleString('tr-TR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+                const taksitMiktari = product.TaksitSecenekleri || 6;
+                const taksitFiyati = (product.IndirimliFiyat || product.Fiyat) / taksitMiktari;
+
+                card.innerHTML = `
+                    <div class="card-image-section">
+                        <a href="/urun/detay/${product.Id}" class="product-image-link">
+                            <img src="${product.AnaGorsel || '/images/placeholder.jpg'}"
+                                 alt="${product.Ad.replace(/"/g, '&quot;')}"
+                                 class="product-image"
+                                 loading="lazy"
+                                 onerror="this.src='/images/placeholder.jpg'">
+                            ${product.HoverGorsel ? `
+                                <img src="${product.HoverGorsel}"
+                                     alt="${product.Ad.replace(/"/g, '&quot;')}"
+                                     class="product-image hover-image"
+                                     loading="lazy"
+                                     onerror="this.style.display='none'">
+                            ` : ''}
+                        </a>
+                        <div class="product-badges">
+                            ${badges.join('')}
+                        </div>
+                        <button class="fav-btn" data-product-id="${product.Id}">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            </svg>
+                        </button>
                     </div>
-                    <div class="product-info">
-                        <h3>${urun.urunAdi}</h3>
-                        <span class="price">${urun.dovizSembol}${urun.fiyat}</span>
+                    <div class="card-content">
+                        <div class="product-category">
+                            <span>${product.KategoriAdi || 'Kategori'}</span>
+                            <span>★ ${(product.Rating || 4.5).toFixed(1)}</span>
+                        </div>
+                        <h3 class="product-title">
+                            <a href="/urun/detay/${product.Id}">${product.Ad}</a>
+                        </h3>
+                        ${product.Renkler && product.Renkler.length > 0 ? `
+                            <div class="product-variants">
+                                <div class="variant-selector">
+                                    <span class="variant-label">Renk:</span>
+                                    <div class="variant-options">
+                                        ${product.Renkler.map((renk, index) => `
+                                            <button class="variant-option ${index === 0 ? 'active' : ''}"
+                                                    data-variant-id="${renk.Id}"
+                                                    data-product-id="${renk.UrunId || product.Id}"
+                                                    style="background: ${renk.HexKodu || '#f0f0f0'};"
+                                                    title="${renk.Ad}">
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                        <div class="product-price-section">
+                            <div class="price-main">
+                                <span class="current-price">₺${currentPrice}</span>
+                                ${product.EskiFiyat && product.EskiFiyat > product.Fiyat ? `
+                                    <span class="old-price">₺${product.EskiFiyat.toLocaleString('tr-TR')}</span>
+                                ` : ''}
+                            </div>
+                            ${product.TaksitSecenekleri > 0 ? `
+                                <div class="installment">
+                                    <span>${taksitMiktari}x</span>
+                                    <span class="installment-price">₺${taksitFiyati.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn" data-product-id="${product.Id}">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 22a1 1 0 100-2 1 1 0 000 2zM20 22a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                Sepete Ekle
+                            </button>
+                            <button class="quick-view-btn" data-product-id="${product.Id}">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </a>
-            `);
-        });
+                `;
 
-        page++;
-        loading = false;
-    }
+                return card;
+            }
 
-    // 🔥 Scroll observer
-    const observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-            loadProducts();
+            attachCardEvents() {
+                // Sepete ekle butonları
+                document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                    btn.removeEventListener('click', this.handleAddToCart);
+                    btn.addEventListener('click', this.handleAddToCart);
+                });
+
+                // Favori butonları
+                document.querySelectorAll('.fav-btn').forEach(btn => {
+                    btn.removeEventListener('click', this.handleFavorite);
+                    btn.addEventListener('click', this.handleFavorite);
+                });
+
+                // Renk değiştirme butonları
+                document.querySelectorAll('.variant-option').forEach(btn => {
+                    btn.removeEventListener('click', this.handleColorChange);
+                    btn.addEventListener('click', this.handleColorChange);
+                });
+            }
+
+            handleAddToCart(e) {
+                const btn = e.currentTarget;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Eklendi`;
+                btn.style.background = '#4CAF50';
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            }
+
+            handleFavorite(e) {
+                const btn = e.currentTarget;
+                btn.classList.toggle('active');
+
+                const svg = btn.querySelector('svg');
+                const path = svg.querySelector('path');
+
+                if (btn.classList.contains('active')) {
+                    path.setAttribute('fill', '#E8B4B8');
+                    path.setAttribute('stroke', '#E8B4B8');
+                } else {
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke', 'currentColor');
+                }
+            }
+
+            handleColorChange(e) {
+                const btn = e.currentTarget;
+                const selector = btn.closest('.variant-selector');
+                const newProductId = btn.dataset.productId;
+                
+                if (selector) {
+                    selector.querySelectorAll('.variant-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                }
+
+                // Farklı bir ürün ID'si varsa sayfayı yenile
+                if (newProductId && newProductId !== btn.closest('.product-card')?.dataset.productId) {
+                    window.location.href = `/urun/detay/${newProductId}`;
+                }
+            }
+
+            updateProductCount() {
+                if (this.productCountSpan) {
+                    this.productCountSpan.textContent = this.totalProducts;
+                }
+            }
+
+            showError() {
+                this.productsGrid.innerHTML = `
+                    <div class="error-message">
+                        Ürünler yüklenirken bir hata oluştu.
+                        <button onclick="location.reload()">Tekrar Dene</button>
+                    </div>
+                `;
+            }
         }
-    });
-    observer.observe(trigger);
 
-    // 🔥 Renkleri renderle ve seç
-    function renderColors(renkler) {
-        colorContainer.innerHTML = "";
-
-        renkler.forEach(renk => {
-            const btn = document.createElement("button");
-            btn.className = "color-circle";
-            btn.style.backgroundColor = renk.hex;
-            btn.dataset.renkId = renk.id;
-
-            btn.addEventListener("click", () => {
-                // önce tümünü temizle
-                document.querySelectorAll(".color-circle").forEach(x => x.classList.remove("active"));
-
-                // seçili yap
-                btn.classList.add("active");
-                aktifFiltre.renkId = renk.id;
-
-                console.log("Seçilen renkId:", aktifFiltre.renkId);
-            });
-
-            colorContainer.appendChild(btn);
+        // Sayfa yüklendiğinde başlat
+        document.addEventListener('DOMContentLoaded', () => {
+            const kategoriId = getKategoriIdFromUrl();
+            if (kategoriId) {
+                new CategoryProductLoader(kategoriId);
+            }
         });
-    }
 
-    // 🔥 Filtrele butonu
-    document.getElementById("applyFilter").addEventListener("click", () => {
-        aktifFiltre.minFiyat = parseInt(document.getElementById("minPrice").value) || null;
-        aktifFiltre.maxFiyat = parseInt(document.getElementById("maxPrice").value) || null;
-
-        console.log("Filtre gönderiliyor:", aktifFiltre);
-        loadProducts(true);
-    });
-
-    // 🔥 Örnek renkleri bas (gerçek backend’den çek)
-    const renklerOrnek = [
-        { id: 1, hex: "#ffffff" },
-        { id: 2, hex: "#000000" },
-        { id: 3, hex: "#567C8D" }
-    ];
-    renderColors(renklerOrnek);
-
-    // 🚀 İlk yük
-    loadProducts();
-</script>
-
+        function getKategoriIdFromUrl() {
+            const pathParts = window.location.pathname.split('/');
+            return pathParts[pathParts.length - 1];
+        }
+    </script>
+}

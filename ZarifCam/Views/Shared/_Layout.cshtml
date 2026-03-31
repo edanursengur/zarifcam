@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css\Layout\header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\HeroSlider.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\KategoriSldier.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\BasicKategori.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\KendiStiliniOlustur.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\MarkaHikayesi.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\Instagram.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\UrunKartSlider.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\Avantajlar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\Yorumlar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css\Layout\CeyizPaketleri.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/ZarifCam.styles.css" asp-append-version="true" />
 
     <link rel="stylesheet"
@@ -15,44 +26,176 @@
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="/css/favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/css/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/css/favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/css/favicon_io/apple-touch-icon.png">
 
 </head>
-<a href="https://wa.me/905451001686?text=Merhaba%20bilgi%20almak%20istiyorum"
-   class="whatsapp-float"
-   target="_blank"
-   aria-label="WhatsApp ile iletişime geç">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+
 <body>
-
     <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="logo">
-                Zarif<span>Cam</span>
-            </a>
-            <button class="hamburger" aria-label="Menü Aç" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav class="main-nav">
-                <a href="/Atolyemiz">Atölyemiz</a>
-                <a href="/Kategori">Kategoriler</a>
-                <a href="/Urunler">Ürünlerimiz</a>
-                <a href="/Home/Hakkimizda">Hakkımızda</a>
-                <a href="/Home/Iletisim">İletişim</a>
-            </nav>
-
+        <!-- 1. Katman: Üst Bilgiler -->
+        <div class="header-top">
+            <div class="container">
+                <div class="top-left">
+                   
+                    <a href="https://wa.me/905451001686" target="_blank" class="top-link">
+                        <i class="fab fa-whatsapp" id="header-basklik"></i>
+                        @* <span>WhatsApp</span> *@
+                    </a>
+                    <a href="mailto:info@zarifcam.com" class="top-link">
+                        <i class="fas fa-envelope" id="header-basklik"></i>
+                        @* <span>E-posta</span> *@
+                    </a>
+                    <a href="https://www.instagram.com/zarif_cam" target="_blank" class="top-link">
+                        <i class="fab fa-instagram" id="header-basklik"></i>
+                        @* <span>Instagram</span> *@
+                    </a>
+                </div>
+                <div class="top-center">
+                    <span class="header-basklik">2500 TL Üzeri Alışverişlerde Kargo Ücretsiz</span>
+                    
+                </div>
+                <div class="top-right">
+                    <a href="/SiparisTakip" class="header-basklik"> Sipariş Takibi</a>
+                    @* <a href="/Favoriler"><i class="fas fa-heart"></i> Favoriler</a> *@
+                    @* <a href="/Sepet"><i class="fas fa-shopping-cart"></i> Sepet</a> *@
+                    <a href="/Hesabim" class="header-basklik">Yardım & Destek </a>
+                </div>
+            </div>
         </div>
 
-        <nav class="mobile-nav" id="mobileNav">
-            <a href="/Atolyemiz">Atölyemiz</a>
-            <a href="/Kategori">Kategoriler</a>
-            <a href="/Urunler">Ürünlerimiz</a>
-            <a href="/Home/Hakkimizda">Hakkımızda</a>
-            <a href="/Home/Iletisim">İletişim</a>
-        </nav>
+        <!-- 2. Katman: Logo ve Arama -->
+        <div class="header-middle">
+            <div class="container">
+                <a href="/" class="logo">
+                    @* <img src="~/css/logo (2).png" alt="ZarifCam Logo" class="logo-img"> *@
+                    <div class="logo-text">
+                        <span class="slogan">Camın Zarif Dünyası</span>
+                        <span class="brand">ZarifCam</span>
+
+                    </div>
+                </a>
+
+                <div class="search-container">
+                    <form action="/Ara" method="get" class="search-form">
+                        <input type="text" name="q" placeholder="Ürün ara..." class="search-input">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="header-icons">
+                    <a href="/Favoriler" class="icon-item" aria-label="Favoriler">
+                        <i class="fas fa-heart"></i>
+                        <span class="icon-badge">3</span>
+                    </a>
+                    <a href="/Sepet" class="icon-item" aria-label="Sepet">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="icon-badge">2</span>
+                    </a>
+                    <a href="/Hesabim" class="icon-item" aria-label="Hesabım">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Katman: Ana Navigasyon -->
+        <div class="header-bottom">
+            <div class="container">
+                <nav class="main-nav">
+                    <div class="nav-item">
+                        <a href="/Urunler" class="nav-link">
+                             Tüm Ürünler
+                        </a>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="/Kategori" class="nav-link">
+                            Kategoriler
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="/Kategori/Vazolar">Vazolar</a>
+                            <a href="/Kategori/Saksi">Saksılar</a>
+                            <a href="/Kategori/Samdans">Şamdanlar</a>
+                            <a href="/Kategori/Tablos">Cam Tablolar</a>
+                            <a href="/Kategori/Bardak">Bardaklar</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="/Atolyemiz" class="nav-link">
+                            Atölyemiz
+                        </a>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link">
+                           Koleksiyonlar
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="/Koleksiyon/Limuzin"><i class="fas fa-star"></i> Limuzin Koleksiyonu</a>
+                            <a href="/Koleksiyon/Eskisehir"><i class="fas fa-moon"></i> Eskişehir Serisi</a>
+                            <a href="/Koleksiyon/Ozel"><i class="fas fa-crown"></i> Özel Tasarımlar</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="/Home/Hakkimizda" class="nav-link">
+                             Hakkımızda
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="/Home/Iletisim" class="nav-link">
+                           İletişim
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="/Indirim" class="nav-link sale">
+                            <i class="fas fa-percentage"></i> İndirimli Ürünler
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Mobile Menü Butonu -->
+        <button class="hamburger" aria-label="Menü Aç" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Mobil Menü -->
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-header">
+                <a href="/" class="logo">ZarifCam</a>
+                <button class="close-menu" id="closeMenu">&times;</button>
+            </div>
+            <div class="mobile-search">
+                <input type="text" placeholder="Ürün ara..." class="mobile-search-input">
+                <button class="mobile-search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <nav class="mobile-menu">
+                <a href="/Urunler"><i class="fas fa-glass-whiskey"></i> Tüm Ürünler</a>
+                <a href="/Kategori"><i class="fas fa-th-large"></i> Kategoriler</a>
+                <a href="/Atolyemiz"><i class="fas fa-palette"></i> Atölyemiz</a>
+                <a href="/Koleksiyonlar"><i class="fas fa-gem"></i> Koleksiyonlar</a>
+                <a href="/Home/Hakkimizda"><i class="fas fa-info-circle"></i> Hakkımızda</a>
+                <a href="/Home/Iletisim"><i class="fas fa-phone-alt"></i> İletişim</a>
+                <a href="/Indirim"><i class="fas fa-percentage"></i> İndirimli Ürünler</a>
+            </nav>
+            <div class="mobile-bottom">
+                <a href="/Favoriler"><i class="fas fa-heart"></i> Favoriler</a>
+                <a href="/Sepet"><i class="fas fa-shopping-cart"></i> Sepet</a>
+                <a href="/Hesabim"><i class="fas fa-user"></i> Hesabım</a>
+            </div>
+        </div>
     </header>
+   
 
     <div class="container">
 
@@ -65,29 +208,56 @@
         <div class="footer-container">
             <div class="footer-brand">
                 <h3>ZarifCam</h3>
-                <p>Zarif cam tasarımlarıyla yaşam alanlarınıza değer katar.</p>
+                <p>Zarif cam tasarımlarıyla yaşam alanlarınıza değer katar. Özel tasarım cam ürünlerinde 20 yıllık deneyim.</p>
+
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
 
             <div class="footer-links">
                 <h4>Kurumsal</h4>
                 <ul>
-                    <li><a href="#">Hakkımızda</a></li>
-                    <li><a href="#">Gizlilik Politikası</a></li>
-                    <li><a href="#">KVKK</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="#">Hakkımızda</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="#">Gizlilik Politikası</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="#">KVKK Aydınlatma Metni</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="#">Çerez Politikası</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="#">Kalite Politikamız</a></li>
                 </ul>
             </div>
 
             <div class="footer-links">
                 <h4>İletişim</h4>
-                <ul>
-                    <li>info@zarifcam.com</li>
-                    <li>+90 5XX XXX XX XX</li>
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> info@zarifcam.com</li>
+                    <li><i class="fas fa-phone"></i> +90 (532) 123 45 67</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Camcılar Sit. No:45, 34340 Beyoğlu/İstanbul</li>
+                    <li><i class="fas fa-clock"></i> Pzt-Cuma: 09:00-18:00</li>
                 </ul>
             </div>
+
+
+        </div>
+
+        <div class="footer-extra">
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa" title="Visa"></i>
+                <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                <i class="fab fa-cc-amex" title="American Express"></i>
+                <i class="fab fa-cc-paypal" title="PayPal"></i>
+            </div>
+
+            <button class="back-to-top" id="backToTop">
+                <i class="fas fa-arrow-up"></i> Başa Dön
+            </button>
         </div>
 
         <div class="footer-bottom">
-            © @DateTime.Now.Year ZarifCam. Tüm hakları saklıdır.
+            © <span id="currentYear">2023</span> ZarifCam. Tüm hakları saklıdır.
         </div>
     </footer>
 
@@ -95,6 +265,14 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/Layout/header.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/HeroSlider.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/KategoriSlider.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/MarkaHikayesi.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/Instagram.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/UrunKartSlider.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/Avantajlar.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/Yorumlar.js" asp-append-version="true"></script>
+    <script src="~/js/Layout/CeyizPaketleri.js" asp-append-version="true"></script>
     <script>
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
@@ -126,6 +304,18 @@
                 header.classList.remove("scrolled");
             }
         });
+    </script>
+    <script>
+        // Yılı otomatik olarak güncelle
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Başa dön butonu işlevselliği
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+
+      
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

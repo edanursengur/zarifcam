@@ -7,22 +7,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Views\Hakkimizda\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<!-- SQL Server için TEMEL PAKETLER -->
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
 
 		<!-- Mevcut Paketler -->
 		<PackageReference Include="Dapper" Version="2.1.66" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\css\NewFolder\" />
 	</ItemGroup>
 
 </Project>

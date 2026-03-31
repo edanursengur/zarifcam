@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZarifCam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d1c8e23880f9426e8249f6b7062367939214e3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZarifCam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZarifCam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,497 @@
+﻿/* ==================== TRENDYOL TARZI ÜRÜN SLIDER ==================== */
+.trendyol-product-slider {
+    padding: 30px 0px;
+    background: #ffffff;
+    margin: 20px 0;
+}
+
+/* Slider Header */
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.slider-title-section {
+    flex: 1;
+}
+
+.slider-main-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2C3E50;
+    margin: 0 0 8px 0;
+}
+
+.slider-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* Navigation Controls */
+.slider-nav-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.slider-nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(86, 124, 141, 0.2);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .slider-nav-btn:hover {
+        background: #567C8D;
+        border-color: #567C8D;
+    }
+
+        .slider-nav-btn:hover svg {
+            stroke: white;
+        }
+
+    .slider-nav-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+        .slider-nav-btn:disabled:hover {
+            background: white;
+            border-color: rgba(86, 124, 141, 0.2);
+        }
+
+            .slider-nav-btn:disabled:hover svg {
+                stroke: currentColor;
+            }
+
+/* Slider Container */
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.product-slider-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    padding: 5px 5px 15px;
+}
+
+/* Product Card */
+.product-card {
+    flex: 0 0 calc(25% - 15px); /* 4 kart yan yana */
+    min-width: 260px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(86, 124, 141, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        border-color: rgba(86, 124, 141, 0.2);
+    }
+
+/* Image Section */
+.card-image-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+/* Product Badges */
+.product-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+    .badge.new {
+        background: #567C8D;
+    }
+
+    .badge.discount {
+        background: #E8B4B8;
+    }
+
+    .badge.bestseller {
+        background: #FF6B6B;
+    }
+
+    .badge.limited {
+        background: #FFA726;
+    }
+
+    .badge.free-shipping {
+        background: #7D9D9C;
+    }
+
+/* Favorite Button */
+.fav-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+    .fav-btn:hover {
+        background: #f8f9fa;
+        border-color: #567C8D;
+    }
+
+    .fav-btn.active {
+        background: #f8f9fa;
+        border-color: #E8B4B8;
+    }
+
+        .fav-btn.active svg {
+            fill: #E8B4B8;
+        }
+
+/* Card Content */
+.card-content {
+    padding: 15px;
+}
+
+.product-category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+    .product-category span:last-child {
+        color: #FFA726;
+        font-weight: 600;
+    }
+
+.product-title {
+    margin: 0 0 12px 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    height: 42px;
+    overflow: hidden;
+}
+
+    .product-title a {
+        color: #2C3E50;
+        text-decoration: none;
+    }
+
+        .product-title a:hover {
+            color: #567C8D;
+        }
+
+/* Variants */
+.product-variants {
+    margin-bottom: 15px;
+}
+
+.variant-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.variant-label {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.variant-options {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.variant-option {
+    padding: 4px 10px;
+    border: 1px solid rgba(86, 124, 141, 0.3);
+    background: white;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 24px;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .variant-option.active {
+        border-color: #567C8D;
+        background: #567C8D;
+        color: white;
+    }
+
+    .variant-option:hover:not(.active) {
+        border-color: #567C8D;
+    }
+
+/* Price Section */
+.product-price-section {
+    margin-bottom: 15px;
+}
+
+.price-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.current-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2C3E50;
+}
+
+.old-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.installment {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #666;
+}
+
+.installment-price {
+    font-weight: 600;
+    color: #567C8D;
+}
+
+/* Product Actions */
+.product-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.add-to-cart-btn {
+    flex: 1;
+    padding: 10px 12px;
+    background: #567C8D;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+    .add-to-cart-btn:hover {
+        background: #456977;
+        transform: translateY(-2px);
+    }
+
+.quick-view-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(86, 124, 141, 0.3);
+    background: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .quick-view-btn:hover {
+        background: #f8f9fa;
+        border-color: #567C8D;
+    }
+
+/* Slider Footer */
+.slider-footer {
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+    border-top: 1px solid rgba(86, 124, 141, 0.1);
+}
+
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: white;
+    color: #567C8D;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 2px solid #567C8D;
+    transition: all 0.3s ease;
+}
+
+    .view-all-btn:hover {
+        background: #567C8D;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(86, 124, 141, 0.2);
+    }
+
+    .view-all-btn svg {
+        transition: transform 0.3s ease;
+    }
+
+    .view-all-btn:hover svg {
+        transform: translateX(5px);
+    }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1200px) {
+    .product-card {
+        flex: 0 0 calc(33.333% - 13.33px); /* 3 kart */
+    }
+}
+
+@media (max-width: 992px) {
+    .product-card {
+        flex: 0 0 calc(50% - 10px); /* 2 kart */
+    }
+
+    .slider-header {
+        gap: 15px;
+    }
+
+    .slider-nav-controls {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .trendyol-product-slider {
+        padding: 50px 15px;
+    }
+
+    .product-card {
+        flex: 0 0 calc(50% - 10px);
+        min-width: 220px;
+    }
+
+    .card-image-section {
+        /*height: 180px;*/
+    }
+
+    .product-title {
+        font-size: 14px;
+        height: 38px;
+    }
+
+    .current-price {
+        font-size: 16px;
+    }
+
+    .add-to-cart-btn {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-card {
+        flex: 0 0 calc(100% - 20px); /* 1 kart */
+        min-width: 280px;
+    }
+
+    .slider-main-title {
+        font-size: 20px;
+    }
+
+    .slider-nav-controls {
+        justify-content: center;
+    }
+    .slider-header {
+        align-items: flex-start;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .product-card:hover {
+        transform: none;
+    }
+
+    .add-to-cart-btn:hover,
+    .view-all-btn:hover,
+    .fav-btn:hover,
+    .quick-view-btn:hover {
+        transform: none;
+    }
+
+    .variant-option {
+        min-width: 32px;
+        min-height: 32px;
+    }
+}

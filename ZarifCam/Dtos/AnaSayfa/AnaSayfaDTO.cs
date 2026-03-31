@@ -1,4 +1,6 @@
-﻿namespace ZarifCam.Dtos.AnaSayfa
+﻿using ZarifCam.Dtos.Kampanya;
+
+namespace ZarifCam.Dtos.AnaSayfa
 {
     // DTO Klasörü
 

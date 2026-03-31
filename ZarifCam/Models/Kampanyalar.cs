@@ -50,6 +50,10 @@ namespace ZarifCam.Models
         public string KuponKodu { get; set; }
 
         // Navigation property
-        public virtual ICollection<KampanyaKurallar> Kurallar { get; set; }
+        public KampanyaTipi KampanyaTipi { get; set; }
+        
+        // İlişkiler
+        public List<KampanyaKurallar> Kurallar { get; set; }
+        public List<KampanyaKartlari> Kartlar { get; set; }
     }
 }

@@ -4,6 +4,7 @@
     public class UrunDTO
     {
         public long TabloID { get; set; }
+        public long UrunID { get; set; }
         public string Ad { get; set; }
         public string Slug { get; set; }
         public string KisaAciklama { get; set; }

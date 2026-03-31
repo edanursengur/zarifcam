@@ -1,8 +1,10 @@
+using KampanyaYonetim.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ZarifCam.Data;
 using ZarifCam.IService;
 using ZarifCam.Service;
+using ZarifCam.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // ==================== SERVICES (DEPENDENCY INJECTION) ====================
 builder.Services.AddScoped<IWebUrunService, WebUrunService>();
 builder.Services.AddScoped<IAnaSayfaService, AnaSayfaService>();
+builder.Services.AddScoped<IKampanyaService, KampanyaService>();
 
 // Database Services
 //builder.Services.AddScoped<ISliderService, SliderService>();

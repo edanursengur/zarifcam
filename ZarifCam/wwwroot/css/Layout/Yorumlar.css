@@ -1,0 +1,348 @@
+﻿/* ==================== AKAN YORUMLAR SLIDER ==================== */
+.flowing-reviews-slider {
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+
+/* Container */
+.flowing-reviews-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+/* Track - Sonsuz döngü için */
+.flowing-reviews-track {
+    display: flex;
+    gap: 20px;
+    animation: flowingSlide 40s linear infinite;
+    will-change: transform;
+    padding: 10px 0;
+}
+
+/* Pause on hover */
+.flowing-reviews-container:hover .flowing-reviews-track {
+    animation-play-state: paused;
+}
+
+/* Reviews Set */
+.flowing-reviews-set {
+    display: flex;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+/* Review Card */
+.flowing-review-card {
+    flex: 0 0 300px;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(86, 124, 141, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .flowing-review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        border-color: rgba(86, 124, 141, 0.2);
+    }
+
+/* Review Content */
+.flowing-review-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Reviewer */
+.flowing-reviewer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.flowing-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #567C8D 0%, #7D9D9C 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.flowing-reviewer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+    .flowing-reviewer-info h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2C3E50;
+        margin: 0;
+    }
+
+.flowing-verified {
+    font-size: 12px;
+    color: #7D9D9C;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+    .flowing-verified::before {
+        content: '✓';
+        width: 14px;
+        height: 14px;
+        background: #7D9D9C;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+    }
+
+/* Stars */
+.flowing-stars {
+    font-size: 18px;
+    color: #FFA726;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+/* Review Text */
+.flowing-review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 15px 0;
+    flex: 1;
+    font-style: italic;
+}
+
+    .flowing-review-text::before,
+    .flowing-review-text::after {
+        content: '"';
+        color: #567C8D;
+        font-weight: bold;
+    }
+
+/* Product */
+.flowing-product {
+    font-size: 14px;
+    color: #567C8D;
+    font-weight: 600;
+    padding: 8px 12px;
+    background: rgba(86, 124, 141, 0.05);
+    border-radius: 6px;
+    border-left: 3px solid #567C8D;
+    margin-top: auto;
+}
+
+/* Gradient Overlay'lar */
+.flowing-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.left-overlay {
+    left: 0;
+    background: linear-gradient(to right, #f8f9fa 0%, transparent 100%);
+}
+
+.right-overlay {
+    right: 0;
+    background: linear-gradient(to left, #f8f9fa 0%, transparent 100%);
+}
+
+/* Footer */
+.flowing-reviews-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.flowing-all-reviews-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    background: white;
+    color: #567C8D;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 2px solid #567C8D;
+    transition: all 0.3s ease;
+}
+
+    .flowing-all-reviews-btn:hover {
+        background: #567C8D;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(86, 124, 141, 0.2);
+    }
+
+    .flowing-all-reviews-btn svg {
+        transition: transform 0.3s ease;
+    }
+
+    .flowing-all-reviews-btn:hover svg {
+        transform: translateX(5px);
+    }
+
+/* ==================== ANIMATION ==================== */
+@keyframes flowingSlide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%); /* Set genişliğinin yarısı kadar kaydır */
+    }
+}
+
+/* Yorum kartlarına gecikmeli animasyon */
+@keyframes fadeInFlow {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.flowing-review-card {
+    animation: fadeInFlow 0.6s ease forwards;
+}
+
+    /* Stagger animation delays */
+    .flowing-review-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .flowing-review-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .flowing-review-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .flowing-review-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .flowing-review-card:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1200px) {
+    .flowing-review-card {
+        flex: 0 0 280px;
+    }
+
+    .flowing-overlay {
+        width: 80px;
+    }
+}
+
+@media (max-width: 992px) {
+    .flowing-reviews-slider {
+        padding: 30px 15px;
+    }
+
+    .flowing-reviews-title {
+        font-size: 24px;
+    }
+
+    .flowing-review-card {
+        flex: 0 0 260px;
+        padding: 20px;
+    }
+
+    .flowing-overlay {
+        width: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .flowing-review-card {
+        flex: 0 0 240px;
+    }
+
+    .flowing-stars {
+        font-size: 16px;
+    }
+
+    .flowing-review-text {
+        font-size: 14px;
+    }
+
+    .flowing-overlay {
+        width: 40px;
+    }
+
+    /* Mobilde animasyon hızını artır */
+    .flowing-reviews-track {
+        animation-duration: 30s;
+    }
+}
+
+@media (max-width: 576px) {
+    .flowing-review-card {
+        flex: 0 0 220px;
+    }
+
+    .flowing-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .flowing-overlay {
+        width: 30px;
+    }
+
+    /* Çok küçük ekranlarda overlay'ı kaldır */
+    @media (max-width: 400px) {
+        .flowing-overlay {
+            display: none;
+        }
+    }
+}
+
+/* Pause animation for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .flowing-reviews-track {
+        animation: none;
+    }
+}

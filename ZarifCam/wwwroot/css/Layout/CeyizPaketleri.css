@@ -1,0 +1,825 @@
+﻿/* ==================== ÇEYİZ SLIDER ==================== */
+.dowry-slider-section {
+    padding: 50px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    margin: 30px 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Header - Desktop'ta flex, mobilde column */
+.dowry-slider-header {
+    display: flex;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 40px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slider-title-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.slider-main-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2C3E50;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+}
+
+.slider-subtitle {
+    font-size: 16px;
+    color: #567C8D;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Desktop-only Navigation - Mobilde gizlenecek */
+.slider-nav-controls.desktop-only {
+    display: flex;
+    gap: 12px;
+}
+
+/* Mobilde navigasyon butonlarını gizle */
+@media (max-width: 768px) {
+    .slider-nav-controls.desktop-only {
+        display: none !important;
+    }
+}
+
+.slider-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(86, 124, 141, 0.2);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+    .slider-nav-btn:hover {
+        background: #567C8D;
+        border-color: #567C8D;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(86, 124, 141, 0.2);
+    }
+
+        .slider-nav-btn:hover svg {
+            stroke: white;
+        }
+
+    .slider-nav-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+        .slider-nav-btn:disabled:hover {
+            background: white;
+            border-color: rgba(86, 124, 141, 0.2);
+        }
+
+            .slider-nav-btn:disabled:hover svg {
+                stroke: currentColor;
+            }
+
+/* Slider Container - Mobilde yanlardan taşsın */
+.dowry-slider-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    overflow: visible; /* Mobilde görünür olacak */
+    padding: 20px 0 50px;
+}
+
+/* Slider Track - Mobilde yanlardan görünecek */
+.dowry-slider-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    padding: 10px 40px; /* Desktop'ta padding */
+}
+
+/* Slide - Desktop'ta 3'lü, mobilde tekli */
+.dowry-slide {
+    flex: 0 0 calc(35.333% - 20px);
+    min-width: 0;
+    scroll-snap-align: start; /* Mobilde snap için */
+}
+
+/* Card */
+.slide-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(86, 124, 141, 0.1);
+    transition: all 0.4s ease;
+    height: 100%;
+}
+
+    .slide-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        border-color: rgba(86, 124, 141, 0.2);
+    }
+
+/* Badge */
+.card-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    color: white;
+}
+
+    .card-badge.popular {
+        background: linear-gradient(90deg, #FF6B6B 0%, #FF8E8E 100%);
+    }
+
+    .card-badge.premium {
+        background: linear-gradient(90deg, #567C8D 0%, #7D9D9C 100%);
+    }
+
+    .card-badge.luxury {
+        background: linear-gradient(90deg, #E8B4B8 0%, #FFA726 100%);
+        color: #2C3E50;
+    }
+
+    .card-badge.custom {
+        background: linear-gradient(90deg, #9C27B0 0%, #E1BEE7 100%);
+        color: white;
+    }
+
+/* Image */
+.card-image {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+.slide-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Content */
+.card-content {
+    padding: 25px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2C3E50;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.card-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.stars {
+    font-size: 16px;
+    color: #FFA726;
+    letter-spacing: 1px;
+}
+
+.rating-text {
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+}
+
+/* Description */
+.card-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0 0 20px 0;
+    min-height: 44px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Features */
+.card-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(86, 124, 141, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+    .feature:hover {
+        background: rgba(86, 124, 141, 0.1);
+        transform: translateX(3px);
+    }
+
+.feature-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.feature-text {
+    font-size: 13px;
+    color: #567C8D;
+    font-weight: 500;
+}
+
+/* Price */
+.card-price {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(86, 124, 141, 0.05) 0%, rgba(232, 180, 184, 0.05) 100%);
+    border-radius: 10px;
+    border-left: 4px solid #567C8D;
+}
+
+.price-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.current-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2C3E50;
+}
+
+.old-price {
+    font-size: 18px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.price-saving {
+    font-size: 14px;
+    color: #7D9D9C;
+    font-weight: 600;
+}
+
+/* Actions */
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+}
+
+.detail-btn {
+    flex: 1;
+    background: #567C8D;
+    color: white;
+}
+
+    .detail-btn:hover {
+        background: #456977;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(86, 124, 141, 0.2);
+    }
+
+.cart-btn,
+.whatsapp-btn {
+    width: 50px;
+    background: white;
+    border: 1px solid rgba(86, 124, 141, 0.3);
+    flex-shrink: 0;
+}
+
+    .cart-btn:hover {
+        background: #f8f9fa;
+        border-color: #567C8D;
+        transform: translateY(-2px);
+    }
+
+.whatsapp-btn {
+    background: rgba(37, 211, 102, 0.1);
+    border-color: rgba(37, 211, 102, 0.3);
+}
+
+    .whatsapp-btn:hover {
+        background: rgba(37, 211, 102, 0.2);
+        transform: translateY(-2px);
+    }
+
+/* Progress Bar */
+.slider-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(86, 124, 141, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #567C8D 0%, #7D9D9C 100%);
+    width: 25%;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Dots */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 0 10px;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .slider-dot.active {
+        background: #567C8D;
+        transform: scale(1.2);
+    }
+
+    .slider-dot:hover:not(.active) {
+        background: #aaa;
+        transform: scale(1.1);
+    }
+
+/* CTA Button - Mobilde daha ince ve zarif */
+.dowry-cta {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    margin-top: 30px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 40px;
+    background: linear-gradient(90deg, #567C8D 0%, #7D9D9C 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(86, 124, 141, 0.15);
+    letter-spacing: 0.3px;
+    min-height: 56px;
+}
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(86, 124, 141, 0.25);
+        background: linear-gradient(90deg, #456977 0%, #6D8C8B 100%);
+    }
+
+    .cta-button svg {
+        transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover svg {
+        transform: translateX(8px);
+    }
+
+.cta-text {
+    font-weight: 600;
+}
+
+/* ==================== MOBİL RESPONSIVE ==================== */
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .dowry-slide {
+        /*flex: 0 0 calc(50% - 15px);*/
+    }
+
+    .dowry-slider-header {
+        padding: 0 30px;
+    }
+
+    .dowry-slider-track {
+        padding: 10px 30px;
+    }
+    /* Mobilde features tek sütun */
+    .card-features {
+        display: none;
+    }
+}
+
+/* Mobil - 768px ve altı */
+@media (max-width: 768px) {
+    .dowry-slider-section {
+        padding: 40px 0;
+        margin: 20px 0;
+    }
+
+    .dowry-slider-header {
+        flex-direction: column;
+        padding: 0 20px;
+        margin-bottom: 20px;
+        gap: 15px;
+    }
+
+    .slider-title-section {
+        /*min-width: 100%;*/
+    }
+
+    .slider-main-title {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+
+    .slider-subtitle {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .dowry-slider-container {
+        margin-bottom: 30px;
+        padding: 10px 0 40px;
+        overflow: visible;
+    }
+
+        /* Mobilde track'e gradient overlay ekle */
+        .dowry-slider-container::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 30%, white 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .dowry-slider-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background: linear-gradient(270deg, transparent 0%, rgba(255,255,255,0.8) 30%, white 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+    .dowry-slider-track {
+        gap: 20px;
+        padding: 10px 25px; /* Mobilde daha az padding */
+        scroll-padding: 0 25px;
+    }
+
+    /* Mobilde slide'lar yanlardan görünecek şekilde */
+    .dowry-slide {
+        flex: 0 0 60%; /* %85 genişlik, yanından gözüksün */
+        min-width: 280px;
+        scroll-snap-align: start;
+    }
+
+    .slide-card {
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-badge {
+        top: 15px;
+        left: 15px;
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+
+    .card-image {
+        height: 180px;
+    }
+
+    .image-overlay {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-header {
+        margin-bottom: 12px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .card-rating {
+        gap: 2px;
+    }
+
+    .stars {
+        font-size: 14px;
+    }
+
+    .rating-text {
+        font-size: 11px;
+    }
+
+    .card-desc {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        min-height: 40px;
+        -webkit-line-clamp: 2;
+    }
+
+    /* Mobilde features tek sütun */
+    .card-features {
+       display:none;
+    }
+
+    .feature {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+
+    .feature-icon {
+        font-size: 14px;
+    }
+
+    .feature-text {
+        font-size: 12px;
+    }
+
+    .card-price {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+
+    .price-main {
+        gap: 10px;
+        margin-bottom: 6px;
+    }
+
+    .current-price {
+        font-size: 22px;
+    }
+
+    .old-price {
+        font-size: 16px;
+    }
+
+    .price-saving {
+        font-size: 12px;
+    }
+
+    .card-actions {
+        gap: 8px;
+    }
+
+    .action-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-height: 44px; /* Mobilde dokunmatik uyumlu */
+    }
+
+    .detail-btn {
+        flex: 1;
+    }
+
+    .cart-btn,
+    .whatsapp-btn {
+        width: 44px;
+        min-height: 44px;
+        flex-shrink: 0;
+    }
+
+    .slider-dots {
+        padding: 15px 0 5px;
+    }
+
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .dowry-cta {
+        padding: 0 20px;
+        margin-top: 20px;
+    }
+
+    .cta-button {
+        padding: 14px 32px;
+        font-size: 14px;
+        min-height: 48px;
+        width: 100%;
+        max-width: 320px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(86, 124, 141, 0.1);
+    }
+
+    .cta-text {
+        font-weight: 600;
+    }
+}
+
+/* Küçük Mobil - 576px ve altı */
+@media (max-width: 576px) {
+    .dowry-slider-header {
+        padding: 0 15px;
+    }
+
+    .slider-main-title {
+        font-size: 24px;
+    }
+
+    .slider-subtitle {
+        font-size: 13px;
+    }
+
+    .dowry-slider-track {
+        padding: 10px 20px;
+        gap: 15px;
+    }
+
+    .dowry-slide {
+        flex: 0 0 82%;
+        min-width: 260px;
+    }
+
+    .card-image {
+        height: 160px;
+    }
+
+    .card-content {
+        padding: 18px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-desc {
+        font-size: 12px;
+        -webkit-line-clamp: 3;
+    }
+
+    .current-price {
+        font-size: 20px;
+    }
+
+    .old-price {
+        font-size: 15px;
+    }
+
+    .cta-button {
+        padding: 12px 24px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+}
+
+/* Çok Küçük Mobil - 375px ve altı */
+@media (max-width: 375px) {
+    .dowry-slide {
+        flex: 0 0 80%;
+        min-width: 240px;
+    }
+
+    .card-image {
+        height: 150px;
+    }
+
+    .card-content {
+        padding: 16px;
+    }
+
+    .card-title {
+        font-size: 17px;
+    }
+
+    .card-desc {
+        font-size: 11px;
+        margin-bottom: 12px;
+    }
+
+    .feature {
+        padding: 6px 8px;
+    }
+
+    .feature-text {
+        font-size: 11px;
+    }
+
+    .current-price {
+        font-size: 19px;
+    }
+
+    .old-price {
+        font-size: 14px;
+    }
+
+    .action-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-height: 40px;
+    }
+
+    .cart-btn,
+    .whatsapp-btn {
+        width: 40px;
+        min-height: 40px;
+    }
+
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 12px;
+        min-height: 42px;
+    }
+}

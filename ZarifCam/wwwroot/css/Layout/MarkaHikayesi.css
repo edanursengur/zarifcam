@@ -1,0 +1,302 @@
+﻿/* ==================== MİNİ MARKA HİKAYESİ ==================== */
+.mini-brand-story {
+    padding: 100px 20px;
+    background: #ffffff;
+    border-top: 1px solid rgba(86, 124, 141, 0.1);
+    border-bottom: 1px solid rgba(86, 124, 141, 0.1);
+    margin: 50px 0;
+    height: 180px; /* Küçük yükseklik */
+    display: flex;
+    align-items: center;
+}
+
+.mini-story-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    gap: 25px;
+    align-items: center;
+    width: 100%;
+}
+
+/* Sol - Görsel */
+.mini-story-visual {
+    height: 130px;
+}
+
+.mini-image-wrapper {
+    position: relative;
+    width: 160px;
+    height: 130px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(86, 124, 141, 0.1);
+    border: 1px solid rgba(86, 124, 141, 0.08);
+}
+
+.mini-story-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.mini-image-wrapper:hover .mini-story-img {
+    transform: scale(1.05);
+}
+
+.mini-image-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(86, 124, 141, 0.9);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+/* Sağ - İçerik */
+.mini-story-content {
+    padding-right: 10px;
+}
+
+.mini-story-header {
+    margin-bottom: 12px;
+}
+
+.mini-story-label {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(86, 124, 141, 0.08);
+    color: #567C8D;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.mini-story-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2C3E50;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.mini-story-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+    margin: 0 0 15px 0;
+    /*max-width: 500px;*/
+}
+
+/* Mini Özellikler */
+.mini-story-features {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.mini-feature {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #567C8D;
+    font-weight: 500;
+}
+
+    .mini-feature svg {
+        flex-shrink: 0;
+    }
+
+/* Butonlar */
+.mini-story-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mini-story-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #567C8D;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid #567C8D;
+}
+
+    .mini-story-btn:hover {
+        background: white;
+        color: #567C8D;
+        transform: translateX(3px);
+    }
+
+    .mini-story-btn svg {
+        transition: transform 0.2s ease;
+    }
+
+    .mini-story-btn:hover svg {
+        transform: translateX(3px);
+    }
+
+.mini-products-btn {
+    padding: 8px 16px;
+    background: white;
+    color: #567C8D;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid #567C8D;
+}
+
+    .mini-products-btn:hover {
+        background: #567C8D;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(86, 124, 141, 0.2);
+    }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 992px) {
+    .mini-brand-story {
+        height: auto;
+        min-height: 160px;
+    }
+
+    .mini-story-container {
+        grid-template-columns: 150px 1fr;
+        gap: 20px;
+    }
+
+    .mini-image-wrapper {
+        width: 90%;
+        height: 180px;
+    }
+
+    .mini-story-title {
+        font-size: 18px;
+    }
+
+    .mini-story-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mini-brand-story {
+        padding: 50px 15px;
+        height: auto;
+    }
+
+    .mini-story-container {
+        grid-template-columns: 1fr;
+        /*gap: 15px;*/
+        text-align: center;
+    }
+
+    .mini-story-visual {
+        height: 120px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .mini-image-wrapper {
+        width: 90%;
+        height: 180px;
+    }
+
+    .mini-story-content {
+        padding-right: 0;
+    }
+
+    .mini-story-features {
+        justify-content: center;
+    }
+
+    .mini-story-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .mini-brand-story {
+        padding: 50px 12px;
+        margin: 10px 0;
+    }
+
+    .mini-image-wrapper {
+        width: 90%;
+        height: 180px;
+    }
+    .mini-story-title {
+        font-size: 17px;
+    }
+
+    .mini-story-text {
+        font-size: 12.5px;
+        margin-bottom: 12px;
+    }
+
+    .mini-story-features {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .mini-feature {
+        font-size: 11px;
+    }
+
+    .mini-story-btn,
+    .mini-products-btn {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+}
+
+/* Animasyonlar */
+@keyframes subtleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mini-story-container {
+    animation: subtleFadeIn 0.4s ease forwards;
+}
+
+/* Hover Efektleri */
+.mini-image-wrapper:hover {
+    box-shadow: 0 6px 16px rgba(86, 124, 141, 0.15);
+}
+
+.mini-feature {
+    transition: all 0.3s ease;
+}
+
+    .mini-feature:hover {
+        transform: translateY(-2px);
+        color: #2C3E50;
+    }

@@ -45,5 +45,6 @@ namespace ZarifCam.Models
 
         [ForeignKey("KategoriID")]
         public virtual Kategori Kategori { get; set; }
+        public Urunler HediyeUrun { get; set; }
     }
 }

@@ -1,0 +1,177 @@
+﻿/* ==================== MİNİ INSTAGRAM YÖNLENDİRME ==================== */
+.mini-instagram-cta {
+    padding: 20px;
+    background: linear-gradient(to right, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+    border-top: 1px solid rgba(86, 124, 141, 0.1);
+    border-bottom: 1px solid rgba(86, 124, 141, 0.1);
+    margin: 15px 0;
+    height: 90px; /* Kısa yükseklik */
+    display: flex;
+    align-items: center;
+}
+
+.mini-insta-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+/* İçerik Bölümü */
+.mini-insta-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.mini-insta-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(86, 124, 141, 0.08);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(86, 124, 141, 0.1);
+}
+
+.mini-insta-text {
+    flex: 1;
+}
+
+.mini-insta-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2C3E50;
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+
+.mini-insta-desc {
+    font-size: 13px;
+    color: #567C8D;
+    margin: 0;
+    line-height: 1.4;
+    opacity: 0.8;
+}
+
+/* Buton */
+.mini-insta-btn {
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #2C3E50;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+    .mini-insta-btn:hover {
+        background: white;
+        color: #567C8D;
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(86, 124, 141, 0.2);
+    }
+
+    .mini-insta-btn svg {
+        transition: transform 0.2s ease;
+    }
+
+    .mini-insta-btn:hover svg {
+        transform: translateX(3px);
+    }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .mini-instagram-cta {
+        padding: 15px;
+        height: 80px;
+        margin: 10px 0;
+    }
+
+    .mini-insta-container {
+        gap: 15px;
+    }
+
+    .mini-insta-content {
+        gap: 12px;
+    }
+
+    .mini-insta-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .mini-insta-title {
+        font-size: 15px;
+    }
+
+    .mini-insta-desc {
+        font-size: 12px;
+    }
+
+    .mini-insta-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .mini-instagram-cta {
+        padding: 100px;
+        height: 150px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .mini-insta-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .mini-insta-content {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .mini-insta-icon {
+        margin: 0 auto;
+    }
+
+    .mini-insta-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animasyonlar */
+@keyframes subtlePulse {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(86, 124, 141, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 4px 12px rgba(86, 124, 141, 0.15);
+    }
+}
+
+
+/* Hover Efektleri */
+.mini-insta-icon {
+    transition: all 0.3s ease;
+}
+
+    .mini-insta-icon:hover {
+        background: rgba(86, 124, 141, 0.12);
+        transform: rotate(15deg);
+    }

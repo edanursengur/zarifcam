@@ -1,0 +1,1067 @@
+﻿@page
+@model object
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+<style>
+    .campaign-card {
+        transition: all 0.3s ease;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .campaign-card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+    .rule-item, .card-item {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+        transition: all 0.3s ease;
+    }
+
+        .rule-item:hover, .card-item:hover {
+            background-color: #e9ecef;
+        }
+
+    .required-field label::after {
+        content: " *";
+        color: red;
+    }
+
+    .image-preview {
+        max-width: 200px;
+        max-height: 200px;
+        border: 2px dashed #dee2e6;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top: 10px;
+    }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+</style>
+
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="display-5 fw-bold text-primary"><i class="bi bi-megaphone me-2"></i>Yeni Kampanya Oluştur</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Kampanya/Index" class="text-decoration-none">Kampanyalar</a></li>
+                            <li class="breadcrumb-item active">Yeni Kampanya</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div>
+                    <a href="/Kampanya/Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Geri Dön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Messages -->
+    <div id="alertContainer"></div>
+
+    <!-- Main Form -->
+    <form method="post" id="kampanyaForm">
+        <input type="hidden" name="__RequestVerificationToken" id="token" />
+
+        <!-- Progress Bar -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar bg-info" id="formProgress" style="width: 25%">Adım 1/4: Temel Bilgiler</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Temel Bilgiler -->
+        <div class="card campaign-card mb-4" id="step1">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>1. Temel Bilgiler <span class="badge bg-light text-primary ms-2">Zorunlu</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3 required-field">
+                        <label class="form-label fw-bold">Kampanya Adı</label>
+                        <input type="text" class="form-control" id="Kampanya_Ad" name="Kampanya.Ad" placeholder="Örn: Yılbaşı Süper İndirimi 2024" />
+                        <span class="text-danger" id="Kampanya_Ad_error" style="display:none;">Bu alan zorunludur</span>
+                    </div>
+                    <div class="col-md-6 mb-3 required-field">
+                        <label class="form-label fw-bold">Kampanya Tipi</label>
+                        <select class="form-select" id="Kampanya_TipID" name="Kampanya.TipID">
+                            <option value="">Yükleniyor...</option>
+                        </select>
+                        <span class="text-danger" id="Kampanya_TipID_error" style="display:none;">Bu alan zorunludur</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3 required-field">
+                        <label class="form-label fw-bold">Başlangıç Tarihi</label>
+                        <input type="datetime-local" class="form-control" id="Kampanya_BaslangicTarihi" name="Kampanya.BaslangicTarihi" />
+                    </div>
+                    <div class="col-md-6 mb-3 required-field">
+                        <label class="form-label fw-bold">Bitiş Tarihi</label>
+                        <input type="datetime-local" class="form-control" id="Kampanya_BitisTarihi" name="Kampanya.BitisTarihi" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Görsel URL</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-image"></i></span>
+                            <input type="text" class="form-control" id="Kampanya_GorselUrl" name="Kampanya.GorselUrl" placeholder="https://example.com/resim.jpg" />
+                        </div>
+                        <div class="image-preview mt-2" id="gorselPreview" style="display:none;"><img src="" alt="Önizleme" class="img-fluid" /></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Kampanya Linki</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-link"></i></span>
+                            <input type="text" class="form-control" id="Kampanya_Link" name="Kampanya.Link" placeholder="/kampanya/yilbasi-2024" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" id="Kampanya_AktifMi" name="Kampanya.AktifMi" value="true" checked />
+                            <label class="form-check-label fw-bold" for="Kampanya_AktifMi">Kampanyayı hemen aktif et</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Sonraki Adım <i class="bi bi-arrow-right ms-1"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Ürün Seçimi -->
+        <div class="card campaign-card mb-4" id="step2" style="display:none;">
+            <div class="card-header bg-success text-white py-3">
+                <h5 class="mb-0"><i class="bi bi-boxes me-2"></i>2. Kampanya Ürünleri <span class="badge bg-light text-success ms-2">İsteğe Bağlı</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold">Ürünler</label>
+                        <select class="form-select" id="urunSelect" name="UrunIDs" multiple></select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6 class="fw-bold">Seçilen Ürünler:</h6>
+                        <div id="selectedProducts" class="selected-products">
+                            <div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Henüz ürün seçilmedi</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(1)"><i class="bi bi-arrow-left me-1"></i>Önceki Adım</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">Sonraki Adım <i class="bi bi-arrow-right ms-1"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Kampanya Kuralları -->
+        <div class="card campaign-card mb-4" id="step3" style="display:none;">
+            <div class="card-header bg-warning text-dark py-3">
+                <h5 class="mb-0"><i class="bi bi-rulers me-2"></i>3. Kampanya Kuralları <span class="badge bg-dark text-warning ms-2">İsteğe Bağlı</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-success" onclick="addRule()"><i class="bi bi-plus-circle me-1"></i>Yeni Kural Ekle</button>
+                    </div>
+                </div>
+                <div id="rules-container"></div>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(2)"><i class="bi bi-arrow-left me-1"></i>Önceki Adım</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">Sonraki Adım <i class="bi bi-arrow-right ms-1"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Kampanya Kartları -->
+        <div class="card campaign-card mb-4" id="step4" style="display:none;">
+            <div class="card-header bg-info text-white py-3">
+                <h5 class="mb-0"><i class="bi bi-card-image me-2"></i>4. Kampanya Kartları <span class="badge bg-light text-info ms-2">İsteğe Bağlı</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-success" onclick="addCard()"><i class="bi bi-plus-circle me-1"></i>Yeni Kart Ekle</button>
+                    </div>
+                </div>
+                <div id="cards-container"></div>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(3)"><i class="bi bi-arrow-left me-1"></i>Önceki Adım</button>
+                    <button type="submit" class="btn btn-success" id="submitBtn"><i class="bi bi-check-circle me-1"></i>Kampanyayı Oluştur</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Templates -->
+<div id="templates" style="display:none;">
+    <!-- Rule Template -->
+    <div class="rule-item card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Ürün</label>
+                    <select class="form-select rule-product" name="Kurallar.[INDEX].UrunID">
+                        <option value="">Ürün Seç</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Min. Adet</label>
+                    <input type="number" class="form-control rule-minqty" name="Kurallar.[INDEX].MinAdet" placeholder="Min Adet" value="1" min="1" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">İndirim %</label>
+                    <input type="number" step="0.01" class="form-control rule-discount-percent" name="Kurallar.[INDEX].IndirimOrani" placeholder="%" min="0" max="100" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">İndirim Tutar</label>
+                    <input type="number" step="0.01" class="form-control rule-discount-amount" name="Kurallar.[INDEX].IndirimTutar" placeholder="₺" min="0" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Öncelik</label>
+                    <input type="number" class="form-control rule-priority" name="Kurallar.[INDEX].Oncelik" placeholder="Öncelik" value="1" min="1" />
+                </div>
+                <div class="col-md-1 mb-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger" onclick="removeRule(this)"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <small class="text-muted rule-warning" style="display:none; color:orange;">
+                <i class="bi bi-exclamation-triangle me-1"></i>İndirim oranı veya tutarından sadece biri girilmeli
+            </small>
+        </div>
+    </div>
+
+    <!-- Card Template -->
+    <div class="card-item card mb-3">
+        <div class="card-header bg-light">
+            <h6 class="mb-0">Kampanya Kartı <span class="card-number"></span></h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Başlık</label>
+                    <input type="text" class="form-control card-title" name="Kartlar.[INDEX].Baslik" placeholder="Kart başlığı" />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Açıklama</label>
+                    <input type="text" class="form-control card-desc" name="Kartlar.[INDEX].Aciklama" placeholder="Kart açıklaması" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Buton Yazı</label>
+                    <input type="text" class="form-control card-button-text" name="Kartlar.[INDEX].ButonYazi" placeholder="Hemen Al" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="button" class="btn btn-danger d-block" onclick="removeCard(this)"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Arkaplan Resim</label>
+                    <input type="text" class="form-control card-bg-image" name="Kartlar.[INDEX].ArkaplanResim" placeholder="bg.jpg" />
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Önplan Resim</label>
+                    <input type="text" class="form-control card-fg-image" name="Kartlar.[INDEX].OnplanResim" placeholder="fg.png" />
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Arkaplan Renk</label>
+                    <input type="color" class="form-control form-control-color card-bg-color" name="Kartlar.[INDEX].ArkaplanRengi" value="#ffffff" />
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">İndirim %</label>
+                    <input type="number" step="0.01" class="form-control card-discount" name="Kartlar.[INDEX].IndirimOrani" placeholder="%" min="0" max="100" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Geri Sayım Başlangıç</label>
+                    <input type="datetime-local" class="form-control card-countdown-start" name="Kartlar.[INDEX].GeriSayimBaslangic" />
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Geri Sayım Bitiş</label>
+                    <input type="datetime-local" class="form-control card-countdown-end" name="Kartlar.[INDEX].GeriSayimBitis" />
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Kategori ID</label>
+                    <input type="number" class="form-control card-category" name="Kartlar.[INDEX].KategoriID" placeholder="Kategori ID" />
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="form-label">Ürün ID</label>
+                    <input type="number" class="form-control card-product" name="Kartlar.[INDEX].UrunID" placeholder="Ürün ID" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // API endpoint'leri - KONTROLLER ROTALARI
+        const API = {
+            tipleri: '/api/kampanya/tipleri',
+            urunler: '/api/kampanya/urunler',
+            olustur: '/api/kampanya/olustur'
+        };
+
+        // Global değişkenler
+        let currentStep = 1;
+        let ruleIndex = 0;
+        let cardIndex = 0;
+
+        $(document).ready(function() {
+            console.log('Document ready - başlatılıyor...');
+
+            // Token'ı al
+            $.get('/Kampanya/GetToken', function(token) {
+                $('#token').val(token);
+                console.log('Token alındı:', token);
+            }).fail(function() {
+                console.error('Token alınamadı!');
+            });
+
+            // Tüm verileri API'den yükle
+            loadKampanyaTipleri();
+            loadUrunler();
+            setDefaultDates();
+            initEventListeners();
+
+            // Form submit event'ini manuel olarak ekle
+            $('#kampanyaForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Form submit tetiklendi!');
+
+                if (validateForm()) {
+                    console.log('Form validasyon başarılı, submitForm çağrılıyor...');
+                    submitForm();
+                } else {
+                    console.log('Form validasyon başarısız!');
+                }
+                return false;
+            });
+        });
+
+        // API'den kampanya tiplerini yükle
+        function loadKampanyaTipleri() {
+            $.ajax({
+                url: API.tipleri,
+                type: 'GET',
+                beforeSend: function() {
+                    $('#Kampanya_TipID').html('<option value="">Yükleniyor...</option>');
+                },
+                success: function(response) {
+                    console.log('Kampanya tipleri yüklendi:', response);
+                    let select = $('#Kampanya_TipID');
+                    select.empty().append('<option value="">Kampanya tipi seçin</option>');
+
+                    if (response && response.length > 0) {
+                        $.each(response, function(i, item) {
+                            let id = item.tipID || item.TipID || item.id;
+                            let name = item.tipAdi || item.TipAdi || item.tipAdı || item.name;
+
+                            select.append($('<option>', {
+                                value: id,
+                                text: name
+                            }));
+                        });
+                    } else {
+                        select.append('<option value="1">İndirim Kampanyası</option>');
+                        select.append('<option value="2">Çok Al Az Öde</option>');
+                        select.append('<option value="3">Hediye Kampanyası</option>');
+                    }
+
+                    initializeSelect2(select, 'Kampanya tipi seçin');
+                },
+                error: function(xhr) {
+                    console.error('Kampanya tipleri yüklenirken hata:', xhr);
+                    showAlert('Kampanya tipleri yüklenirken hata oluştu', 'danger');
+
+                    let select = $('#Kampanya_TipID');
+                    select.empty().append('<option value="">Kampanya tipi seçin</option>');
+                    select.append('<option value="1">İndirim Kampanyası</option>');
+                    select.append('<option value="2">Çok Al Az Öde</option>');
+                    select.append('<option value="3">Hediye Kampanyası</option>');
+
+                    initializeSelect2(select, 'Kampanya tipi seçin');
+                }
+            });
+        }
+
+        function initializeSelect2(element, placeholder) {
+            element.select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: placeholder,
+                allowClear: true
+            });
+        }
+
+        function loadUrunler() {
+            $.ajax({
+                url: API.urunler,
+                type: 'GET',
+                beforeSend: function() {
+                    $('#urunSelect').html('<option value="">Yükleniyor...</option>');
+                },
+                success: function(response) {
+                    console.log('Ürünler yüklendi:', response);
+                    let select = $('#urunSelect');
+                    select.empty();
+
+                    let urunler = response;
+
+                    if (response && response.Data) {
+                        urunler = response.Data;
+                    } else if (response && response.data) {
+                        urunler = response.data;
+                    }
+
+                    if (urunler && urunler.length > 0) {
+                        $.each(urunler, function(i, item) {
+                            let id = item.urunID || item.UrunID || item.tabloID || item.TabloID || item.id || item.ID;
+                            let name = item.urunAdi || item.UrunAdi || item.ad || item.Ad || item.urunAdı || 'Ürün ' + id;
+
+                            select.append($('<option>', {
+                                value: id,
+                                text: name
+                            }));
+                        });
+                    } else {
+                        for(let i = 1; i <= 10; i++) {
+                            select.append(`<option value="${i}">Test Ürün ${i}</option>`);
+                        }
+                    }
+
+                    select.select2({
+                        theme: 'bootstrap-5',
+                        width: '100%',
+                        placeholder: 'Ürün seçin',
+                        allowClear: true
+                    });
+
+                    select.on('change', updateSelectedProducts);
+                },
+                error: function(xhr) {
+                    console.error('Ürünler yüklenirken hata:', xhr);
+                    showAlert('Ürünler yüklenirken hata oluştu', 'danger');
+
+                    let select = $('#urunSelect');
+                    select.empty();
+                    for(let i = 1; i <= 10; i++) {
+                        select.append(`<option value="${i}">Test Ürün ${i}</option>`);
+                    }
+
+                    select.select2({
+                        theme: 'bootstrap-5',
+                        width: '100%',
+                        placeholder: 'Ürün seçin',
+                        allowClear: true
+                    });
+
+                    select.on('change', updateSelectedProducts);
+                }
+            });
+        }
+
+             function submitForm() {
+            console.log('submitForm fonksiyonu çağrıldı!');
+
+            // Kampanya Adı kontrolü
+            let kampanyaAdi = $('#Kampanya_Ad').val();
+            if (!kampanyaAdi || kampanyaAdi.trim() === '') {
+                showAlert('Kampanya adı boş olamaz!', 'danger');
+                return;
+            }
+
+            // Tip ID'sini integer'a çevir (DTO'da TipID olarak bekleniyor)
+            let tipId = $('#Kampanya_TipID').val();
+            if (!tipId) {
+                showAlert('Kampanya tipi seçilmelidir!', 'danger');
+                return;
+            }
+
+            // Tarihleri al ve formatla
+            let baslangicTarihi = $('#Kampanya_BaslangicTarihi').val();
+            let bitisTarihi = $('#Kampanya_BitisTarihi').val();
+
+            if (!baslangicTarihi || !bitisTarihi) {
+                showAlert('Başlangıç ve bitiş tarihleri zorunludur!', 'danger');
+                return;
+            }
+
+            // Ürün ID'lerini topla (select2'den doğru şekilde al)
+            let urunIDs = [];
+            $('#urunSelect option:selected').each(function() {
+                let val = $(this).val();
+                if (val && val !== '' && !isNaN(parseInt(val))) {
+                    urunIDs.push(parseInt(val));
+                }
+            });
+
+            console.log('Seçilen ürün IDleri:', urunIDs);
+
+            // KampanyaOlusturDTO yapısına uygun veri oluştur
+            let formData = {
+                // Temel kampanya bilgileri
+                Ad: kampanyaAdi.trim(),
+                TipID: parseInt(tipId), // DTO'da TipID olarak bekleniyor (int)
+                BaslangicTarihi: new Date(baslangicTarihi).toISOString(),
+                BitisTarihi: new Date(bitisTarihi).toISOString(),
+                AktifMi: $('#Kampanya_AktifMi').is(':checked'),
+
+                // Opsiyonel alanlar
+                GorselUrl: $('#Kampanya_GorselUrl').val() || null,
+                Link: $('#Kampanya_Link').val() || null,
+
+                // Ürün ID'leri (int array) - boş array gönder
+                UrunIDs: urunIDs,
+
+                // Kurallar
+                Kurallar: collectRules(),
+
+                // Kartlar
+                Kartlar: collectCards()
+            };
+
+            console.log('Gönderilecek form verisi:', JSON.stringify(formData, null, 2));
+
+           
+
+
+            // Submit butonunu devre dışı bırak
+            $('#submitBtn').prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span>Kaydediliyor...');
+
+            // AJAX isteği
+            $.ajax({
+                url: API.olustur,
+                type: 'POST',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+               
+                success: function(response) {
+                    console.log('Başarılı response:', response);
+                    showAlert('Kampanya başarıyla oluşturuldu!', 'success');
+                    setTimeout(() => {
+                        if (response.kampanyaId) {
+                            window.location.href = '/Kampanya/Detay/' + response.kampanyaId;
+                        } else {
+                            window.location.href = '/Kampanya/Index';
+                        }
+                    }, 1500);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX hatası:', {xhr: xhr, status: status, error: error});
+                    console.log('Sunucu yanıtı:', xhr.responseText);
+
+                    let errorMsg = 'Kampanya oluşturulurken hata oluştu';
+
+                    try {
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.message) {
+                                errorMsg += ': ' + xhr.responseJSON.message;
+                            } else if (xhr.responseJSON.error) {
+                                errorMsg += ': ' + xhr.responseJSON.error;
+                            } else if (xhr.responseJSON.errors) {
+                                // ModelState hatalarını göster
+                                let errors = xhr.responseJSON.errors;
+                                let errorDetails = [];
+                                for (let key in errors) {
+                                    if (errors.hasOwnProperty(key)) {
+                                        errorDetails.push(key + ': ' + errors[key].join(', '));
+                                    }
+                                }
+                                errorMsg += ': ' + errorDetails.join('; ');
+                            } else if (xhr.responseJSON.title) {
+                                errorMsg += ': ' + xhr.responseJSON.title;
+                            } else {
+                                errorMsg += ': ' + JSON.stringify(xhr.responseJSON);
+                            }
+                        } else if (xhr.responseText) {
+                            errorMsg += ': ' + xhr.responseText;
+                        }
+                    } catch (e) {
+                        console.error('Hata mesajı ayrıştırılamadı:', e);
+                    }
+
+                    showAlert(errorMsg, 'danger');
+                    $('#submitBtn').prop('disabled', false).html('<i class="bi bi-check-circle me-1"></i>Kampanyayı Oluştur');
+                }
+            });
+        }
+
+        // Ürünleri yükleme fonksiyonunu düzelt
+        function loadUrunler() {
+            $.ajax({
+                url: API.urunler,
+                type: 'GET',
+                beforeSend: function() {
+                    $('#urunSelect').html('<option value="">Yükleniyor...</option>');
+                },
+                success: function(response) {
+                    console.log('Ürünler yüklendi:', response);
+                    let select = $('#urunSelect');
+                    select.empty();
+
+                    let urunler = response;
+
+                    if (response && response.Data) {
+                        urunler = response.Data;
+                    } else if (response && response.data) {
+                        urunler = response.data;
+                    }
+
+                    if (urunler && urunler.length > 0) {
+                        $.each(urunler, function(i, item) {
+                            // UrunKampanyaDTO yapısına göre
+                            let id = item.urunID || item.UrunID || item.tabloID || item.TabloID || item.id || item.ID;
+                            let name = item.urunAdi || item.UrunAdi || item.ad || item.Ad || 'Ürün ' + id;
+
+                            // ID'nin geçerli olduğundan emin ol
+                            if (id && !isNaN(parseInt(id))) {
+                                select.append($('<option>', {
+                                    value: parseInt(id),
+                                    text: name
+                                }));
+                            }
+                        });
+                    } else {
+                        // Test verisi ekle
+                        for(let i = 1; i <= 10; i++) {
+                            select.append(`<option value="${i}">Test Ürün ${i}</option>`);
+                        }
+                    }
+
+                    select.select2({
+                        theme: 'bootstrap-5',
+                        width: '100%',
+                        placeholder: 'Ürün seçin',
+                        allowClear: true
+                    });
+
+                    select.on('change', updateSelectedProducts);
+                },
+                error: function(xhr) {
+                    console.error('Ürünler yüklenirken hata:', xhr);
+                    showAlert('Ürünler yüklenirken hata oluştu', 'danger');
+
+                    // Hata durumunda test verisi ekle
+                    let select = $('#urunSelect');
+                    select.empty();
+                    for(let i = 1; i <= 10; i++) {
+                        select.append(`<option value="${i}">Test Ürün ${i}</option>`);
+                    }
+
+                    select.select2({
+                        theme: 'bootstrap-5',
+                        width: '100%',
+                        placeholder: 'Ürün seçin',
+                        allowClear: true
+                    });
+
+                    select.on('change', updateSelectedProducts);
+                }
+            });
+        }
+
+        // Kuralları topla - KampanyaKuralDTO'ya uygun
+        function collectRules() {
+            let rules = [];
+            $('#rules-container .rule-item').each(function(index) {
+                let urunID = $(this).find('.rule-product').val();
+                let minAdet = $(this).find('.rule-minqty').val();
+                let indirimOrani = $(this).find('.rule-discount-percent').val();
+                let indirimTutar = $(this).find('.rule-discount-amount').val();
+                let oncelik = $(this).find('.rule-priority').val();
+
+                // Sadece geçerli kuralları ekle
+                if (urunID && urunID !== '' && (indirimOrani || indirimTutar)) {
+                    let rule = {
+                        urunID: parseInt(urunID),
+                        koleksiyonID: 0, // Varsayılan değer
+                        minAdet: minAdet ? parseInt(minAdet) : 1,
+                        oncelik: oncelik ? parseInt(oncelik) : 1,
+                        indirimTutar: 0,
+                        indirimOrani: 0
+                    };
+
+                    // İndirim oranı veya tutarından sadece biri dolu olmalı
+                    if (indirimOrani && indirimOrani !== '') {
+                        rule.indirimOrani = parseFloat(indirimOrani);
+                        rule.indirimTutar = 0;
+                    } else if (indirimTutar && indirimTutar !== '') {
+                        rule.indirimTutar = parseFloat(indirimTutar);
+                        rule.indirimOrani = 0;
+                    }
+
+                    rules.push(rule);
+                }
+            });
+            return rules;
+        }
+
+        // Kartları topla - KampanyaKartDTO'ya uygun
+        function collectCards() {
+            let cards = [];
+            $('#cards-container .card-item').each(function(index) {
+                let baslik = $(this).find('.card-title').val();
+                let aciklama = $(this).find('.card-desc').val();
+                let butonYazi = $(this).find('.card-button-text').val();
+                let arkaplanResim = $(this).find('.card-bg-image').val();
+                let onplanResim = $(this).find('.card-fg-image').val();
+                let arkaplanRengi = $(this).find('.card-bg-color').val();
+                let geriSayimBaslangic = $(this).find('.card-countdown-start').val();
+                let geriSayimBitis = $(this).find('.card-countdown-end').val();
+                let kategoriID = $(this).find('.card-category').val();
+                let urunID = $(this).find('.card-product').val();
+                let indirimOrani = $(this).find('.card-discount').val();
+
+                // Boş olmayan kartları ekle
+                if (baslik || aciklama || butonYazi) {
+                    let card = {
+                        baslik: baslik || null,
+                        aciklama: aciklama || null,
+                        butonYazi: butonYazi || null,
+                        butonLink: null, // Varsayılan null
+                        arkaplanResim: arkaplanResim || null,
+                        onplanResim: onplanResim || null,
+                        arkaplanRengi: arkaplanRengi || '#ffffff',
+                        geriSayimBaslangic: geriSayimBaslangic ? new Date(geriSayimBaslangic).toISOString() : null,
+                        geriSayimBitis: geriSayimBitis ? new Date(geriSayimBitis).toISOString() : null,
+                        kategoriID: kategoriID && kategoriID !== '' ? parseInt(kategoriID) : null,
+                        urunID: urunID && urunID !== '' ? parseInt(urunID) : null,
+                        indirimOrani: indirimOrani && indirimOrani !== '' ? parseFloat(indirimOrani) : null
+                    };
+
+                    cards.push(card);
+                }
+            });
+            return cards;
+        }
+
+        // Diğer yardımcı fonksiyonlar...
+        function setDefaultDates() {
+            let now = new Date();
+            let nextMonth = new Date();
+            nextMonth.setMonth(now.getMonth() + 1);
+
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            nextMonth.setMinutes(nextMonth.getMinutes() - nextMonth.getTimezoneOffset());
+
+            $('#Kampanya_BaslangicTarihi').val(formatDateForInput(now));
+            $('#Kampanya_BitisTarihi').val(formatDateForInput(nextMonth));
+        }
+
+        function formatDateForInput(date) {
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate()).padStart(2, '0');
+            let hours = String(date.getHours()).padStart(2, '0');
+            let minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        function initEventListeners() {
+            console.log('Event listeners başlatılıyor...');
+
+            $('#Kampanya_GorselUrl').on('input', function() {
+                let url = $(this).val();
+                if (url) {
+                    $('#gorselPreview img').attr('src', url);
+                    $('#gorselPreview').show();
+                } else {
+                    $('#gorselPreview').hide();
+                }
+            });
+
+            $('#Kampanya_Ad').on('input', function() {
+                let val = $(this).val();
+                if (val && !$('#Kampanya_Link').val()) {
+                    let link = '/kampanya/' + val.toLowerCase()
+                        .replace(/[^a-z0-9\s-]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-')
+                        .replace(/^-|-$/g, '');
+                    $('#Kampanya_Link').val(link);
+                }
+            });
+
+            // Doğrudan submit butonuna tıklama olayı ekle
+            $('#submitBtn').off('click').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Submit butonuna tıklandı!');
+
+                if (currentStep === 4) {
+                    if (validateForm()) {
+                        console.log('Form validasyon başarılı, submitForm çağrılıyor...');
+                        submitForm();
+                    } else {
+                        console.log('Form validasyon başarısız!');
+                    }
+                } else {
+                    console.log('Son adımda değilsiniz! Current step:', currentStep);
+                    showAlert('Lütfen önce tüm adımları tamamlayın!', 'warning');
+                }
+
+                return false;
+            });
+
+            // Form submit event'i
+            $('#kampanyaForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Form submit eventi tetiklendi!');
+
+                if (currentStep === 4 && validateForm()) {
+                    console.log('Form validasyon başarılı, submitForm çağrılıyor...');
+                    submitForm();
+                } else {
+                    console.log('Form submit engellendi! Current step:', currentStep);
+                }
+
+                return false;
+            });
+        }
+
+        function showAlert(message, type) {
+            let icon = type === 'success' ? 'check-circle' : 'exclamation-triangle';
+            let alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    <i class="bi bi-${icon}-fill me-2"></i>${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            $('#alertContainer').html(alertHtml);
+
+            setTimeout(() => {
+                $('.alert').alert('close');
+            }, 5000);
+        }
+
+        function nextStep(step) {
+            if (step === 2 && !validateStep1()) {
+                showAlert('Lütfen zorunlu alanları doldurun!', 'warning');
+                return;
+            }
+            showStep(step);
+        }
+
+        function prevStep(step) {
+            showStep(step);
+        }
+
+        function showStep(step) {
+            $('#step' + currentStep).hide();
+            $('#step' + step).show();
+            currentStep = step;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            let percent = (currentStep / 4) * 100;
+            let texts = ['Adım 1/4: Temel Bilgiler', 'Adım 2/4: Kampanya Ürünleri', 'Adım 3/4: Kampanya Kuralları', 'Adım 4/4: Kampanya Kartları'];
+            $('#formProgress').css('width', percent + '%').text(texts[currentStep - 1]);
+        }
+
+        function validateStep1() {
+            let isValid = true;
+            let ad = $('#Kampanya_Ad').val();
+            let tip = $('#Kampanya_TipID').val();
+            let baslangic = $('#Kampanya_BaslangicTarihi').val();
+            let bitis = $('#Kampanya_BitisTarihi').val();
+
+            if (!ad || ad.trim() === '') {
+                $('#Kampanya_Ad').addClass('is-invalid');
+                $('#Kampanya_Ad_error').show();
+                isValid = false;
+            } else {
+                $('#Kampanya_Ad').removeClass('is-invalid');
+                $('#Kampanya_Ad_error').hide();
+            }
+
+            if (!tip || tip === '') {
+                $('#Kampanya_TipID').addClass('is-invalid');
+                $('#Kampanya_TipID_error').show();
+                isValid = false;
+            } else {
+                $('#Kampanya_TipID').removeClass('is-invalid');
+                $('#Kampanya_TipID_error').hide();
+            }
+
+            if (!baslangic) {
+                $('#Kampanya_BaslangicTarihi').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#Kampanya_BaslangicTarihi').removeClass('is-invalid');
+            }
+
+            if (!bitis) {
+                $('#Kampanya_BitisTarihi').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#Kampanya_BitisTarihi').removeClass('is-invalid');
+            }
+
+            if (baslangic && bitis && new Date(baslangic) >= new Date(bitis)) {
+                showAlert('Bitiş tarihi başlangıç tarihinden sonra olmalıdır', 'warning');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateForm() {
+            if (!validateStep1()) {
+                showStep(1);
+                return false;
+            }
+            return true;
+        }
+
+        function updateSelectedProducts() {
+            let selected = $('#urunSelect').val();
+            let html = '';
+
+            if (selected && selected.length > 0) {
+                html = '<div class="row g-2">';
+                $('#urunSelect option:selected').each(function() {
+                    html += '<div class="col-md-4 col-sm-6">' +
+                            '<div class="alert alert-success py-2 mb-0">' +
+                            '<i class="bi bi-check-circle-fill me-1 text-success"></i>' +
+                            $(this).text() +
+                            '</div>' +
+                            '</div>';
+                });
+                html += '</div>';
+            } else {
+                html = '<div class="alert alert-info mb-0"><i class="bi bi-info-circle-fill me-2"></i>Henüz ürün seçilmedi</div>';
+            }
+
+            $('#selectedProducts').html(html);
+        }
+
+        function collectRules() {
+            let rules = [];
+            $('#rules-container .rule-item').each(function(index) {
+                let rule = {
+                    urunID: $(this).find('.rule-product').val() ? parseInt($(this).find('.rule-product').val()) : null,
+                    minAdet: $(this).find('.rule-minqty').val() ? parseInt($(this).find('.rule-minqty').val()) : 1,
+                    indirimOrani: $(this).find('.rule-discount-percent').val() ? parseFloat($(this).find('.rule-discount-percent').val()) : null,
+                    indirimTutar: $(this).find('.rule-discount-amount').val() ? parseFloat($(this).find('.rule-discount-amount').val()) : null,
+                    oncelik: $(this).find('.rule-priority').val() ? parseInt($(this).find('.rule-priority').val()) : 1
+                };
+
+                if (rule.urunID && (rule.indirimOrani || rule.indirimTutar)) {
+                    rules.push(rule);
+                }
+            });
+            return rules;
+        }
+
+        function collectCards() {
+            let cards = [];
+            $('#cards-container .card-item').each(function(index) {
+                let card = {
+                    baslik: $(this).find('.card-title').val(),
+                    aciklama: $(this).find('.card-desc').val(),
+                    butonYazi: $(this).find('.card-button-text').val(),
+                    arkaplanResim: $(this).find('.card-bg-image').val(),
+                    onplanResim: $(this).find('.card-fg-image').val(),
+                    arkaplanRengi: $(this).find('.card-bg-color').val(),
+                    geriSayimBaslangic: $(this).find('.card-countdown-start').val() || null,
+                    geriSayimBitis: $(this).find('.card-countdown-end').val() || null,
+                    kategoriID: $(this).find('.card-category').val() ? parseInt($(this).find('.card-category').val()) : null,
+                    urunID: $(this).find('.card-product').val() ? parseInt($(this).find('.card-product').val()) : null,
+                    indirimOrani: $(this).find('.card-discount').val() ? parseFloat($(this).find('.card-discount').val()) : null
+                };
+
+                if (card.baslik || card.aciklama || card.butonYazi) {
+                    cards.push(card);
+                }
+            });
+            return cards;
+        }
+
+        function addRule() {
+            let template = $('#templates .rule-item').clone();
+            template.find('[name*="[INDEX]"]').each(function() {
+                $(this).attr('name', $(this).attr('name').replace('[INDEX]', ruleIndex));
+            });
+
+            let productSelect = template.find('.rule-product');
+            productSelect.empty().append('<option value="">Ürün Seç</option>');
+
+            $('#urunSelect option').each(function() {
+                if ($(this).val()) {
+                    productSelect.append($('<option>', {
+                        value: $(this).val(),
+                        text: $(this).text()
+                    }));
+                }
+            });
+
+            template.find('.rule-warning').hide();
+            $('#rules-container').append(template);
+
+            let newRule = $('#rules-container .rule-item:last-child');
+            newRule.find('.rule-discount-percent, .rule-discount-amount').on('input', function() {
+                let percent = newRule.find('.rule-discount-percent').val();
+                let amount = newRule.find('.rule-discount-amount').val();
+
+                if (percent && amount) {
+                    newRule.find('.rule-warning').show();
+                } else {
+                    newRule.find('.rule-warning').hide();
+                }
+            });
+
+            ruleIndex++;
+        }
+
+        function removeRule(btn) {
+            $(btn).closest('.rule-item').remove();
+        }
+
+        function addCard() {
+            let template = $('#templates .card-item').clone();
+            template.find('[name*="[INDEX]"]').each(function() {
+                $(this).attr('name', $(this).attr('name').replace('[INDEX]', cardIndex));
+            });
+            template.find('.card-number').text(cardIndex + 1);
+            $('#cards-container').append(template);
+            cardIndex++;
+        }
+
+        function removeCard(btn) {
+            $(btn).closest('.card-item').remove();
+        }
+    </script>
+}
