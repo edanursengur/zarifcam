@@ -1,7 +1,6 @@
-﻿/* ==================== KARACA HERO SLIDER ==================== */
+﻿/* ====================  HERO SLIDER ==================== */
 /* Header'dan biraz aşağıda başlaması için */
 .karaca-hero-slider {
-    margin-top: calc(7px + 50px + 50px + 30px);
     position: relative;
     width: 100%;
     height: 500px; /* Desktop yüksekliği */
@@ -142,11 +141,11 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
 }
 
-.slider-nav-btn.prev-btn {
+.slider-nav-btn.prev-btnn {
     left: 30px;
 }
 
-.slider-nav-btn.next-btn {
+.slider-nav-btn.next-btnn {
     right: 30px;
 }
 

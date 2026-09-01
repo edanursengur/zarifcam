@@ -1,6 +1,6 @@
 ﻿/* ==================== TRENDYOL TARZI ÜRÜN SLIDER ==================== */
 .trendyol-product-slider {
-    padding: 30px 0px;
+    padding: 10px 0px;
     background: #ffffff;
     margin: 20px 0;
 }
@@ -410,88 +410,656 @@
     }
 
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 1200px) {
-    .product-card {
-        flex: 0 0 calc(33.333% - 13.33px); /* 3 kart */
-    }
-}
+/* ============================================
+   SLIDER HEADER - RESPONSIVE DÜZENLEMELER
+   ============================================ */
 
+/* Tablet (max-width: 992px) */
 @media (max-width: 992px) {
-    .product-card {
-        flex: 0 0 calc(50% - 10px); /* 2 kart */
+    .slider-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
     }
 
-    .slider-header {
-        gap: 15px;
+    .slider-title-section {
+        text-align: left;
+        width: 100%;
+    }
+
+    .exact-deals-title {
+        font-size: 24px;
+        margin-bottom: 6px;
+    }
+
+    .mini-insta-desc {
+        font-size: 13px;
+    }
+
+    .slider-footer {
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
     }
 
     .slider-nav-controls {
+        order: 2;
         align-self: flex-start;
+        gap: 12px;
+    }
+
+    .slider-nav-btn {
+        width: 40px;
+        height: 40px;
     }
 }
 
+/* Mobil L (max-width: 768px) */
+@media (max-width: 768px) {
+    .slider-header {
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .exact-deals-title {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .mini-insta-desc {
+        font-size: 12px;
+        color: #6c757d;
+        line-height: 1.4;
+    }
+
+    .view-all-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .slider-nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+        .slider-nav-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+}
+
+/* Mobil M (max-width: 576px) */
+@media (max-width: 576px) {
+    .slider-header {
+        gap: 1px;
+        margin-bottom: 18px;
+    }
+
+    .exact-deals-title {
+        font-size: 20px;
+    }
+
+    .mini-insta-desc {
+        font-size: 11px;
+    }
+
+    .slider-title-section {
+        text-align: center;
+        width: 100%;
+    }
+
+    .slider-header {
+        align-items: center;
+        text-align: center;
+    }
+
+    .slider-footer {
+        justify-content: center;
+    }
+
+    .slider-nav-controls {
+        align-self: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .view-all-btn {
+        padding: 8px 20px;
+        font-size: 13px;
+    }
+
+        .view-all-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+    .slider-nav-btn {
+        width: 44px;
+        height: 44px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+        .slider-nav-btn:active {
+            background: #f8fafc;
+            transform: scale(0.95);
+        }
+}
+
+/* Mobil Small (max-width: 375px) */
+@media (max-width: 375px) {
+    .exact-deals-title {
+        font-size: 18px;
+    }
+
+    .mini-insta-desc {
+        font-size: 10px;
+    }
+
+    .view-all-btn {
+        padding: 6px 16px;
+        font-size: 12px;
+    }
+
+    .slider-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+        .slider-nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+}
+
+/* ============================================
+   ALTERNATİF DÜZEN - İKONLAR SAĞDA OLACAK ŞEKİLDE
+   (İsteğe bağlı - daha modern görünüm)
+   ============================================ */
+
+/* ==================== TRENDYOL TARZI ÜRÜN SLIDER - MOBİL OPTİMİZE ==================== */
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .product-card {
+        flex: 0 0 calc(33.333% - 13.33px);
+        min-width: auto;
+    }
+
+    .slider-header {
+        margin-bottom: 20px;
+        padding: 0 8px;
+    }
+}
+
+/* Tablet Dikey (max-width: 768px) */
 @media (max-width: 768px) {
     .trendyol-product-slider {
-        padding: 50px 15px;
+        padding: 20px 0;
+        margin: 10px 0;
     }
 
     .product-card {
         flex: 0 0 calc(50% - 10px);
-        min-width: 220px;
+        min-width: auto;
     }
 
-    .card-image-section {
-        /*height: 180px;*/
+    .product-slider-track {
+        gap: 16px;
+        padding: 5px 4px 15px;
+    }
+
+    /* Header Düzenlemesi */
+    .slider-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding: 0 12px;
+    }
+
+    .slider-title-section {
+        flex: 1;
+        text-align: left;
+    }
+
+    .exact-deals-title {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .mini-insta-desc {
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+    .slider-nav-controls {
+        order: 1;
+        gap: 8px;
+    }
+
+    .slider-footer {
+        order: 2;
+        width: auto;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    .slider-nav-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+        .slider-nav-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+    .view-all-btn {
+        padding: 8px 18px;
+        font-size: 13px;
+        border-width: 1.5px;
+    }
+
+    /* Kart içi düzenlemeler */
+    .card-content {
+        padding: 12px;
     }
 
     .product-title {
         font-size: 14px;
         height: 38px;
+        margin-bottom: 10px;
     }
 
     .current-price {
         font-size: 16px;
     }
 
+    .old-price {
+        font-size: 12px;
+    }
+
     .add-to-cart-btn {
+        padding: 8px 12px;
         font-size: 13px;
-        padding: 8px 10px;
+    }
+
+    .quick-view-btn {
+        width: 38px;
+        height: 38px;
     }
 }
 
+/* Mobil (max-width: 576px) */
 @media (max-width: 576px) {
-    .product-card {
-        flex: 0 0 calc(100% - 20px); /* 1 kart */
-        min-width: 280px;
+    .trendyol-product-slider {
+        padding: 16px 0;
+        margin: 8px 0;
     }
 
-    .slider-main-title {
-        font-size: 20px;
+    /* Kartlar - 2 sıra halinde daha geniş görünüm */
+    .product-card {
+        flex: 0 0 calc(50% - 8px);
+        min-width: auto;
+        border-radius: 10px;
+    }
+
+    .product-slider-track {
+        gap: 12px;
+        padding: 5px 0 12px;
+    }
+
+    /* Slider Container - yatay kaydırma için */
+    .slider-container {
+        padding: 0 4px;
+    }
+
+    /* Header - Minimal ve şık */
+    .slider-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding: 0 12px;
+    }
+
+    .slider-title-section {
+        width: 100%;
+    }
+
+    .exact-deals-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 2px;
+    }
+
+    .mini-insta-desc {
+        font-size: 11px;
+        color: #94a3b8;
+    }
+
+    /* Butonlar aynı satırda */
+    .slider-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
     }
 
     .slider-nav-controls {
-        justify-content: center;
-    }
-    .slider-header {
-        align-items: flex-start;
-    }
-}
-
-/* Touch Device Optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .product-card:hover {
-        transform: none;
+        order: 0;
+        gap: 10px;
     }
 
-    .add-to-cart-btn:hover,
-    .view-all-btn:hover,
-    .fav-btn:hover,
-    .quick-view-btn:hover {
-        transform: none;
+    .slider-footer {
+        order: 0;
+        width: auto;
+    }
+
+    .slider-nav-btn {
+        width: 34px;
+        height: 34px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+        .slider-nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+    .view-all-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+        border-radius: 30px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        color: #567C8D;
+    }
+
+        .view-all-btn svg {
+            width: 12px;
+            height: 12px;
+        }
+
+    /* Kart içi optimizasyon - daha fazla ürün görünsün */
+    .card-image-section {
+        aspect-ratio: 1 / 1;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-content {
+        padding: 10px;
+    }
+
+    .product-category {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+
+    .product-title {
+        font-size: 13px;
+        height: 34px;
+        margin-bottom: 8px;
+        line-height: 1.35;
+    }
+
+    .product-variants {
+        margin-bottom: 10px;
+    }
+
+    .variant-label {
+        font-size: 10px;
     }
 
     .variant-option {
-        min-width: 32px;
-        min-height: 32px;
+        padding: 3px 8px;
+        font-size: 10px;
+        min-width: 28px;
+        min-height: 28px;
+    }
+
+    .product-price-section {
+        margin-bottom: 10px;
+    }
+
+    .current-price {
+        font-size: 15px;
+    }
+
+    .old-price {
+        font-size: 11px;
+    }
+
+    .installment {
+        font-size: 10px;
+    }
+
+    .product-actions {
+        gap: 6px;
+    }
+
+    .add-to-cart-btn {
+        padding: 7px 10px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+        .add-to-cart-btn i,
+        .add-to-cart-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+    .quick-view-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+
+        .quick-view-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+    /* Badge'ler daha küçük */
+    .product-badges {
+        top: 8px;
+        left: 8px;
+        gap: 4px;
+    }
+
+    .badge {
+        padding: 2px 8px;
+        font-size: 9px;
+    }
+
+    .fav-btn {
+        top: 8px;
+        right: 8px;
+        width: 30px;
+        height: 30px;
+    }
+
+        .fav-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+}
+
+/* Küçük Mobil (max-width: 480px) */
+@media (max-width: 480px) {
+    .trendyol-product-slider {
+        padding: 12px 0;
+    }
+
+    .product-card {
+        flex: 0 0 calc(50% - 8px);
+        border-radius: 10px;
+    }
+
+    .product-slider-track {
+        gap: 12px;
+    }
+
+    /* Header - Daha sade */
+    .slider-header {
+        gap: 10px;
+        margin-bottom: 14px;
+        padding: 0 12px;
+    }
+
+    .exact-deals-title {
+        font-size: 17px;
+    }
+
+    .mini-insta-desc {
+        font-size: 10px;
+    }
+
+    .slider-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+        .slider-nav-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+    .view-all-btn {
+        padding: 5px 12px;
+        font-size: 11px;
+    }
+
+    /* Kart içeriği daha kompakt */
+    .card-content {
+        padding: 8px;
+    }
+
+    .product-title {
+        font-size: 12px;
+        height: 32px;
+        margin-bottom: 6px;
+    }
+
+    .product-variants {
+        margin-bottom: 8px;
+    }
+
+    .variant-option {
+        padding: 2px 6px;
+        font-size: 9px;
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    .current-price {
+        font-size: 14px;
+    }
+
+    .old-price {
+        font-size: 10px;
+    }
+
+    .add-to-cart-btn {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .quick-view-btn {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Çok Küçük Mobil (max-width: 380px) */
+@media (max-width: 380px) {
+    .product-card {
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .product-slider-track {
+        gap: 10px;
+    }
+
+    .exact-deals-title {
+        font-size: 16px;
+    }
+
+    .product-title {
+        font-size: 11px;
+        height: 30px;
+    }
+
+    .current-price {
+        font-size: 13px;
+    }
+
+    .add-to-cart-btn {
+        padding: 5px 6px;
+        font-size: 10px;
+    }
+
+        .add-to-cart-btn i {
+            display: none;
+        }
+}
+
+/* Dokunmatik Cihazlar İçin Optimizasyon */
+@media (hover: none) and (pointer: coarse) {
+    .product-card:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s;
+    }
+
+    .add-to-cart-btn:active,
+    .quick-view-btn:active,
+    .fav-btn:active,
+    .view-all-btn:active,
+    .slider-nav-btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s;
+    }
+
+    .slider-nav-btn:active {
+        background: #eef2ff;
+    }
+
+    .view-all-btn:active {
+        background: #eef2ff;
+    }
+}
+
+/* Yatay Mod (Landscape) için Düzenleme */
+@media (max-width: 768px) and (orientation: landscape) {
+    .product-card {
+        flex: 0 0 calc(33.333% - 12px);
+    }
+
+    .trendyol-product-slider {
+        padding: 16px 0;
+    }
+
+    .slider-header {
+        margin-bottom: 16px;
     }
 }

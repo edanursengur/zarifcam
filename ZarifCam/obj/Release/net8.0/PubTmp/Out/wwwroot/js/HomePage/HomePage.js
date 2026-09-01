@@ -431,14 +431,12 @@ const DataLoader = {
             await Promise.allSettled([
                 this.loadHeroSliders(),
                 this.loadQuickAccess(),
-                this.loadCategories(),
                 this.loadFeaturedProducts()
             ]);
 
             // İkinci aşama veriler
             setTimeout(() => {
                 Promise.allSettled([
-                    this.loadCampaigns(),
                     this.loadTrustBadges()
                 ]);
             }, 500);
@@ -481,19 +479,7 @@ const DataLoader = {
         }
     },
 
-    async loadCategories() {
-        try {
-            const data = await Utils.cachedFetch(`${CONFIG.API_BASE}/kategoriler`);
-            if (data?.Success) {
-                Renderer.renderCategories(data.Data || data.data);
-            } else {
-                Renderer.renderCategories([]);
-            }
-        } catch (error) {
-            console.error('Failed to load categories:', error);
-            Renderer.renderCategories([]);
-        }
-    },
+   
 
     async loadFeaturedProducts() {
         try {

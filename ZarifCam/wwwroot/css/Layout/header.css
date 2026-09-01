@@ -1,87 +1,128 @@
 ﻿/* ============================================
-   HEADER -  
+   HEADER - MOBİL OPTİMİZE TAMAMI YENİ
    ============================================ */
-:root {
-    --header-top-height: 37px; /* .header-top height: 8px padding + content */
-    --header-middle-height: 82px; /* .header-middle height: 16px padding + content */
-    --header-bottom-height: 50px; /* .header-bottom height: içerik */
-    --header-total-height: calc(var(--header-top-height) + var(--header-middle-height) + var(--header-bottom-height));
-}
-/* 1. ANA HEADER */
-.site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* 2. ÜST KATMAN */
+body {
+    padding-top: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Header Ana Yapı */
+.site-header {
+    background: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 1000;
+
+}
+
+.container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* ========== ÜST BİLGİ (MASAÜSTÜ) ========== */
 .header-top {
     background: #272727;
     font-size: 12px;
-    border-bottom: 1px solid #eee;
+    display: none;
 }
 
-    .header-top .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 0 16px;
+@media (min-width: 992px) {
+    .header-top {
+        display: block;
     }
+}
+
+.header-top .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 36px;
+}
 
 .top-left {
     display: flex;
-    gap: 25px;
-    align-items: center;
+    gap: 20px;
 }
 
     .top-left a {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        color: #666;
+        color: #fff;
         text-decoration: none;
-        font-weight: 400;
-        transition: color 0.2s;
+        font-size: 13px;
     }
 
-        .top-left a:hover {
-            color: #567C8D;
-        }
-
         .top-left a i {
-            font-size: 13px;
-            color: #999;
+            font-size: 14px;
         }
 
-/* 3. ORTA KATMAN */
-.header-middle {
-    padding: 5px 0;
-    border-bottom: 1px solid #eee;
+.top-center span {
+    color: #fff;
+    font-size: 12px;
 }
 
-    .header-middle .container {
+.top-right {
+    display: flex;
+    gap: 20px;
+}
+
+    .top-right a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 12px;
+    }
+
+/* ========== ANA HEADER (LOGO + İKONLAR) ========== */
+.header-main {
+    padding: 12px 0;
+    background: white;
+}
+
+    .header-main .container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 0 16px;
-        gap: 30px;
+        gap: 12px;
     }
 
-/* LOGO */
-.logo {
+/* Hamburger Buton */
+.hamburger-btn {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+    .hamburger-btn span {
+        width: 100%;
+        height: 2px;
+        background: #1e293b;
+        border-radius: 2px;
+        transition: all 0.3s;
+    }
+
+@media (min-width: 992px) {
+    .hamburger-btn {
+        display: none;
+    }
+}
+
+/* Logo */
+.logo {
     text-decoration: none;
-    min-width: 200px;
+    text-align: center;
 }
 
 .logo-text {
@@ -90,439 +131,441 @@
 }
 
 .brand {
-    font-size: 28px;
-    font-weight: 900;
-    color: #000;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -0.3px;
 }
 
 .slogan {
-    font-size: 8px;
-    font-weight: 300;
-    color: #666;
-    /*margin-top: 3px;*/
-    letter-spacing: 0.3px;
+    font-size: 7px;
+    font-weight: 400;
+    color: #6c757d;
+    letter-spacing: 0.5px;
 }
 
-/* ARAMA */
-.search-container {
-    flex: 1;
-    max-width: 650px;
+@media (min-width: 768px) {
+    .brand {
+        font-size: 26px;
+    }
+
+    .slogan {
+        font-size: 8px;
+    }
+}
+   
+
+@media (max-width: 768px) {
+  
+    .site-header {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    .logo {
+        text-align: left;
+        min-width: 180px;
+    }
+
+    .brand {
+        font-size: 28px;
+    }
+}
+
+/* Sağ İkonlar */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.action-icon {
+    position: relative;
+    color: #1e293b;
+    text-decoration: none;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+    .action-icon .badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: #e74c3c;
+        color: white;
+        font-size: 10px;
+        font-weight: 600;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+    }
+
+@media (min-width: 992px) {
+    .header-actions {
+        gap: 24px;
+    }
+
+    .action-icon {
+        font-size: 22px;
+    }
+}
+
+/* ========== ARAMA ÇUBUĞU ========== */
+.search-wrapper {
+    background: white;
+    padding: 0 0 14px 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+@media (min-width: 992px) {
+    .search-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0;
+        border: none;
+        width: 400px;
+    }
+
+    .header-main {
+        position: relative;
+    }
+
+    .search-wrapper .container {
+        padding: 0;
+    }
 }
 
 .search-form {
-    position: relative;
     display: flex;
-    height: 32px;
-    width: 100%;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 48px;
+    transition: all 0.2s;
 }
+
+    .search-form:focus-within {
+        border-color: #567C8D;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(86, 124, 141, 0.1);
+    }
 
 .search-input {
-    width: 100%;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    border-radius: 30px;
-    overflow: hidden;
-    padding: 10px 12px 10px 40px;
-    outline: none;
-}
-
-    .search-input:focus {
-        outline: none;
-        border-color: #567C8D;
-        box-shadow: 0 0 0 1px #567C8D;
-    }
-
-.search-btn {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    flex: 1;
+    padding: 8px 18px;
     border: none;
     background: transparent;
-    cursor: pointer;
     font-size: 14px;
-    color: #777;
+    outline: none;
+    font-family: inherit;
 }
 
-    .search-btn:hover {
-        background: #a00;
+    .search-input::placeholder {
+        color: #94a3b8;
     }
 
-/* İKONLAR */
-.header-icons {
-    display: flex;
-    gap: 25px;
-    min-width: 160px;
-    justify-content: flex-end;
+.search-submit {
+    background: transparent;
+    border: none;
+    padding: 0 18px;
+    font-size: 16px;
+    color: #567C8D;
+    cursor: pointer;
 }
 
-.icon-item {
-    position: relative;
-    color: #333;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 11px;
+/* ========== MASAÜSTÜ NAVIGASYON ========== */
+.nav-wrapper {
+    background: white;
+    border-top: 1px solid #edf2f7;
+    border-bottom: 1px solid #edf2f7;
+    display: none;
 }
 
-    .icon-item i {
-        font-size: 20px;
-        margin-bottom: 2px;
+@media (min-width: 992px) {
+    .nav-wrapper {
+        display: block;
     }
+}
 
-    .icon-item:hover {
-        color: #567C8D;
-    }
-
-.icon-badge {
-    position: absolute;
-    top: -10px;
-    right: -5px;
-    background: #567C8D;
-    color: white;
-    font-size: 10px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+.desktop-nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-}
-
-/* 4. ALT KATMAN */
-.header-bottom {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-}
-
-    .header-bottom .container {
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 0 16px;
-    }
-
-.main-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-.nav-item {
-    position: relative;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .nav-link {
-    display: flex;
+    padding: 14px 18px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 0 20px;
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 12px;
-    height: 35px;
-    transition: all 0.2s;
-    white-space: nowrap;
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid transparent;
 }
 
     .nav-link:hover {
         color: #567C8D;
-        background: #fafafa;
         border-bottom-color: #567C8D;
     }
 
     .nav-link.sale {
-        color: #567C8D;
-        font-weight: 600;
+        color: #e74c3c;
     }
 
-/* DROPDOWN */
-.dropdown-menu {
+/* Dropdown */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
     position: absolute;
     top: 100%;
     left: 0;
     background: white;
-    min-width: 220px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #eee;
+    min-width: 200px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.2s;
-    z-index: 1000;
-    padding: 10px 0;
+    z-index: 100;
+    padding: 8px 0;
 }
 
-.dropdown:hover .dropdown-menu {
+.nav-dropdown:hover .dropdown-content {
     opacity: 1;
     visibility: visible;
 }
 
-.dropdown-menu a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    color: #333;
+.dropdown-content a {
+    display: block;
+    padding: 10px 20px;
+    color: #334155;
     text-decoration: none;
     font-size: 13px;
-    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.2s;
 }
 
-    .dropdown-menu a:last-child {
-        border-bottom: none;
-    }
-
-    .dropdown-menu a:hover {
-        background: #fafafa;
+    .dropdown-content a:hover {
+        background: #f8fafc;
         color: #567C8D;
     }
 
-/* MOBİL BUTON */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 24px;
-    height: 18px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1001;
-}
-
-    .hamburger span {
-        width: 100%;
-        height: 2px;
-        background: #333;
-        transition: all 0.3s;
-    }
-
-/* MOBİL MENÜ */
-.mobile-nav {
-    display: none;
+/* ========== MOBİL MENÜ PANELİ ========== */
+.mobile-menu-overlay {
     position: fixed;
     top: 0;
-    right: -100%;
+    left: 0;
     width: 100%;
-    max-width: 320px;
-    height: 100vh;
-    background: white;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s;
-    z-index: 1002;
-    overflow-y: auto;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
 }
 
-    .mobile-nav.active {
-        right: 0;
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
     }
 
-.mobile-header {
+.mobile-menu-panel {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 320px;
+    height: 100%;
+    background: white;
+    z-index: 1101;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+    .mobile-menu-panel.active {
+        left: 0;
+    }
+
+.mobile-menu-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #eee;
+    padding: 20px;
+    border-bottom: 1px solid #edf2f7;
 }
 
-.close-menu {
+.mobile-logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.mobile-menu-close {
     background: none;
     border: none;
     font-size: 24px;
-    color: #666;
+    color: #64748b;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-.mobile-search {
-    display: flex;
+    .mobile-menu-close:active {
+        background: #f1f5f9;
+    }
+
+.mobile-menu-search {
     padding: 16px;
-    border-bottom: 1px solid #eee;
-    background: #f5f5f5;
+    border-bottom: 1px solid #edf2f7;
+    background: #fafcff;
+}
+
+.mobile-search-form {
+    display: flex;
 }
 
 .mobile-search-input {
     flex: 1;
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 30px 0 0 30px;
     font-size: 14px;
+    outline: none;
+    font-family: inherit;
 }
+
+    .mobile-search-input:focus {
+        border-color: #567C8D;
+    }
 
 .mobile-search-btn {
     background: #567C8D;
-    color: white;
     border: none;
-    padding: 0 16px;
-    border-radius: 0 4px 4px 0;
+    padding: 0 18px;
+    border-radius: 0 30px 30px 0;
+    color: white;
     cursor: pointer;
 }
 
-.mobile-menu {
-    padding: 0;
+.mobile-menu-links {
+    flex: 1;
+    padding: 8px 0;
 }
 
-    .mobile-menu a {
+    .mobile-menu-links a {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 16px;
-        color: #333;
+        gap: 14px;
+        padding: 14px 20px;
+        color: #1e293b;
         text-decoration: none;
-        border-bottom: 1px solid #f0f0f0;
         font-size: 14px;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f5f9;
+        transition: background 0.2s;
     }
 
-        .mobile-menu a:last-child {
-            border-bottom: none;
+        .mobile-menu-links a:active {
+            background: #f8fafc;
         }
 
-.mobile-bottom {
-    padding: 16px;
-    border-top: 1px solid #eee;
+        .mobile-menu-links a i {
+            width: 24px;
+            font-size: 18px;
+            color: #567C8D;
+        }
+
+.mobile-menu-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #edf2f7;
     display: flex;
     justify-content: space-around;
-    background: #fafafa;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    background: #fafcff;
+    gap: 12px;
 }
 
-    .mobile-bottom a {
+    .mobile-menu-footer a {
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: #333;
+        gap: 6px;
+        color: #1e293b;
         text-decoration: none;
         font-size: 11px;
+        font-weight: 500;
+        flex: 1;
+        padding: 8px;
+        border-radius: 12px;
+        position: relative;
     }
 
-        .mobile-bottom a i {
-            font-size: 20px;
-            margin-bottom: 4px;
+        .mobile-menu-footer a:active {
+            background: #f1f5f9;
         }
 
-/* RESPONSIVE */
-@media (max-width: 1199px) {
-    .nav-link {
-        padding: 0 15px;
-        font-size: 13px;
+        .mobile-menu-footer a i {
+            font-size: 22px;
+            color: #567C8D;
+        }
+
+    .mobile-menu-footer .badge {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        background: #e74c3c;
+        color: white;
+        font-size: 10px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    .logo{
-        margin-left:40px;
+
+/* ========== RESPONSIVE DÜZENLEMELER ========== */
+@media (min-width: 992px) {
+    .search-wrapper {
+        display: block;
     }
 }
 
 @media (max-width: 991px) {
-    .header-top {
+    .nav-wrapper {
         display: none;
     }
-
-    .header-middle .container {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .search-container {
-        order: 3;
-        max-width: 100%;
-        margin-top: 10px;
-        margin-right: 50px;
-    }
-
-    .hamburger {
-        display: flex;
-        top: 35px;
-    }
-
-    .header-bottom {
-        display: none;
-    }
-
-    .mobile-nav {
-        display: block;
-    }
-
-    .header-icons {
-        min-width: auto;
-        gap: 20px;
-    }
-
-    .icon-item {
-        font-size: 0;
-    }
 }
 
-@media (max-width: 767px) {
-    .brand {
-        font-size: 22px;
-    }
-
-    .header-icons {
-        display: none;
-        gap: 15px;
-    }
+/* İçerik için padding (fixed header varsa) */
+.site-header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
-@media (max-width: 575px) {
-    .brand {
-        font-size: 20px;
-    }
-
-    .mobile-nav {
-        max-width: 280px;
-    }
-}
-
-/* SCROLL İLE KÜÇÜLME */
-.site-header.scrolled .header-top {
-    display: none;
-}
-
-.site-header.scrolled .header-middle {
-    padding: 8px 0;
-}
-
-.site-header.scrolled .brand {
-    font-size: 22px;
-}
-
-.site-header.scrolled .header-bottom {
-    display: none;
-}
-
-.header-basklik,
-#header-basklik {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    background: #272727;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    font-weight: 500;
-    gap: 4px;
-    padding: 4px 8px;
-}
-
-.top-right {
-    display: flex;
+body.has-fixed-header {
+    padding-top: 0;
 }

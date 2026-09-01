@@ -437,7 +437,6 @@ const DataLoader = {
             // İkinci aşama veriler
             setTimeout(() => {
                 Promise.allSettled([
-                    this.loadCampaigns(),
                     this.loadTrustBadges()
                 ]);
             }, 500);

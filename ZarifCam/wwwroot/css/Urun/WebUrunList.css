@@ -27,11 +27,6 @@ body {
 }
 
 /* Header Bölümü - Anasayfadaki slider-header ile uyumlu */
-.products-header {
-    background: linear-gradient(135deg, #4F6F7C, #3E5A66);
-    padding: 1rem 1rem;
-    margin-bottom: 2rem;
-}
 
 .products-title-section {
     text-align: center;
@@ -93,6 +88,7 @@ body {
     color: var(--text-dark);
     cursor: pointer;
     font-size: 0.9rem;
+    border: solid 1px;
 }
 
 
@@ -104,6 +100,7 @@ body {
     padding: 0 2rem 3rem;
     display: flex;
     gap: 2rem;
+    margin-top: 10px;
 }
 
 /* Filtre Sidebar */
@@ -788,6 +785,7 @@ body {
     .sort-select {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
+        border: solid 1px;
     }
 
     .sort-section label {
@@ -889,5 +887,64 @@ body {
 
     .card-image-section {
         padding-top: 100% !important; /* Kare form için */
+    }
+}
+.trendyol-product-slider {
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slider-container {
+    overflow: visible;
+    position: relative;
+}
+
+.product-slider-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    cursor: grab;
+}
+
+.product-slider-track:active {
+    cursor: grabbing;
+}
+
+/* Sadece slider içindeki kartlar için touch-action */
+.product-slider-track .product-card {
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y pinch-zoom; /* Dikey kaydırmaya izin ver, yatayı engelleme */
+}
+
+/* Mobilde kart genişlikleri */
+/* Mobilde kart genişlikleri - SADECE GÖRÜNÜM İÇİN, JS hesaplamasını etkilemez */
+@media (max-width: 768px) {
+    .product-slider-track {
+        gap: 12px;
+    }
+
+        /* !important KALDIRILDI */
+        .product-slider-track .product-card {
+            width: calc(50% - 6px);
+            flex: 0 0 calc(50% - 6px);
+        }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .product-slider-track .product-card {
+        width: calc(33.333% - 14px) !important;
+        flex: 0 0 calc(33.333% - 14px) !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    .product-slider-track .product-card {
+        width: calc(25% - 15px) !important;
+        flex: 0 0 calc(25% - 15px) !important;
     }
 }

@@ -185,13 +185,13 @@
 
         addEventListeners() {
             // Önceki buton
-            const prevBtn = document.querySelector('.prev-btn');
+            const prevBtn = document.querySelector('.prev-btnn');
             if (prevBtn) {
                 prevBtn.addEventListener('click', () => this.prev());
             }
 
             // Sonraki buton
-            const nextBtn = document.querySelector('.next-btn');
+            const nextBtn = document.querySelector('.next-btnn');
             if (nextBtn) {
                 nextBtn.addEventListener('click', () => this.next());
             }

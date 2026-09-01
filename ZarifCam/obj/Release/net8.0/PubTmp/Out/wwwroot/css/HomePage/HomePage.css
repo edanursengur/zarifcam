@@ -157,12 +157,12 @@ html {
         opacity: 1;
         transform: scale(1.2);
     }
-/* ==================== KARACA TARZI HERO SLIDER ==================== */
+/* ====================   HERO SLIDER ==================== */
 .hero-slider {
     position: relative;
     width: 100%;
     height: 450px;
-    Karaca gibi orta yükseklik margin: 0 auto 40px;
+  margin: 0 auto 40px;
     overflow: hidden;
     background: #f8f9fa;
     border-radius: 0;
@@ -277,7 +277,6 @@ html {
         right: 20px;
     }
 
-Slider Dots (Karaca tarzı)
 .slider-dots {
     position: absolute;
     bottom: 20px;

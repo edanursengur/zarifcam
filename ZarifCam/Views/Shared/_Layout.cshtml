@@ -37,160 +37,129 @@
 
 <body>
     <header class="site-header">
-        <!-- 1. Katman: Üst Bilgiler -->
+        <!-- Üst Bilgi (Sadece masaüstü) -->
         <div class="header-top">
             <div class="container">
                 <div class="top-left">
-                   
                     <a href="https://wa.me/905451001686" target="_blank" class="top-link">
-                        <i class="fab fa-whatsapp" id="header-basklik"></i>
-                        @* <span>WhatsApp</span> *@
+                        <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="mailto:info@zarifcam.com" class="top-link">
-                        <i class="fas fa-envelope" id="header-basklik"></i>
-                        @* <span>E-posta</span> *@
+                        <i class="fas fa-envelope"></i>
                     </a>
                     <a href="https://www.instagram.com/zarif_cam" target="_blank" class="top-link">
-                        <i class="fab fa-instagram" id="header-basklik"></i>
-                        @* <span>Instagram</span> *@
+                        <i class="fab fa-instagram"></i>
                     </a>
                 </div>
                 <div class="top-center">
-                    <span class="header-basklik">2500 TL Üzeri Alışverişlerde Kargo Ücretsiz</span>
-                    
+                    <span>2500 TL Üzeri Alışverişlerde Kargo Ücretsiz</span>
                 </div>
                 <div class="top-right">
-                    <a href="/SiparisTakip" class="header-basklik"> Sipariş Takibi</a>
-                    @* <a href="/Favoriler"><i class="fas fa-heart"></i> Favoriler</a> *@
-                    @* <a href="/Sepet"><i class="fas fa-shopping-cart"></i> Sepet</a> *@
-                    <a href="/Hesabim" class="header-basklik">Yardım & Destek </a>
+                    <a href="/SiparisTakip">Sipariş Takibi</a>
+                    <a href="/Yardim">Yardım & Destek</a>
                 </div>
             </div>
         </div>
 
-        <!-- 2. Katman: Logo ve Arama -->
-        <div class="header-middle">
+        <!-- Ana Header (Logo + İkonlar) -->
+        <div class="header-main">
             <div class="container">
-                <a href="/" class="logo">
-                    @* <img src="~/css/logo (2).png" alt="ZarifCam Logo" class="logo-img"> *@
-                    <div class="logo-text">
-                        <span class="slogan">Camın Zarif Dünyası</span>
-                        <span class="brand">ZarifCam</span>
+                <!-- Hamburger Menü Butonu (Mobil) -->
+                <button class="hamburger-btn" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
 
+                <!-- Logo -->
+                <a href="/" class="logo">
+                    <div class="logo-text">
+                        <span class="brand">ZarifCam</span>
+                        <span class="slogan">Camın Zarif Dünyası</span>
                     </div>
                 </a>
 
-                <div class="search-container">
-                    <form action="/Ara" method="get" class="search-form">
-                        <input type="text" name="q" placeholder="Ürün ara..." class="search-input">
-                        <button type="submit" class="search-btn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-                </div>
-
-                <div class="header-icons">
-                    <a href="/Favoriler" class="icon-item" aria-label="Favoriler">
+                <!-- Sağ İkonlar -->
+                <div class="header-actions">
+                    <a href="/Favoriler" class="action-icon">
                         <i class="fas fa-heart"></i>
-                        <span class="icon-badge">3</span>
+                        <span class="badge">3</span>
                     </a>
-                    <a href="/Sepet" class="icon-item" aria-label="Sepet">
+                    <a href="/Sepet" class="action-icon">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="icon-badge">2</span>
+                        <span class="badge">2</span>
                     </a>
-                    <a href="/Hesabim" class="icon-item" aria-label="Hesabım">
+                    <a href="/Hesabim" class="action-icon">
                         <i class="fas fa-user"></i>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- 3. Katman: Ana Navigasyon -->
-        <div class="header-bottom">
+        <!-- Arama Çubuğu (Mobilde logo altında, masaüstünde yan tarafta) -->
+        <div class="search-wrapper">
             <div class="container">
-                <nav class="main-nav">
-                    <div class="nav-item">
-                        <a href="/Urunler" class="nav-link">
-                             Tüm Ürünler
-                        </a>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="/Kategori" class="nav-link">
-                            Kategoriler
-                            <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="/Kategori/Vazolar">Vazolar</a>
-                            <a href="/Kategori/Saksi">Saksılar</a>
-                            <a href="/Kategori/Samdans">Şamdanlar</a>
-                            <a href="/Kategori/Tablos">Cam Tablolar</a>
-                            <a href="/Kategori/Bardak">Bardaklar</a>
+                <form action="/Ara" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="Ürün ara, binlerce cam ürünü keşfet..." class="search-input">
+                    <button type="submit" class="search-submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Masaüstü Navigasyon -->
+        <div class="nav-wrapper">
+            <div class="container">
+                <nav class="desktop-nav">
+                    <a href="/Urunler" class="nav-link">Tüm Ürünler</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="nav-link">Kategoriler <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
                         </div>
                     </div>
-                    <div class="nav-item">
-                        <a href="/Atolyemiz" class="nav-link">
-                            Atölyemiz
-                        </a>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link">
-                           Koleksiyonlar
-                            <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="/Koleksiyon/Limuzin"><i class="fas fa-star"></i> Limuzin Koleksiyonu</a>
-                            <a href="/Koleksiyon/Eskisehir"><i class="fas fa-moon"></i> Eskişehir Serisi</a>
-                            <a href="/Koleksiyon/Ozel"><i class="fas fa-crown"></i> Özel Tasarımlar</a>
-                        </div>
-                    </div>
-                    <div class="nav-item">
-                        <a href="/Home/Hakkimizda" class="nav-link">
-                             Hakkımızda
-                        </a>
-                    </div>
-                    <div class="nav-item">
-                        <a href="/Home/Iletisim" class="nav-link">
-                           İletişim
-                        </a>
-                    </div>
-                    <div class="nav-item">
-                        <a href="/Indirim" class="nav-link sale">
-                            <i class="fas fa-percentage"></i> İndirimli Ürünler
-                        </a>
-                    </div>
+                    <a href="/Atolyemiz" class="nav-link">Atölyemiz</a>
+                  
+                    <a href="/Home/Hakkimizda" class="nav-link">Hakkımızda</a>
+                    <a href="/Home/Iletisim" class="nav-link">İletişim</a>
+                    <a href="/Indirim" class="nav-link sale">İndirimli Ürünler</a>
                 </nav>
             </div>
         </div>
 
-        <!-- Mobile Menü Butonu -->
-        <button class="hamburger" aria-label="Menü Aç" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <!-- Mobil Menü (Yandan Açılan) -->
+        <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+        <div class="mobile-menu-panel" id="mobilePanel">
+            <div class="mobile-menu-header">
+                <div class="mobile-logo">ZarifCam</div>
+                <button class="mobile-menu-close" id="closeMenuBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
 
-        <!-- Mobil Menü -->
-        <div class="mobile-nav" id="mobileNav">
-            <div class="mobile-header">
-                <a href="/" class="logo">ZarifCam</a>
-                <button class="close-menu" id="closeMenu">&times;</button>
+            <div class="mobile-menu-search">
+                <form action="/Ara" method="get" class="mobile-search-form">
+                    <input type="text" name="q" placeholder="Ürün ara..." class="mobile-search-input">
+                    <button type="submit" class="mobile-search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             </div>
-            <div class="mobile-search">
-                <input type="text" placeholder="Ürün ara..." class="mobile-search-input">
-                <button class="mobile-search-btn"><i class="fas fa-search"></i></button>
-            </div>
-            <nav class="mobile-menu">
+
+            <nav class="mobile-menu-links">
                 <a href="/Urunler"><i class="fas fa-glass-whiskey"></i> Tüm Ürünler</a>
                 <a href="/Kategori"><i class="fas fa-th-large"></i> Kategoriler</a>
                 <a href="/Atolyemiz"><i class="fas fa-palette"></i> Atölyemiz</a>
-                <a href="/Koleksiyonlar"><i class="fas fa-gem"></i> Koleksiyonlar</a>
                 <a href="/Home/Hakkimizda"><i class="fas fa-info-circle"></i> Hakkımızda</a>
                 <a href="/Home/Iletisim"><i class="fas fa-phone-alt"></i> İletişim</a>
                 <a href="/Indirim"><i class="fas fa-percentage"></i> İndirimli Ürünler</a>
+                <a href="/SiparisTakip"><i class="fas fa-truck"></i> Sipariş Takibi</a>
+                <a href="/Yardim"><i class="fas fa-headset"></i> Yardım & Destek</a>
             </nav>
-            <div class="mobile-bottom">
-                <a href="/Favoriler"><i class="fas fa-heart"></i> Favoriler</a>
-                <a href="/Sepet"><i class="fas fa-shopping-cart"></i> Sepet</a>
+
+            <div class="mobile-menu-footer">
+                <a href="/Favoriler"><i class="fas fa-heart"></i> Favoriler <span class="badge">3</span></a>
+                <a href="/Sepet"><i class="fas fa-shopping-cart"></i> Sepet <span class="badge">2</span></a>
                 <a href="/Hesabim"><i class="fas fa-user"></i> Hesabım</a>
             </div>
         </div>

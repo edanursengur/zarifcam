@@ -13,8 +13,6 @@ wwwroot\css\kategori\KategoriYonetimi.css
 wwwroot\css\Layout\Avantajlar.css
 wwwroot\css\Layout\BasicKategori.css
 wwwroot\css\Layout\CeyizPaketleri.css
-wwwroot\css\Layout\header.css
-wwwroot\css\Layout\HeroSlider.css
 wwwroot\css\Layout\Instagram.css
 wwwroot\css\Layout\KategoriSldier.css
 wwwroot\css\Layout\KendiStiliniOlustur.css
@@ -23,22 +21,17 @@ wwwroot\css\Layout\UrunKartSlider.css
 wwwroot\css\Layout\Yorumlar.css
 wwwroot\css\logo (2).png
 wwwroot\css\site.css
-wwwroot\css\Urun\urundetay.css
 wwwroot\css\Urun\UrunEkle.css
 wwwroot\css\Urun\UrunListesi.css
-wwwroot\css\Urun\WebUrunList.css
 wwwroot\favicon.ico
 wwwroot\images\collections\atelier-workshop.jpg
 wwwroot\images\collections\summer.jpg
 wwwroot\js\Kategori\KategoriYonetimi.css
 wwwroot\js\Layout\Avantajlar.js
 wwwroot\js\Layout\CeyizPaketleri.js
-wwwroot\js\Layout\Header.js
-wwwroot\js\Layout\HeroSlider.js
 wwwroot\js\Layout\Instagram.js
 wwwroot\js\Layout\KategoriSlider.js
 wwwroot\js\Layout\MarkaHikayesi.js
-wwwroot\js\Layout\UrunKartSlider.js
 wwwroot\js\Layout\Yorumlar.js
 wwwroot\js\site.js
 wwwroot\js\Slider.js
@@ -113,4 +106,11 @@ wwwroot\medya\imalat.mp4
 wwwroot\medya\sdffg.png
 wwwroot\medya\su.png
 wwwroot\medya\t.mp4
+wwwroot\css\Layout\header.css
+wwwroot\css\Layout\HeroSlider.css
+wwwroot\css\Urun\urundetay.css
+wwwroot\css\Urun\WebUrunList.css
 wwwroot\js\HomePage\HomePage.js
+wwwroot\js\Layout\Header.js
+wwwroot\js\Layout\HeroSlider.js
+wwwroot\js\Layout\UrunKartSlider.js

@@ -149,7 +149,7 @@
         }
     };
 
-    // ========== SIMPLE SLIDER (KaracaSlider alternatifi) ==========
+    // ========== SIMPLE SLIDER () ==========
     class SimpleSlider {
         constructor() {
             console.log('[SimpleSlider] Oluşturuluyor');
@@ -185,13 +185,13 @@
 
         addEventListeners() {
             // Önceki buton
-            const prevBtn = document.querySelector('.prev-btn');
+            const prevBtn = document.querySelector('.prev-btnn');
             if (prevBtn) {
                 prevBtn.addEventListener('click', () => this.prev());
             }
 
             // Sonraki buton
-            const nextBtn = document.querySelector('.next-btn');
+            const nextBtn = document.querySelector('.next-btnn');
             if (nextBtn) {
                 nextBtn.addEventListener('click', () => this.next());
             }
@@ -355,7 +355,7 @@
 
     // ========== DOM READY EVENT ==========
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('[KaracaSlider] DOM hazır, slider başlatılıyor...');
+        console.log(' DOM hazır, slider başlatılıyor...');
 
         // 2 saniye sonra başlat (diğer script'lerin yüklenmesi için)
         setTimeout(() => {
@@ -363,5 +363,5 @@
         }, 2000);
     });
 
-    console.log('[KaracaSlider] Yüklendi ✓');
+    console.log('[Slider] Yüklendi ✓');
 })();
